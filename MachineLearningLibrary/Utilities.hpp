@@ -41,9 +41,13 @@ public:
     
     // Scalar Transformations
     static vector<double> ScalarMult(const vector<double>& Vec, double scalar);
+    static vector<double> ScalarMult(const vector<double>& Vec1, const vector<double>& Vec2);
     static vector<double> ScalarDiv(const vector<double>& Vec, double scalar);
     static vector<double> ScalarAdd(const vector<double>& Vec, double scalar);
+    static vector<double> ScalarAdd(const vector<double>& Vec1, const vector<double>& Vec2);
     static vector<double> ScalarSub(const vector<double>& Vec, double scalar);
+    static vector<double> ScalarSub(double scalar, const vector<double>& Vec);
+    static vector<double> ScalarSub(const vector<double>& Vec1, const vector<double>& Vec2);
     
     // Reading and saving txt files (comma separated and returns between examples)
     static vector<vector<double>> ReadCSVFeatureVector(const char* FileName);

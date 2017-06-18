@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <cmath>
 #include <iostream>
+#include <numeric>
 
 
 NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int Iters)
@@ -23,9 +24,9 @@ NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int Ite
 
 
 
-void NeuralNetwork::Fit(vector<vector<double>> XTrain, const vector<double>& YTrain)
+void NeuralNetwork::Fit(vector<vector<double>> XTrain, const vector<vector<double>>& YTrain)
 {
-    numFeatures = XTrain[0].size() + 1;
+    numFeatures = XTrain[0].size();
     numTrainExamples = XTrain.size();
     
     // Add a column of ones
@@ -37,7 +38,17 @@ void NeuralNetwork::Fit(vector<vector<double>> XTrain, const vector<double>& YTr
     // Randomise weights to start with
     InitialiseWeights();
     
+    for(int iter=0; iter < Iterations; ++iter)
+    {
     
+        // Forward propagation
+        vector<vector<double>> Outputs = ForwardPropagation(XTrain);
+    
+        // Calculate Cost
+        CalculateCosts(Outputs, YTrain, iter);
+        
+        
+    }
     
     
     return;
@@ -47,15 +58,15 @@ void NeuralNetwork::Fit(vector<vector<double>> XTrain, const vector<double>& YTr
 void NeuralNetwork::InitialiseWeights()
 {
     // Zero initialisation
-    w1 = vector<vector<double>> (numHid, vector<double>(numFeatures, 0));
-    w2 = vector<vector<double>> (numOut, vector<double>(numHid, 0));
+    w1 = vector<vector<double>> (numHid, vector<double>(numFeatures + 1, 0));
+    w2 = vector<vector<double>> (numOut, vector<double>(numHid + 1, 0));
     
     // Randomise the weights
     for(int r = 0; r < w1.size(); ++r)
     {
         for(int c = 0; c < w1[0].size(); ++c)
         {
-            w1[r][c] = (rand() % 100)/100;
+            w1[r][c] = (rand() % 100)/1000;
         }
     }
     
@@ -63,7 +74,7 @@ void NeuralNetwork::InitialiseWeights()
     {
         for(int c = 0; c < w2[0].size(); ++c)
         {
-            w2[r][c] = (rand() % 100)/100;
+            w2[r][c] = (rand() % 100)/1000;
         }
     }
     
@@ -130,6 +141,8 @@ vector<vector<double>> NeuralNetwork::ForwardPropagation(const vector<vector<dou
     vector<vector<double>> a2 = Utilities::Product(w1,Utilities::Transpose(X));
     Sigmoid(a2);
     
+    AddBiasUnit(a2);
+    
     vector<vector<double>> a3 = Utilities::Product(w2, a2);
     Sigmoid(a3);
     
@@ -148,4 +161,72 @@ vector<double> NeuralNetwork::WinningOutput(vector<vector<double>> Outputs)
     }
     
     return Predictions;
+}
+
+
+void NeuralNetwork::CalculateCosts(const vector<vector<double>>& Outputs, const vector<vector<double>>& YTrain, int iter)
+{
+    vector<double> UnitCosts(numOut,0);
+    
+    for(int i = 0; i < numTrainExamples; ++i) // TODO vectorise
+    {
+        
+        
+        vector<double> logOutputs = Outputs[i];
+        for(int l = 0; l < logOutputs.size(); ++l)
+        {
+            logOutputs[l] = log(logOutputs[l]);
+        }
+        
+        vector<double> logOneMinusOutputs = Outputs[i];
+        for(int l = 0; l < logOneMinusOutputs.size(); ++l)
+        {
+            logOneMinusOutputs[l] = log(1 - logOneMinusOutputs[l]);
+        }
+        
+        
+        vector<double> term1  = Utilities::ScalarMult(Utilities::ScalarMult(YTrain[i],-1), logOutputs);
+        vector<double> term2 = Utilities::ScalarMult(Utilities::ScalarSub(1, YTrain[i]), logOneMinusOutputs) ;
+        
+        UnitCosts = Utilities::ScalarAdd(UnitCosts, Utilities::ScalarSub(term1, term2));
+        
+    }
+    
+    double start = 0;
+    Costs[iter] = accumulate(UnitCosts.begin(), UnitCosts.end(), start);
+    Costs[iter] *= (1/numTrainExamples);
+    
+    
+    
+    double RegTerm = 0;
+    
+    for (int h = 0; h < numHid; ++h)
+    {
+        for(int f = 0; f < numFeatures; ++f)
+        {
+            RegTerm += pow(w1[h][f], 2);
+        }
+    }
+    
+    for (int o = 0; o < numOut; ++o)
+    {
+        for(int h = 0; h < numHid; ++h)
+        {
+            RegTerm += pow(w2[o][h], 2);
+        }
+    }
+    
+    
+    RegTerm *= Lambda/(2*numTrainExamples);
+    Costs[iter] += RegTerm;
+    
+    return;
+}
+
+
+void NeuralNetwork::AddBiasUnit(vector<vector<double>> &Activations)
+{
+    Activations.push_back(vector<double>(Activations[0].size(),1));
+    
+    return;
 }

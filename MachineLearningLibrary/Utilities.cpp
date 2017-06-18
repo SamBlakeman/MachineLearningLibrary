@@ -230,6 +230,20 @@ vector<double> Utilities::ScalarMult(const vector<double>& Vec, double scalar)
     return Result;
 }
 
+
+vector<double> Utilities::ScalarMult(const vector<double>& Vec1, const vector<double>& Vec2)
+{
+    vector<double> Result = Vec1;
+    
+    for(int i = 0; i < Result.size(); ++i)
+    {
+        Result[i] *= Vec2[i];
+    }
+    
+    return Result;
+}
+
+
 vector<double> Utilities::ScalarDiv(const vector<double>& Vec, double scalar)
 {
     vector<double> Result = Vec;
@@ -254,6 +268,18 @@ vector<double> Utilities::ScalarAdd(const vector<double>& Vec, double scalar)
     return Result;
 }
 
+vector<double> Utilities::ScalarAdd(const vector<double>& Vec1, const vector<double>& Vec2)
+{
+    vector<double> Result = Vec1;
+    
+    for(int i = 0; i < Result.size(); ++i)
+    {
+        Result[i] += Vec2[i];
+    }
+    
+    return Result;
+}
+
 vector<double> Utilities::ScalarSub(const vector<double>& Vec, double scalar)
 {
     vector<double> Result = Vec;
@@ -261,6 +287,33 @@ vector<double> Utilities::ScalarSub(const vector<double>& Vec, double scalar)
     for(int i = 0; i < Result.size(); ++i)
     {
         Result[i] -= scalar;
+    }
+    
+    return Result;
+}
+
+
+vector<double> Utilities::ScalarSub(double scalar, const vector<double>& Vec)
+{
+    vector<double> Result(Vec.size(),scalar);
+    
+    for(int i = 0; i < Result.size(); ++i)
+    {
+        Result[i] -= Vec[i];
+    }
+    
+    return Result;
+    
+}
+
+
+vector<double> Utilities::ScalarSub(const vector<double>& Vec1, const vector<double>& Vec2)
+{
+    vector<double> Result = Vec1;
+    
+    for(int i = 0; i < Result.size(); ++i)
+    {
+        Result[i] -= Vec2[i];
     }
     
     return Result;

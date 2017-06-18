@@ -24,7 +24,7 @@ public:
     NeuralNetwork(double alpha, double lambda, int numHidden, int Iters);
     
     // Fit the weights of the model
-    void Fit(vector<vector<double>> XTrain, const vector<double>& YTrain);
+    void Fit(vector<vector<double>> XTrain, const vector<vector<double>>& YTrain);
     void InitialiseWeights();
     
     //void GradientDescent(const vector<vector<double>>& XTrain, const vector<double>& YTrain);
@@ -45,6 +45,9 @@ private:
     void Sigmoid(vector<double>& Vec);
     void Sigmoid(vector<vector<double>>& Mat);
     vector<vector<double>> ForwardPropagation(const vector<vector<double>>& X);
+    void AddBiasUnit(vector<vector<double>>& Activations);
+    void CalculateCosts(const vector<vector<double>>& Outputs, const vector<vector<double>>& YTrain, int iter);
+    
     
     // Predict
     vector<double> WinningOutput(vector<vector<double>> Outputs);
@@ -58,6 +61,7 @@ private:
     int Iterations = 0;
     vector<vector<double>> w1;
     vector<vector<double>> w2;
+    vector<double> Costs;
     
     
     
