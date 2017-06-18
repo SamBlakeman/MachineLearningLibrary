@@ -231,25 +231,27 @@ void NeuralNetwork::CalculateCosts(const vector<vector<double>>& Outputs, const 
 
 pair<vector<vector<double>>,vector<vector<double>>> NeuralNetwork::CalculateGradients(const vector<vector<double>>& Outputs, const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain)
 {
-    vector<vector<double>> grad1;
-    vector<vector<double>> grad2;
-    
+    // Transpose Y
     vector<vector<double>> Y = Utilities::Transpose(YTrain);
     
+    // Get the output errors
     vector<vector<double>> delta3 = Utilities::MatSub(Outputs, Y);
     
+    // Get the net input into layer 2
     vector<vector<double>> z2 = Utilities::Product(w1,Utilities::Transpose(XTrain));
     AddBiasUnit(z2);
     
-    
+    // Get the layer 2 errors
     vector<vector<double>> delta2 = Utilities::Product(Utilities::Transpose(w2), delta3);
     Sigmoid(z2);
     delta2 = Utilities::MatMult(delta2, (Utilities::MatMult(z2, Utilities::ScalarSub(1, z2))));
+    delta2.erase(delta2.end() - 1);
     
-    // remove last row of delta2
+    // Calculate the two gradients
+    vector<vector<double>> grad1 = Utilities::Product(delta2, XTrain);
+    vector<vector<double>> grad2 = Utilities::Product(delta3, Utilities::Transpose(z2));
     
-    //AddBiasUnit(a2);
-    
+    // Regularise
     
     
     return make_pair(grad1, grad2);
