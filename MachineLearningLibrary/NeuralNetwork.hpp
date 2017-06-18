@@ -47,6 +47,7 @@ private:
     vector<vector<double>> ForwardPropagation(const vector<vector<double>>& X);
     void AddBiasUnit(vector<vector<double>>& Activations);
     void CalculateCosts(const vector<vector<double>>& Outputs, const vector<vector<double>>& YTrain, int iter);
+    pair<vector<vector<double>>,vector<vector<double>>> CalculateGradients(const vector<vector<double>>& Outputs, const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain);
     
     
     // Predict

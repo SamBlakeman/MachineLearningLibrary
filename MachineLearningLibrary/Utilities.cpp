@@ -196,6 +196,71 @@ vector<double> Utilities::VecSub(const vector<double>& Vec1, const vector<double
     return Result;
 }
 
+
+vector<double> Utilities::VecMult(const vector<double>& Vec1, const vector<double>& Vec2)
+{
+    vector<double> Result = Vec1;
+    
+    for(int i = 0; i < Result.size(); ++i)
+    {
+        Result[i] *= Vec2[i];
+    }
+    
+    return Result;
+}
+
+
+
+
+vector<vector<double>> Utilities::MatAdd(const vector<vector<double>>& Mat1, const vector<vector<double>>& Mat2)
+{
+    vector<vector<double>> Result = Mat1;
+    
+    for(int r = 0; r < Result.size(); ++r)
+    {
+        for(int c = 0; c < Result[0].size(); ++c)
+        {
+            Result[r][c] += Mat2[r][c];
+        }
+    }
+    
+    return Result;
+}
+
+
+vector<vector<double>> Utilities::MatSub(const vector<vector<double>>& Mat1, const vector<vector<double>>& Mat2)
+{
+    vector<vector<double>> Result = Mat1;
+    
+    for(int r = 0; r < Result.size(); ++r)
+    {
+        for(int c = 0; c < Result[0].size(); ++c)
+        {
+            Result[r][c] -= Mat2[r][c];
+        }
+    }
+    
+    return Result;
+}
+
+
+vector<vector<double>> Utilities::MatMult(const vector<vector<double>>& Mat1, const vector<vector<double>>& Mat2)
+{
+    vector<vector<double>> Result = Mat1;
+    
+    for(int r = 0; r < Result.size(); ++r)
+    {
+        for(int c = 0; c < Result[0].size(); ++c)
+        {
+            Result[r][c] *= Mat2[r][c];
+        }
+    }
+    
+    return Result;
+}
+
+
+
 double Utilities::GetVecMean (const vector<double>& Vec)
 {
     return accumulate(Vec.begin(), Vec.end(), 0.0) / Vec.size();
@@ -231,19 +296,6 @@ vector<double> Utilities::ScalarMult(const vector<double>& Vec, double scalar)
 }
 
 
-vector<double> Utilities::ScalarMult(const vector<double>& Vec1, const vector<double>& Vec2)
-{
-    vector<double> Result = Vec1;
-    
-    for(int i = 0; i < Result.size(); ++i)
-    {
-        Result[i] *= Vec2[i];
-    }
-    
-    return Result;
-}
-
-
 vector<double> Utilities::ScalarDiv(const vector<double>& Vec, double scalar)
 {
     vector<double> Result = Vec;
@@ -263,18 +315,6 @@ vector<double> Utilities::ScalarAdd(const vector<double>& Vec, double scalar)
     for(int i = 0; i < Result.size(); ++i)
     {
         Result[i] += scalar;
-    }
-    
-    return Result;
-}
-
-vector<double> Utilities::ScalarAdd(const vector<double>& Vec1, const vector<double>& Vec2)
-{
-    vector<double> Result = Vec1;
-    
-    for(int i = 0; i < Result.size(); ++i)
-    {
-        Result[i] += Vec2[i];
     }
     
     return Result;
@@ -307,13 +347,16 @@ vector<double> Utilities::ScalarSub(double scalar, const vector<double>& Vec)
 }
 
 
-vector<double> Utilities::ScalarSub(const vector<double>& Vec1, const vector<double>& Vec2)
+vector<vector<double>> Utilities::ScalarSub(double scalar, const vector<vector<double>>& Mat)
 {
-    vector<double> Result = Vec1;
+    vector<vector<double>> Result(Mat.size(),vector<double>(Mat[0].size(),scalar));
     
-    for(int i = 0; i < Result.size(); ++i)
+    for(int r = 0; r < Result.size(); ++r)
     {
-        Result[i] -= Vec2[i];
+        for(int c = 0; c < Result[0].size(); ++c)
+        {
+            Result[r][c] -= Mat[r][c];
+        }
     }
     
     return Result;

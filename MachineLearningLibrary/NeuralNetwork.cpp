@@ -47,6 +47,11 @@ void NeuralNetwork::Fit(vector<vector<double>> XTrain, const vector<vector<doubl
         // Calculate Cost
         CalculateCosts(Outputs, YTrain, iter);
         
+        // Partial derivatives
+        CalculateGradients(Outputs, XTrain, YTrain);
+        
+        // Update the weights
+        
         
     }
     
@@ -185,10 +190,10 @@ void NeuralNetwork::CalculateCosts(const vector<vector<double>>& Outputs, const 
         }
         
         
-        vector<double> term1  = Utilities::ScalarMult(Utilities::ScalarMult(YTrain[i],-1), logOutputs);
-        vector<double> term2 = Utilities::ScalarMult(Utilities::ScalarSub(1, YTrain[i]), logOneMinusOutputs) ;
+        vector<double> term1  = Utilities::VecMult(Utilities::ScalarMult(YTrain[i],-1), logOutputs);
+        vector<double> term2 = Utilities::VecMult(Utilities::ScalarSub(1, YTrain[i]), logOneMinusOutputs) ;
         
-        UnitCosts = Utilities::ScalarAdd(UnitCosts, Utilities::ScalarSub(term1, term2));
+        UnitCosts = Utilities::VecAdd(UnitCosts, Utilities::VecSub(term1, term2));
         
     }
     
@@ -221,6 +226,33 @@ void NeuralNetwork::CalculateCosts(const vector<vector<double>>& Outputs, const 
     Costs[iter] += RegTerm;
     
     return;
+}
+
+
+pair<vector<vector<double>>,vector<vector<double>>> NeuralNetwork::CalculateGradients(const vector<vector<double>>& Outputs, const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain)
+{
+    vector<vector<double>> grad1;
+    vector<vector<double>> grad2;
+    
+    vector<vector<double>> Y = Utilities::Transpose(YTrain);
+    
+    vector<vector<double>> delta3 = Utilities::MatSub(Outputs, Y);
+    
+    vector<vector<double>> z2 = Utilities::Product(w1,Utilities::Transpose(XTrain));
+    AddBiasUnit(z2);
+    
+    
+    vector<vector<double>> delta2 = Utilities::Product(Utilities::Transpose(w2), delta3);
+    Sigmoid(z2);
+    delta2 = Utilities::MatMult(delta2, (Utilities::MatMult(z2, Utilities::ScalarSub(1, z2))));
+    
+    // remove last row of delta2
+    
+    //AddBiasUnit(a2);
+    
+    
+    
+    return make_pair(grad1, grad2);
 }
 
 
