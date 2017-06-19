@@ -53,6 +53,7 @@ public:
     static vector<double> ScalarSub(double scalar, const vector<double>& Vec);
     
     static vector<vector<double>> ScalarSub(double scalar, const vector<vector<double>>& Mat);
+    static vector<vector<double>> ScalarMult(double scalar, const vector<vector<double>>& Mat);
     
     // Reading and saving txt files (comma separated and returns between examples)
     static vector<vector<double>> ReadCSVFeatureVector(const char* FileName);

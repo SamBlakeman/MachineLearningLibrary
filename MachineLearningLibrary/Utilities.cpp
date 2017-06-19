@@ -362,6 +362,21 @@ vector<vector<double>> Utilities::ScalarSub(double scalar, const vector<vector<d
     return Result;
 }
 
+vector<vector<double>> Utilities::ScalarMult(double scalar, const vector<vector<double>>& Mat)
+{
+    vector<vector<double>> Result(Mat.size(),vector<double>(Mat[0].size(),scalar));
+    
+    for(int r = 0; r < Result.size(); ++r)
+    {
+        for(int c = 0; c < Result[0].size(); ++c)
+        {
+            Result[r][c] *= Mat[r][c];
+        }
+    }
+    
+    return Result;
+}
+
 
 // Reading txt files
 vector<vector<double>> Utilities::ReadCSVFeatureVector(const char* FileName)

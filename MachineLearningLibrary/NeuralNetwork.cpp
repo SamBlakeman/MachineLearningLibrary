@@ -48,10 +48,14 @@ void NeuralNetwork::Fit(vector<vector<double>> XTrain, const vector<vector<doubl
         CalculateCosts(Outputs, YTrain, iter);
         
         // Partial derivatives
-        CalculateGradients(Outputs, XTrain, YTrain);
+        pair<vector<vector<double>>,vector<vector<double>>> Gradients = CalculateGradients(Outputs, XTrain, YTrain);
         
         // Update the weights
+        vector<vector<double>> deltaW1 = Utilities::ScalarMult(Alpha, Gradients.first);
+        vector<vector<double>> deltaW2 = Utilities::ScalarMult(Alpha, Gradients.second);
         
+        w1 = Utilities::MatSub(w1, deltaW1);
+        w2 = Utilities::MatSub(w2, deltaW2);
         
     }
     
@@ -252,7 +256,21 @@ pair<vector<vector<double>>,vector<vector<double>>> NeuralNetwork::CalculateGrad
     vector<vector<double>> grad2 = Utilities::Product(delta3, Utilities::Transpose(z2));
     
     // Regularise
+    for(int r = 0; r < grad1.size(); ++r)
+    {
+        for(int c = 1; c < grad1[0].size(); ++c)
+        {
+            grad1[r][c] += w1[r][c] * Lambda;
+        }
+    }
     
+    for(int r = 0; r < grad2.size(); ++r)
+    {
+        for(int c = 1; c < grad2[0].size(); ++c)
+        {
+            grad2[r][c] += w2[r][c] * Lambda;
+        }
+    }
     
     return make_pair(grad1, grad2);
 }
