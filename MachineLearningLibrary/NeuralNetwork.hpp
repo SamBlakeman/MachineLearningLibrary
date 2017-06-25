@@ -16,27 +16,25 @@
 
 using namespace std;
 
+enum BiasLocation{Row,Column};
+
 class NeuralNetwork
 {
 public:
     
     // Constructors
-    NeuralNetwork(double alpha, double lambda, int numHidden, int Iters);
+    NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters);
     
     // Fit the weights of the model
     void Fit(vector<vector<double>> XTrain, const vector<vector<double>>& YTrain);
     void InitialiseWeights();
     
-    //void GradientDescent(const vector<vector<double>>& XTrain, const vector<double>& YTrain);
-    //void Sigmoid(vector<double>& Vec);
-    
     // Predict
     vector<double> Predict(vector<vector<double>> XTest);
-    //void Quantise(vector<double>& Probabilities);
     
     // Getters
     //vector<double> GetWeights();
-    //vector<double> GetCosts();
+    vector<double> GetCosts();
     //double GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y);
     
 private:
@@ -45,7 +43,7 @@ private:
     void Sigmoid(vector<double>& Vec);
     void Sigmoid(vector<vector<double>>& Mat);
     vector<vector<double>> ForwardPropagation(const vector<vector<double>>& X);
-    void AddBiasUnit(vector<vector<double>>& Activations);
+    void AddBiasUnit(vector<vector<double>>& Activations, BiasLocation Location);
     void CalculateCosts(const vector<vector<double>>& Outputs, const vector<vector<double>>& YTrain, int iter);
     pair<vector<vector<double>>,vector<vector<double>>> CalculateGradients(const vector<vector<double>>& Outputs, const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain);
     

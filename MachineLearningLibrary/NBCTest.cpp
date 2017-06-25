@@ -71,7 +71,8 @@ void NBCTest::ContinuousTest()
     
     // Separate
     PreProcessing pp;
-    auto Separated = pp.SeperateXandY(FeatureVector);
+    YLocation yloc = LastColumn;
+    auto Separated = pp.SeperateXandY(FeatureVector, yloc);
     vector<vector<double>> X = Separated.first;
     vector<double> Y = Separated.second;
     

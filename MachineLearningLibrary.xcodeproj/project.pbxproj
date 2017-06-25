@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		88150D0F1EFAD08B009A14ED /* TwoLayerNNTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88150D0D1EFAD08B009A14ED /* TwoLayerNNTest.cpp */; };
 		8835FB411EE6F9C3003E7A98 /* NeuralNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8835FB3F1EE6F9C3003E7A98 /* NeuralNetwork.cpp */; };
 		883F0B901EB7E01600A3E0E2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 883F0B8F1EB7E01600A3E0E2 /* main.cpp */; };
 		883F0B981EB7E09C00A3E0E2 /* PreProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 883F0B961EB7E09C00A3E0E2 /* PreProcessing.cpp */; };
@@ -33,6 +34,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		88150D0D1EFAD08B009A14ED /* TwoLayerNNTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoLayerNNTest.cpp; sourceTree = "<group>"; };
+		88150D0E1EFAD08B009A14ED /* TwoLayerNNTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TwoLayerNNTest.hpp; sourceTree = "<group>"; };
 		8835FB3F1EE6F9C3003E7A98 /* NeuralNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NeuralNetwork.cpp; sourceTree = "<group>"; };
 		8835FB401EE6F9C3003E7A98 /* NeuralNetwork.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NeuralNetwork.hpp; sourceTree = "<group>"; };
 		883F0B8C1EB7E01600A3E0E2 /* MachineLearningLibrary */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MachineLearningLibrary; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +119,8 @@
 				88931E841ED4F5820041E9DC /* LogRegTest.hpp */,
 				8882BEA31EDCBE0900405A0E /* NBCTest.cpp */,
 				8882BEA41EDCBE0900405A0E /* NBCTest.hpp */,
+				88150D0D1EFAD08B009A14ED /* TwoLayerNNTest.cpp */,
+				88150D0E1EFAD08B009A14ED /* TwoLayerNNTest.hpp */,
 			);
 			name = Scripts;
 			sourceTree = "<group>";
@@ -178,6 +183,7 @@
 			files = (
 				883F0B981EB7E09C00A3E0E2 /* PreProcessing.cpp in Sources */,
 				88687A3B1ED9F09D00E1C256 /* NaiveBayesClassifier.cpp in Sources */,
+				88150D0F1EFAD08B009A14ED /* TwoLayerNNTest.cpp in Sources */,
 				883F0B901EB7E01600A3E0E2 /* main.cpp in Sources */,
 				8835FB411EE6F9C3003E7A98 /* NeuralNetwork.cpp in Sources */,
 				883F0B9F1EB93BE100A3E0E2 /* Utilities.cpp in Sources */,

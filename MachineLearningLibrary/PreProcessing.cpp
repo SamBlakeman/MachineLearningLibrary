@@ -90,7 +90,7 @@ void PreProcessing::StandardiseTransform(vector<vector<double>>& X)
 
 
 
-pair<vector<vector<double>>,vector<double>> PreProcessing::SeperateXandY(vector<vector<double>>& FeatureVector)
+pair<vector<vector<double>>,vector<double>> PreProcessing::SeperateXandY(vector<vector<double>>& FeatureVector, YLocation location)
 {
     random_shuffle (FeatureVector.begin(), FeatureVector.end());
     
@@ -100,13 +100,30 @@ pair<vector<vector<double>>,vector<double>> PreProcessing::SeperateXandY(vector<
     vector<double> Y(numExamples,0);
     
     // Seperate out feature vector into predictors (x) and outcomes (y)
-    for(int e = 0; e < numExamples; ++e)
+    
+    if(location == LastColumn)
     {
-        for(int f = 0; f < numFeatures; ++f)
+        for(int e = 0; e < numExamples; ++e)
         {
-            X[e][f] = FeatureVector[e][f];
+            for(int f = 0; f < numFeatures; ++f)
+            {
+                X[e][f] = FeatureVector[e][f];
+            }
+        
+            Y[e] = FeatureVector[e][numFeatures];
         }
-        Y[e] = FeatureVector[e][numFeatures];
+    }
+    else if (location == FirstColumn)
+    {
+        for(int e = 0; e < numExamples; ++e)
+        {
+            for(int f = 1; f < numFeatures + 1; ++f)
+            {
+                X[e][f] = FeatureVector[e][f];
+            }
+            
+            Y[e] = FeatureVector[e][0];
+        }
     }
 
     return make_pair(X, Y);
@@ -156,4 +173,18 @@ pair<vector<vector<vector<double>>>,vector<vector<double>>> PreProcessing::GetTr
     vector<vector<double>> Ys = {YTrain, YTest};
     
     return make_pair(Xs,Ys);
+}
+
+
+vector<vector<double>> PreProcessing::OneHotEncoding(vector<double>& Y, int numOut)
+{
+    int numExamples = (int)Y.size();
+    vector<vector<double>> EncodedY (numExamples, vector<double>(numOut, 0));
+    
+    for(int e = 0; e < numExamples; ++e)
+    {
+        EncodedY[e][Y[e]] = 1;
+    }
+    
+    return EncodedY;
 }

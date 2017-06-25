@@ -14,11 +14,12 @@
 #include <numeric>
 
 
-NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int Iters)
+NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters)
 {
     Alpha = alpha;
     Lambda = lambda;
     numHid = numHidden;
+    numOut = numOutput;
     Iterations = Iters;
 }
 
@@ -30,10 +31,7 @@ void NeuralNetwork::Fit(vector<vector<double>> XTrain, const vector<vector<doubl
     numTrainExamples = XTrain.size();
     
     // Add a column of ones
-    for(int i = 0; i < XTrain.size(); ++i)
-    {
-        XTrain[i].push_back(1);
-    }
+    AddBiasUnit(XTrain, Row);
     
     // Randomise weights to start with
     InitialiseWeights();
@@ -75,7 +73,7 @@ void NeuralNetwork::InitialiseWeights()
     {
         for(int c = 0; c < w1[0].size(); ++c)
         {
-            w1[r][c] = (rand() % 100)/1000;
+            w1[r][c] = ((double)(rand() % 100))/1000;
         }
     }
     
@@ -83,7 +81,7 @@ void NeuralNetwork::InitialiseWeights()
     {
         for(int c = 0; c < w2[0].size(); ++c)
         {
-            w2[r][c] = (rand() % 100)/1000;
+            w2[r][c] = ((double)(rand() % 100))/1000;
         }
     }
     
@@ -147,12 +145,12 @@ vector<double> NeuralNetwork::Predict(vector<vector<double>> XTest)
 
 vector<vector<double>> NeuralNetwork::ForwardPropagation(const vector<vector<double>>& X)
 {
-    vector<vector<double>> a2 = Utilities::Product(w1,Utilities::Transpose(X));
+    vector<vector<double>> a2 = Utilities::Product(X,Utilities::Transpose(w1));
     Sigmoid(a2);
     
-    AddBiasUnit(a2);
+    AddBiasUnit(a2, Row);
     
-    vector<vector<double>> a3 = Utilities::Product(w2, a2);
+    vector<vector<double>> a3 = Utilities::Product(a2,Utilities::Transpose(w2));
     Sigmoid(a3);
     
     return a3;
@@ -201,11 +199,10 @@ void NeuralNetwork::CalculateCosts(const vector<vector<double>>& Outputs, const 
         
     }
     
+    Costs.push_back(0);
     double start = 0;
     Costs[iter] = accumulate(UnitCosts.begin(), UnitCosts.end(), start);
     Costs[iter] *= (1/numTrainExamples);
-    
-    
     
     double RegTerm = 0;
     
@@ -235,25 +232,23 @@ void NeuralNetwork::CalculateCosts(const vector<vector<double>>& Outputs, const 
 
 pair<vector<vector<double>>,vector<vector<double>>> NeuralNetwork::CalculateGradients(const vector<vector<double>>& Outputs, const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain)
 {
-    // Transpose Y
-    vector<vector<double>> Y = Utilities::Transpose(YTrain);
-    
     // Get the output errors
-    vector<vector<double>> delta3 = Utilities::MatSub(Outputs, Y);
+    vector<vector<double>> delta3 = Utilities::MatSub(Outputs, YTrain);
     
     // Get the net input into layer 2
-    vector<vector<double>> z2 = Utilities::Product(w1,Utilities::Transpose(XTrain));
-    AddBiasUnit(z2);
+    vector<vector<double>> z2 = Utilities::Product(XTrain, Utilities::Transpose(w1));
+    AddBiasUnit(z2, Row);
     
     // Get the layer 2 errors
-    vector<vector<double>> delta2 = Utilities::Product(Utilities::Transpose(w2), delta3);
+    vector<vector<double>> delta2 = Utilities::Product(delta3, w2);
     Sigmoid(z2);
     delta2 = Utilities::MatMult(delta2, (Utilities::MatMult(z2, Utilities::ScalarSub(1, z2))));
+    delta2 = Utilities::Transpose(delta2);
     delta2.erase(delta2.end() - 1);
     
     // Calculate the two gradients
     vector<vector<double>> grad1 = Utilities::Product(delta2, XTrain);
-    vector<vector<double>> grad2 = Utilities::Product(delta3, Utilities::Transpose(z2));
+    vector<vector<double>> grad2 = Utilities::Product(Utilities::Transpose(delta3), z2);
     
     // Regularise
     for(int r = 0; r < grad1.size(); ++r)
@@ -276,9 +271,32 @@ pair<vector<vector<double>>,vector<vector<double>>> NeuralNetwork::CalculateGrad
 }
 
 
-void NeuralNetwork::AddBiasUnit(vector<vector<double>> &Activations)
+void NeuralNetwork::AddBiasUnit(vector<vector<double>> &Activations, BiasLocation Location)
 {
-    Activations.push_back(vector<double>(Activations[0].size(),1));
+    if(Location == Row)
+    {
+        // Add a column of ones
+        for(int i = 0; i < Activations.size(); ++i)
+        {
+            Activations[i].push_back(1);
+        }
+    }
+    else if(Location == Column)
+    {
+        // Add a row of ones
+        Activations.push_back(vector<double> (Activations[0].size(), 1));
+    }
     
     return;
+}
+
+vector<double> NeuralNetwork::GetCosts()
+{
+    // Check for weights
+    if(Costs.empty())
+    {
+        cout << endl << "Error in GetCosts() - No costs have been calculated" << endl;
+    }
+    
+    return Costs;
 }

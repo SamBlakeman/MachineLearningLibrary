@@ -16,6 +16,8 @@
 
 using namespace std;
 
+enum YLocation{FirstColumn,LastColumn};
+
 class PreProcessing
 {
 public:
@@ -28,8 +30,9 @@ public:
     void StandardiseTransform(vector<vector<double>>& X);
     
     // Handle feature vector
-    pair<vector<vector<double>>,vector<double>> SeperateXandY(vector<vector<double>>& FeatureVector);
+    pair<vector<vector<double>>,vector<double>> SeperateXandY(vector<vector<double>>& FeatureVector, YLocation location);
     pair<vector<vector<vector<double>>>,vector<vector<double>>> GetTrainAndTest(const vector<vector<double>>& X, const vector<double>& Y, float trainSize);
+    vector<vector<double>> OneHotEncoding(vector<double>& Y, int numOut);
     
     
 private:

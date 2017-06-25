@@ -97,7 +97,8 @@ vector<vector<double>> Utilities::Product(const vector<vector<double>>& Vec1, co
                 b[i] = Vec2[i][col];
             }
             
-            ResultCol[col] = inner_product(begin(a), end(a), begin(b), 0.0);
+            double start = 0;
+            ResultCol[col] = inner_product(begin(a), end(a), begin(b), start);
         }
         Result.push_back(ResultCol);
     }

@@ -25,7 +25,8 @@ void LogRegTest::Test1()
     
     // Separate
     PreProcessing pp;
-    auto Separated = pp.SeperateXandY(FeatureVector);
+    YLocation yloc = LastColumn;
+    auto Separated = pp.SeperateXandY(FeatureVector, yloc);
     vector<vector<double>> X = Separated.first;
     vector<double> Y = Separated.second;
     
@@ -39,7 +40,7 @@ void LogRegTest::Test1()
     vector<double> YTrain = Ys[0];
     vector<double> YTest = Ys[1];
 
-    // Standardise
+    // Normalise
     pp.NormaliseFit(XTrain);
     pp.NormaliseTransform(XTrain);
     pp.NormaliseTransform(XTest);
@@ -78,7 +79,8 @@ void LogRegTest::Test2()
     
     // Separate
     PreProcessing pp;
-    auto Separated = pp.SeperateXandY(FeatureVector);
+    YLocation yloc = LastColumn;
+    auto Separated = pp.SeperateXandY(FeatureVector, yloc);
     vector<vector<double>> X = Separated.first;
     vector<double> Y = Separated.second;
     

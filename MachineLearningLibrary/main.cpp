@@ -10,15 +10,14 @@
 #include "LRTest.hpp"
 #include "LogRegTest.hpp"
 #include "NBCTest.hpp"
+#include "TwoLayerNNTest.hpp"
 
 int main(int argc, const char * argv[]) {
     
+    TwoLayerNNTest NNTest;
     
-    NBCTest nbct;
-    nbct.ContinuousTest();
+    NNTest.Run();
     
-    //LogRegTest lgr;
-    //lgr.Test2();
     
     /*
      TODO:
@@ -31,6 +30,7 @@ int main(int argc, const char * argv[]) {
      - maybe also allow for strings
      
      - Neural Network - two layer implementation, forward propagation implemented
+     - Improve transpose method
      - SVM
      - learning curve
      - validation curve
