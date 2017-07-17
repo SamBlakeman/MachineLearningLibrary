@@ -11,8 +11,6 @@
 
 #include <stdio.h>
 
-#endif /* NormaliseTest_hpp */
-
 class NormaliseTest
 {
 
@@ -21,3 +19,5 @@ public:
     void run();
     
 };
+
+#endif /* NormaliseTest_hpp */

@@ -6,6 +6,8 @@
 //  Copyright © 2017 Sam Blakeman. All rights reserved.
 //
 
+#include "Eigen/Dense"
+
 #include "NormaliseTest.hpp"
 #include "LRTest.hpp"
 #include "LogRegTest.hpp"
@@ -17,7 +19,6 @@ int main(int argc, const char * argv[]) {
     TwoLayerNNTest NNTest;
     
     NNTest.Run();
-    
     
     /*
      TODO:

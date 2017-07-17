@@ -11,11 +11,11 @@
 
 #include <stdio.h>
 
-#endif /* LRTest_hpp */
-
 class LRTest
 {
 public:
     
     void Run();
 };
+
+#endif /* LRTest_hpp */

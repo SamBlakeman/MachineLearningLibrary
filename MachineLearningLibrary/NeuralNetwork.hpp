@@ -11,10 +11,10 @@
 
 #include <stdio.h>
 #include <vector>
-
-#endif /* NeuralNetwork_hpp */
+#include "Eigen/Dense"
 
 using namespace std;
+using namespace Eigen;
 
 enum BiasLocation{Row,Column};
 
@@ -26,11 +26,11 @@ public:
     NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters);
     
     // Fit the weights of the model
-    void Fit(vector<vector<double>> XTrain, const vector<vector<double>>& YTrain);
+    void Fit(MatrixXd XTrain, const MatrixXd& YTrain);
     void InitialiseWeights();
     
     // Predict
-    vector<double> Predict(vector<vector<double>> XTest);
+    VectorXd Predict(MatrixXd XTest);
     
     // Getters
     //vector<double> GetWeights();
@@ -41,15 +41,15 @@ private:
     
     // Fit
     void Sigmoid(vector<double>& Vec);
-    void Sigmoid(vector<vector<double>>& Mat);
-    vector<vector<double>> ForwardPropagation(const vector<vector<double>>& X);
-    void AddBiasUnit(vector<vector<double>>& Activations, BiasLocation Location);
-    void CalculateCosts(const vector<vector<double>>& Outputs, const vector<vector<double>>& YTrain, int iter);
-    pair<vector<vector<double>>,vector<vector<double>>> CalculateGradients(const vector<vector<double>>& Outputs, const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain);
+    void Sigmoid(MatrixXd& Mat);
+    MatrixXd ForwardPropagation(const MatrixXd& X);
+    //void AddBiasUnit(vector<vector<double>>& Activations, BiasLocation Location);
+    void CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter);
+    pair<MatrixXd,MatrixXd> CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain);
     
     
     // Predict
-    vector<double> WinningOutput(vector<vector<double>> Outputs);
+    VectorXd WinningOutput(MatrixXd Outputs);
     
     double Alpha = 0.1;
     double Lambda = 0.f;
@@ -58,10 +58,12 @@ private:
     double numFeatures = 0;
     double numTrainExamples = 0;
     int Iterations = 0;
-    vector<vector<double>> w1;
-    vector<vector<double>> w2;
+    MatrixXd w1;
+    MatrixXd w2;
     vector<double> Costs;
     
     
     
 };
+
+#endif /* NeuralNetwork_hpp */

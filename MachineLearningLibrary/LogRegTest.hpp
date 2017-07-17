@@ -11,8 +11,6 @@
 
 #include <stdio.h>
 
-#endif /* LogRegTest_hpp */
-
 class LogRegTest
 {
 public:
@@ -24,3 +22,5 @@ private:
     
     
 };
+
+#endif /* LogRegTest_hpp */

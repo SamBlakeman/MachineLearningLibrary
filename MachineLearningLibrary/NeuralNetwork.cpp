@@ -25,13 +25,14 @@ NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int num
 
 
 
-void NeuralNetwork::Fit(vector<vector<double>> XTrain, const vector<vector<double>>& YTrain)
+void NeuralNetwork::Fit(MatrixXd XTrain, const MatrixXd& YTrain)
 {
-    numFeatures = XTrain[0].size();
-    numTrainExamples = XTrain.size();
+    numFeatures = XTrain.cols();
+    numTrainExamples = XTrain.rows();
     
     // Add a column of ones
-    AddBiasUnit(XTrain, Row);
+    XTrain.conservativeResize(XTrain.rows(), XTrain.cols()+1);
+    XTrain.col(XTrain.cols()-1) = MatrixXd::Ones(XTrain.rows());
     
     // Randomise weights to start with
     InitialiseWeights();
@@ -40,20 +41,20 @@ void NeuralNetwork::Fit(vector<vector<double>> XTrain, const vector<vector<doubl
     {
     
         // Forward propagation
-        vector<vector<double>> Outputs = ForwardPropagation(XTrain);
+        MatrixXd Outputs = ForwardPropagation(XTrain);
     
         // Calculate Cost
         CalculateCosts(Outputs, YTrain, iter);
         
         // Partial derivatives
-        pair<vector<vector<double>>,vector<vector<double>>> Gradients = CalculateGradients(Outputs, XTrain, YTrain);
+        pair<MatrixXd,MatrixXd> Gradients = CalculateGradients(Outputs, XTrain, YTrain);
         
         // Update the weights
-        vector<vector<double>> deltaW1 = Utilities::ScalarMult(Alpha, Gradients.first);
-        vector<vector<double>> deltaW2 = Utilities::ScalarMult(Alpha, Gradients.second);
+        MatrixXd deltaW1 = Alpha * Gradients.first;
+        MatrixXd deltaW2 = Alpha * Gradients.second;
         
-        w1 = Utilities::MatSub(w1, deltaW1);
-        w2 = Utilities::MatSub(w2, deltaW2);
+        w1 = w1 - deltaW1;
+        w2 = w2 - deltaW2;
         
     }
     
@@ -65,25 +66,11 @@ void NeuralNetwork::Fit(vector<vector<double>> XTrain, const vector<vector<doubl
 void NeuralNetwork::InitialiseWeights()
 {
     // Zero initialisation
-    w1 = vector<vector<double>> (numHid, vector<double>(numFeatures + 1, 0));
-    w2 = vector<vector<double>> (numOut, vector<double>(numHid + 1, 0));
+    w1.Random(numHid, numFeatures+1);
+    w2.Random(numOut, numHid+1);
     
-    // Randomise the weights
-    for(int r = 0; r < w1.size(); ++r)
-    {
-        for(int c = 0; c < w1[0].size(); ++c)
-        {
-            w1[r][c] = ((double)(rand() % 100))/1000;
-        }
-    }
-    
-    for(int r = 0; r < w2.size(); ++r)
-    {
-        for(int c = 0; c < w2[0].size(); ++c)
-        {
-            w2[r][c] = ((double)(rand() % 100))/1000;
-        }
-    }
+    w1 /= 100;
+    w2 /= 100;
     
     return;
 }
@@ -99,13 +86,13 @@ void NeuralNetwork::Sigmoid(vector<double>& Vec)
     return;
 }
 
-void NeuralNetwork::Sigmoid(vector<vector<double>>& Mat)
+void NeuralNetwork::Sigmoid(MatrixXd& Mat)
 {
-    for(int r = 0; r < Mat.size(); ++r)
+    for(int r = 0; r < Mat.rows(); ++r)
     {
-        for(int c = 0; c < Mat[0].size(); ++c)
+        for(int c = 0; c < Mat.cols(); ++c)
         {
-            Mat[r][c] = 1/(1+exp(-Mat[r][c]));
+            Mat(r,c) = 1/(1+exp(-Mat(r,c)));
         }
     }
     
@@ -115,51 +102,51 @@ void NeuralNetwork::Sigmoid(vector<vector<double>>& Mat)
 
 
 
-vector<double> NeuralNetwork::Predict(vector<vector<double>> XTest)
+VectorXd NeuralNetwork::Predict(MatrixXd XTest)
 {
-    vector<vector<double>> Outputs(XTest.size(), vector<double>(numOut,0));
+    MatrixXd Outputs;
     
     // Check for weights
-    if(w1.empty() || w2.empty())
+    if(w1.isZero() || w2.isZero())
     {
         cout << endl << "Error in Predict() - No weights have been fit" << endl;
-        return vector<double> (XTest.size(),0);
+        return VectorXd (XTest.rows(),0);
         
     }
     
     // Add a column of ones
-    for(int i = 0; i < XTest.size(); ++i)
-    {
-        XTest[i].push_back(1);
-    }
+    XTest.conservativeResize(XTest.rows(), XTest.cols()+1);
+    XTest.col(XTest.cols()-1) = MatrixXd::Ones(XTest.rows());
     
     // Forward propagation
     Outputs = ForwardPropagation(XTest);
     
     // Get max prediction
-    vector<double> Predictions = WinningOutput(Outputs);
+    VectorXd Predictions = WinningOutput(Outputs);
     
     return Predictions;
 }
 
 
-vector<vector<double>> NeuralNetwork::ForwardPropagation(const vector<vector<double>>& X)
+MatrixXd NeuralNetwork::ForwardPropagation(const MatrixXd& X)
 {
-    vector<vector<double>> a2 = Utilities::Product(X,Utilities::Transpose(w1));
+    MatrixXd a2 = X * w1.transpose();
     Sigmoid(a2);
     
-    AddBiasUnit(a2, Row);
+    // Add a column of ones
+    a2.conservativeResize(a2.rows(), a2.cols()+1);
+    a2.col(a2.cols()-1) = MatrixXd::Ones(a2.rows());
     
-    vector<vector<double>> a3 = Utilities::Product(a2,Utilities::Transpose(w2));
+    MatrixXd a3 = a2 * w2.transpose();
     Sigmoid(a3);
     
     return a3;
 }
 
 
-vector<double> NeuralNetwork::WinningOutput(vector<vector<double>> Outputs)
+VectorXd NeuralNetwork::WinningOutput(MatrixXd Outputs)
 {
-    vector<double> Predictions;
+    VectorXd Predictions;
     
     for(int i=0; i < Outputs.size(); ++i)
     {
@@ -171,37 +158,37 @@ vector<double> NeuralNetwork::WinningOutput(vector<vector<double>> Outputs)
 }
 
 
-void NeuralNetwork::CalculateCosts(const vector<vector<double>>& Outputs, const vector<vector<double>>& YTrain, int iter)
+void NeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter)
 {
-    vector<double> UnitCosts(numOut,0);
+    VectorXd UnitCosts(numOut,0); // check it creates a vector of 0's
     
     for(int i = 0; i < numTrainExamples; ++i) // TODO vectorise
     {
         
         
-        vector<double> logOutputs = Outputs[i];
+        VectorXd logOutputs = Outputs.row(i);
+        
         for(int l = 0; l < logOutputs.size(); ++l)
         {
-            logOutputs[l] = log(logOutputs[l]);
+            logOutputs(l) = log(logOutputs(l));
         }
         
-        vector<double> logOneMinusOutputs = Outputs[i];
+        VectorXd logOneMinusOutputs = Outputs.row(i);
         for(int l = 0; l < logOneMinusOutputs.size(); ++l)
         {
-            logOneMinusOutputs[l] = log(1 - logOneMinusOutputs[l]);
+            logOneMinusOutputs(l) = log(1 - logOneMinusOutputs(l));
         }
         
         
-        vector<double> term1  = Utilities::VecMult(Utilities::ScalarMult(YTrain[i],-1), logOutputs);
-        vector<double> term2 = Utilities::VecMult(Utilities::ScalarSub(1, YTrain[i]), logOneMinusOutputs) ;
+        VectorXd term1  = (YTrain.row(i) * -1) * logOutputs;
+        VectorXd term2 = (VectorXd::Ones(YTrain.cols()) - YTrain.row(i)) * logOneMinusOutputs;
         
-        UnitCosts = Utilities::VecAdd(UnitCosts, Utilities::VecSub(term1, term2));
+        UnitCosts = UnitCosts + (term1 - term2);
         
     }
     
     Costs.push_back(0);
-    double start = 0;
-    Costs[iter] = accumulate(UnitCosts.begin(), UnitCosts.end(), start);
+    Costs[iter] = UnitCosts.sum();
     Costs[iter] *= (1/numTrainExamples);
     
     double RegTerm = 0;
@@ -210,7 +197,7 @@ void NeuralNetwork::CalculateCosts(const vector<vector<double>>& Outputs, const 
     {
         for(int f = 0; f < numFeatures; ++f)
         {
-            RegTerm += pow(w1[h][f], 2);
+            RegTerm += pow(w1(h,f), 2);
         }
     }
     
@@ -218,7 +205,7 @@ void NeuralNetwork::CalculateCosts(const vector<vector<double>>& Outputs, const 
     {
         for(int h = 0; h < numHid; ++h)
         {
-            RegTerm += pow(w2[o][h], 2);
+            RegTerm += pow(w2(o,h), 2);
         }
     }
     
@@ -230,48 +217,38 @@ void NeuralNetwork::CalculateCosts(const vector<vector<double>>& Outputs, const 
 }
 
 
-pair<vector<vector<double>>,vector<vector<double>>> NeuralNetwork::CalculateGradients(const vector<vector<double>>& Outputs, const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain)
+pair<MatrixXd,MatrixXd> NeuralNetwork::CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain)
 {
     // Get the output errors
-    vector<vector<double>> delta3 = Utilities::MatSub(Outputs, YTrain);
+    MatrixXd delta3 = Outputs - YTrain;
     
     // Get the net input into layer 2
-    vector<vector<double>> z2 = Utilities::Product(XTrain, Utilities::Transpose(w1));
-    AddBiasUnit(z2, Row);
+    MatrixXd z2 = XTrain * w1.transpose();
+    
+    // Add a column of ones
+    z2.conservativeResize(z2.rows(), z2.cols()+1);
+    z2.col(z2.cols()-1) = MatrixXd::Ones(z2.rows());
     
     // Get the layer 2 errors
-    vector<vector<double>> delta2 = Utilities::Product(delta3, w2);
+    MatrixXd delta2 = delta3 * w2;
     Sigmoid(z2);
-    delta2 = Utilities::MatMult(delta2, (Utilities::MatMult(z2, Utilities::ScalarSub(1, z2))));
-    delta2 = Utilities::Transpose(delta2);
+    delta2 = delta2 *(z2 * (MatrixXd::Ones(z2.rows(), z2.cols()) - z2));
+    delta2 = delta2.transpose();
     delta2.erase(delta2.end() - 1);
     
     // Calculate the two gradients
-    vector<vector<double>> grad1 = Utilities::Product(delta2, XTrain);
-    vector<vector<double>> grad2 = Utilities::Product(Utilities::Transpose(delta3), z2);
+    MatrixXd grad1 = delta2 * XTrain;
+    MatrixXd grad2 = delta3.transpose() * z2;
     
     // Regularise
-    for(int r = 0; r < grad1.size(); ++r)
-    {
-        for(int c = 1; c < grad1[0].size(); ++c)
-        {
-            grad1[r][c] += w1[r][c] * Lambda;
-        }
-    }
-    
-    for(int r = 0; r < grad2.size(); ++r)
-    {
-        for(int c = 1; c < grad2[0].size(); ++c)
-        {
-            grad2[r][c] += w2[r][c] * Lambda;
-        }
-    }
+    grad1 += w1 * Lambda;
+    grad2 += w2 * Lambda;
     
     return make_pair(grad1, grad2);
 }
 
 
-void NeuralNetwork::AddBiasUnit(vector<vector<double>> &Activations, BiasLocation Location)
+/*void NeuralNetwork::AddBiasUnit(MatrixXd &Activations, BiasLocation Location)
 {
     if(Location == Row)
     {
@@ -288,7 +265,7 @@ void NeuralNetwork::AddBiasUnit(vector<vector<double>> &Activations, BiasLocatio
     }
     
     return;
-}
+}*/
 
 vector<double> NeuralNetwork::GetCosts()
 {

@@ -11,8 +11,6 @@
 
 #include <stdio.h>
 
-#endif /* TwoLayerNNTest_hpp */
-
 class TwoLayerNNTest
 {
 public:
@@ -24,3 +22,5 @@ private:
     
     
 };
+
+#endif /* TwoLayerNNTest_hpp */

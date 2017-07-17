@@ -13,8 +13,6 @@
 #include <vector>
 #include <map>
 
-#endif /* NaiveBayesClassifier_hpp */
-
 using namespace std;
 
 class NaiveBayesClassifier
@@ -67,3 +65,5 @@ private:
     const double pi = 3.14159265358979323846;
     
 };
+
+#endif /* NaiveBayesClassifier_hpp */

@@ -12,8 +12,6 @@
 #include <stdio.h>
 #include <vector>
 
-#endif /* LinearRegression_hpp */
-
 using namespace std;
 
 class LinearRegression
@@ -51,3 +49,5 @@ private:
     vector<double> Costs;
     
 };
+
+#endif /* LinearRegression_hpp */

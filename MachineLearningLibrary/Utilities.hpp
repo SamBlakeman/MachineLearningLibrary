@@ -12,8 +12,6 @@
 #include <stdio.h>
 #include <vector>
 
-#endif /* Utilities_hpp */
-
 using namespace std;
 
 class Utilities
@@ -60,3 +58,5 @@ public:
     static void SaveVectorAsCSV(const vector<double>& Vec, const char* FileName);
     
 };
+
+#endif /* Utilities_hpp */

@@ -11,8 +11,6 @@
 
 #include <stdio.h>
 
-#endif /* NBCTest_hpp */
-
 class NBCTest
 {
 public:
@@ -25,3 +23,5 @@ private:
     
     
 };
+
+#endif /* NBCTest_hpp */

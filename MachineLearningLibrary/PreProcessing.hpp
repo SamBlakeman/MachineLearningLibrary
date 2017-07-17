@@ -12,8 +12,6 @@
 #include <stdio.h>
 #include <vector>
 
-#endif /* PreProcessing_hpp */
-
 using namespace std;
 
 enum YLocation{FirstColumn,LastColumn};
@@ -44,3 +42,5 @@ private:
     
     
 };
+
+#endif /* PreProcessing_hpp */

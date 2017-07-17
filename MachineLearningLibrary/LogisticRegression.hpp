@@ -12,8 +12,6 @@
 #include <stdio.h>
 #include <vector>
 
-#endif /* LogisticRegression_hpp */
-
 using namespace std;
 
 
@@ -55,3 +53,5 @@ private:
     vector<double> Costs;
     
 };
+
+#endif /* LogisticRegression_hpp */
