@@ -27,12 +27,13 @@ NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int num
 
 void NeuralNetwork::Fit(MatrixXd XTrain, const MatrixXd& YTrain)
 {
+    
     numFeatures = XTrain.cols();
     numTrainExamples = XTrain.rows();
     
     // Add a column of ones
     XTrain.conservativeResize(XTrain.rows(), XTrain.cols()+1);
-    XTrain.col(XTrain.cols()-1) = MatrixXd::Ones(XTrain.rows());
+    XTrain.col(XTrain.cols()-1) = VectorXd::Ones(XTrain.rows());
     
     // Randomise weights to start with
     InitialiseWeights();
@@ -66,8 +67,8 @@ void NeuralNetwork::Fit(MatrixXd XTrain, const MatrixXd& YTrain)
 void NeuralNetwork::InitialiseWeights()
 {
     // Zero initialisation
-    w1.Random(numHid, numFeatures+1);
-    w2.Random(numOut, numHid+1);
+    w1 = MatrixXd::Random(numHid, numFeatures+1);
+    w2 = MatrixXd::Random(numOut, numHid+1);
     
     w1 /= 100;
     w2 /= 100;
@@ -104,8 +105,6 @@ void NeuralNetwork::Sigmoid(MatrixXd& Mat)
 
 VectorXd NeuralNetwork::Predict(MatrixXd XTest)
 {
-    MatrixXd Outputs;
-    
     // Check for weights
     if(w1.isZero() || w2.isZero())
     {
@@ -116,10 +115,10 @@ VectorXd NeuralNetwork::Predict(MatrixXd XTest)
     
     // Add a column of ones
     XTest.conservativeResize(XTest.rows(), XTest.cols()+1);
-    XTest.col(XTest.cols()-1) = MatrixXd::Ones(XTest.rows());
+    XTest.col(XTest.cols()-1) = VectorXd::Ones(XTest.rows());
     
     // Forward propagation
-    Outputs = ForwardPropagation(XTest);
+    MatrixXd Outputs = ForwardPropagation(XTest);
     
     // Get max prediction
     VectorXd Predictions = WinningOutput(Outputs);
@@ -135,7 +134,7 @@ MatrixXd NeuralNetwork::ForwardPropagation(const MatrixXd& X)
     
     // Add a column of ones
     a2.conservativeResize(a2.rows(), a2.cols()+1);
-    a2.col(a2.cols()-1) = MatrixXd::Ones(a2.rows());
+    a2.col(a2.cols()-1) = VectorXd::Ones(a2.rows());
     
     MatrixXd a3 = a2 * w2.transpose();
     Sigmoid(a3);
@@ -146,12 +145,11 @@ MatrixXd NeuralNetwork::ForwardPropagation(const MatrixXd& X)
 
 VectorXd NeuralNetwork::WinningOutput(MatrixXd Outputs)
 {
-    VectorXd Predictions;
+    VectorXd Predictions = VectorXd::Zero(Outputs.size());
     
     for(int i=0; i < Outputs.size(); ++i)
     {
-        vector<double>::iterator max = max_element(Outputs[i].begin(), Outputs[i].end());
-        Predictions[i] = distance(Outputs[i].begin(), max);
+        Outputs.row(i).maxCoeff( &Predictions(i) );
     }
     
     return Predictions;
@@ -160,7 +158,7 @@ VectorXd NeuralNetwork::WinningOutput(MatrixXd Outputs)
 
 void NeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter)
 {
-    VectorXd UnitCosts(numOut,0); // check it creates a vector of 0's
+    VectorXd UnitCosts = VectorXd::Zero(numOut); // check it creates a vector of 0's
     
     for(int i = 0; i < numTrainExamples; ++i) // TODO vectorise
     {
@@ -179,9 +177,13 @@ void NeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTra
             logOneMinusOutputs(l) = log(1 - logOneMinusOutputs(l));
         }
         
+        VectorXd YTrainRow = YTrain.row(i);
+        VectorXd term1 = YTrainRow * -1;
+        term1 = term1.cwiseProduct(logOutputs);
         
-        VectorXd term1  = (YTrain.row(i) * -1) * logOutputs;
-        VectorXd term2 = (VectorXd::Ones(YTrain.cols()) - YTrain.row(i)) * logOneMinusOutputs;
+        VectorXd one = VectorXd::Ones(YTrain.cols());
+        VectorXd term2 = one - YTrainRow;
+        term2 = term2.cwiseProduct(logOneMinusOutputs);
         
         UnitCosts = UnitCosts + (term1 - term2);
         
@@ -227,14 +229,14 @@ pair<MatrixXd,MatrixXd> NeuralNetwork::CalculateGradients(const MatrixXd& Output
     
     // Add a column of ones
     z2.conservativeResize(z2.rows(), z2.cols()+1);
-    z2.col(z2.cols()-1) = MatrixXd::Ones(z2.rows());
+    z2.col(z2.cols()-1) = VectorXd::Ones(z2.rows());
     
     // Get the layer 2 errors
     MatrixXd delta2 = delta3 * w2;
     Sigmoid(z2);
     delta2 = delta2 *(z2 * (MatrixXd::Ones(z2.rows(), z2.cols()) - z2));
     delta2 = delta2.transpose();
-    delta2.erase(delta2.end() - 1);
+    delta2.conservativeResize(delta2.rows()-1, delta2.cols());
     
     // Calculate the two gradients
     MatrixXd grad1 = delta2 * XTrain;

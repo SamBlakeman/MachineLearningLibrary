@@ -36,8 +36,34 @@ void TwoLayerNNTest::Run()
     // One hot encode Y
     vector<vector<double>> YTrainEnc = pp.OneHotEncoding(YTrain, numOutput);
     
+    // Get into Eigen format
+    //from v1 to an eignen vector
+    
+    MatrixXd XT(XTrain.size(),XTrain[0].size());
+    
+    for(int i = 0; i < XTrain.size(); ++i)
+    {
+        vector<double> vec = XTrain[i];
+        double* ptr_data = &vec[0];
+        Eigen::VectorXd Xvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
+        
+        XT.row(i) = Xvec;
+    }
+    
+    MatrixXd YT(YTrainEnc.size(),YTrainEnc[0].size());
+    
+    for(int i = 0; i < YTrainEnc.size(); ++i)
+    {
+        vector<double> vec = YTrainEnc[i];
+        double* ptr_data = &vec[0];
+        Eigen::VectorXd Yvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
+        
+        YT.row(i) = Yvec;
+    }
+    
+    
     NeuralNetwork nn(alpha, lambda, numHidden, numOutput, Iters);
-    nn.Fit(XTrain, YTrainEnc);
+    nn.Fit(XT, YT);
     
     // Save the costs for plotting
     vector<double> Costs = nn.GetCosts();

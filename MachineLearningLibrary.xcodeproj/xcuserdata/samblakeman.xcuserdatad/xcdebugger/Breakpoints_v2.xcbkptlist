@@ -357,15 +357,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/NeuralNetwork.cpp"
-            timestampString = "520080577.727979"
+            timestampString = "522111032.794268"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "NeuralNetwork::WinningOutput(MatrixXd Outputs)"
             landmarkType = "5">
          </BreakpointContent>
@@ -377,11 +377,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/NeuralNetwork.cpp"
-            timestampString = "520082178.701767"
+            timestampString = "522114785.000241"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
             landmarkName = "NeuralNetwork::CalculateGradients(const MatrixXd&amp; Outputs, const MatrixXd&amp; XTrain, const MatrixXd&amp; YTrain)"
             landmarkType = "5">
          </BreakpointContent>
@@ -393,12 +393,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/NeuralNetwork.cpp"
-            timestampString = "520107684.20255"
+            timestampString = "522111032.794268"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
             landmarkName = "NeuralNetwork::CalculateCosts(const MatrixXd&amp; Outputs, const MatrixXd&amp; YTrain, int iter)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MachineLearningLibrary/NeuralNetwork.cpp"
+            timestampString = "522111469.394865"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "NeuralNetwork::InitialiseWeights()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
