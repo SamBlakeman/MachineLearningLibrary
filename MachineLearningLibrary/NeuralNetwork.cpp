@@ -57,6 +57,8 @@ void NeuralNetwork::Fit(MatrixXd XTrain, const MatrixXd& YTrain)
         w1 = w1 - deltaW1;
         w2 = w2 - deltaW2;
         
+        cout << "Iter = " << iter;
+        
     }
     
     
@@ -89,13 +91,9 @@ void NeuralNetwork::Sigmoid(vector<double>& Vec)
 
 void NeuralNetwork::Sigmoid(MatrixXd& Mat)
 {
-    for(int r = 0; r < Mat.rows(); ++r)
-    {
-        for(int c = 0; c < Mat.cols(); ++c)
-        {
-            Mat(r,c) = 1/(1+exp(-Mat(r,c)));
-        }
-    }
+    MatrixXd Numerator = MatrixXd::Ones(Mat.rows(), Mat.cols());
+    MatrixXd Denominator = (1 + Mat.array().exp());
+    Mat = Numerator.array() / Denominator.array();
     
     return;
 }
@@ -195,23 +193,8 @@ void NeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTra
     
     double RegTerm = 0;
     
-    for (int h = 0; h < numHid; ++h)
-    {
-        for(int f = 0; f < numFeatures; ++f)
-        {
-            RegTerm += pow(w1(h,f), 2);
-        }
-    }
-    
-    for (int o = 0; o < numOut; ++o)
-    {
-        for(int h = 0; h < numHid; ++h)
-        {
-            RegTerm += pow(w2(o,h), 2);
-        }
-    }
-    
-    
+    RegTerm += (w1.cwiseProduct(w1)).sum();
+    RegTerm += (w2.cwiseProduct(w2)).sum();
     RegTerm *= Lambda/(2*numTrainExamples);
     Costs[iter] += RegTerm;
     
@@ -234,8 +217,8 @@ pair<MatrixXd,MatrixXd> NeuralNetwork::CalculateGradients(const MatrixXd& Output
     // Get the layer 2 errors
     MatrixXd delta2 = delta3 * w2;
     Sigmoid(z2);
-    delta2 = delta2 *(z2 * (MatrixXd::Ones(z2.rows(), z2.cols()) - z2));
-    delta2 = delta2.transpose();
+    delta2 = ((MatrixXd::Ones(z2.rows(), z2.cols()) - z2).cwiseProduct(z2)).cwiseProduct(delta2);
+    delta2.transposeInPlace();
     delta2.conservativeResize(delta2.rows()-1, delta2.cols());
     
     // Calculate the two gradients

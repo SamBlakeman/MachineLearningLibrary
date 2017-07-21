@@ -361,11 +361,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/NeuralNetwork.cpp"
-            timestampString = "522111032.794268"
+            timestampString = "522326343.19311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "NeuralNetwork::WinningOutput(MatrixXd Outputs)"
             landmarkType = "5">
          </BreakpointContent>
@@ -377,11 +377,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/NeuralNetwork.cpp"
-            timestampString = "522114785.000241"
+            timestampString = "522326343.19311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "NeuralNetwork::CalculateGradients(const MatrixXd&amp; Outputs, const MatrixXd&amp; XTrain, const MatrixXd&amp; YTrain)"
             landmarkType = "5">
          </BreakpointContent>
@@ -393,11 +393,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/NeuralNetwork.cpp"
-            timestampString = "522111032.794268"
+            timestampString = "522326343.19311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "NeuralNetwork::CalculateCosts(const MatrixXd&amp; Outputs, const MatrixXd&amp; YTrain, int iter)"
             landmarkType = "5">
          </BreakpointContent>
@@ -409,11 +409,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/NeuralNetwork.cpp"
-            timestampString = "522111469.394865"
+            timestampString = "522326343.19311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "NeuralNetwork::InitialiseWeights()"
             landmarkType = "5">
          </BreakpointContent>

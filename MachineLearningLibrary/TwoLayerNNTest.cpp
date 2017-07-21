@@ -31,7 +31,7 @@ void TwoLayerNNTest::Run()
     double lambda = 1;
     int numHidden = 50;
     int numOutput = 10;
-    int Iters = 5;
+    int Iters = 100;
     
     // One hot encode Y
     vector<vector<double>> YTrainEnc = pp.OneHotEncoding(YTrain, numOutput);
