@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "NeuralNetwork::CalculateGradients(Eigen::Matrix&lt;double, -1, -1, 0, -1, -1&gt; const&amp;, Eigen::Matrix&lt;double, -1, -1, 0, -1, -1&gt; const&amp;, Eigen::Matrix&lt;double, -1, -1, 0, -1, -1&gt; const&amp;):NeuralNetwork.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "NeuralNetwork::CalculateCosts(Eigen::Matrix&lt;double, -1, -1, 0, -1, -1&gt; const&amp;, Eigen::Matrix&lt;double, -1, -1, 0, -1, -1&gt; const&amp;, int):NeuralNetwork.cpp">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

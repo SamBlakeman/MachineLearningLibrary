@@ -11,6 +11,7 @@
 #include "PreProcessing.hpp"
 #include "NeuralNetwork.hpp"
 #include <string>
+#include <iostream>
 
 void TwoLayerNNTest::Run()
 {
@@ -19,15 +20,21 @@ void TwoLayerNNTest::Run()
     
     vector<vector<double>> FeatureVector = Utilities::ReadCSVFeatureVector(FileName);
     
+    FeatureVector.resize(6000);
+    
     // Separate
     PreProcessing pp;
     YLocation yloc = FirstColumn;
     auto Separated = pp.SeperateXandY(FeatureVector, yloc);
     vector<vector<double>> XTrain = Separated.first;
     vector<double> YTrain = Separated.second;
+    
+    // Scale
+    //pp.NormaliseFit(XTrain);
+    //pp.NormaliseTransform(XTrain);
 
     // Train Network
-    double alpha = 0.1;
+    double alpha = 0.01;
     double lambda = 1;
     int numHidden = 50;
     int numOutput = 10;
@@ -37,7 +44,7 @@ void TwoLayerNNTest::Run()
     vector<vector<double>> YTrainEnc = pp.OneHotEncoding(YTrain, numOutput);
     
     // Get into Eigen format
-    //from v1 to an eignen vector
+    //from v1 to an eigen vector
     
     MatrixXd XT(XTrain.size(),XTrain[0].size());
     
@@ -61,9 +68,10 @@ void TwoLayerNNTest::Run()
         YT.row(i) = Yvec;
     }
     
-    
     NeuralNetwork nn(alpha, lambda, numHidden, numOutput, Iters);
     nn.Fit(XT, YT);
+    
+    cout << "Saving costs\n";
     
     // Save the costs for plotting
     vector<double> Costs = nn.GetCosts();

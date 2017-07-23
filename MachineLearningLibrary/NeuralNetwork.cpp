@@ -21,6 +21,7 @@ NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int num
     numHid = numHidden;
     numOut = numOutput;
     Iterations = Iters;
+    Costs = vector<double>(Iterations,0);
 }
 
 
@@ -38,9 +39,10 @@ void NeuralNetwork::Fit(MatrixXd XTrain, const MatrixXd& YTrain)
     // Randomise weights to start with
     InitialiseWeights();
     
+    cout << "Starting training\n";
+    
     for(int iter=0; iter < Iterations; ++iter)
     {
-    
         // Forward propagation
         MatrixXd Outputs = ForwardPropagation(XTrain);
     
@@ -57,8 +59,6 @@ void NeuralNetwork::Fit(MatrixXd XTrain, const MatrixXd& YTrain)
         w1 = w1 - deltaW1;
         w2 = w2 - deltaW2;
         
-        cout << "Iter = " << iter;
-        
     }
     
     
@@ -71,7 +71,7 @@ void NeuralNetwork::InitialiseWeights()
     // Zero initialisation
     w1 = MatrixXd::Random(numHid, numFeatures+1);
     w2 = MatrixXd::Random(numOut, numHid+1);
-    
+
     w1 /= 100;
     w2 /= 100;
     
@@ -92,7 +92,10 @@ void NeuralNetwork::Sigmoid(vector<double>& Vec)
 void NeuralNetwork::Sigmoid(MatrixXd& Mat)
 {
     MatrixXd Numerator = MatrixXd::Ones(Mat.rows(), Mat.cols());
-    MatrixXd Denominator = (1 + Mat.array().exp());
+    MatrixXd temp = -Mat;
+    temp = temp.array().exp();
+    MatrixXd Denominator = (MatrixXd::Ones(Mat.rows(), Mat.cols()) + temp);
+    
     Mat = Numerator.array() / Denominator.array();
     
     return;
@@ -156,47 +159,22 @@ VectorXd NeuralNetwork::WinningOutput(MatrixXd Outputs)
 
 void NeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter)
 {
-    VectorXd UnitCosts = VectorXd::Zero(numOut); // check it creates a vector of 0's
+    MatrixXd LogOutputs = Outputs.array().log();
+    MatrixXd term1 = -(YTrain.cwiseProduct(LogOutputs));
     
-    for(int i = 0; i < numTrainExamples; ++i) // TODO vectorise
-    {
-        
-        
-        VectorXd logOutputs = Outputs.row(i);
-        
-        for(int l = 0; l < logOutputs.size(); ++l)
-        {
-            logOutputs(l) = log(logOutputs(l));
-        }
-        
-        VectorXd logOneMinusOutputs = Outputs.row(i);
-        for(int l = 0; l < logOneMinusOutputs.size(); ++l)
-        {
-            logOneMinusOutputs(l) = log(1 - logOneMinusOutputs(l));
-        }
-        
-        VectorXd YTrainRow = YTrain.row(i);
-        VectorXd term1 = YTrainRow * -1;
-        term1 = term1.cwiseProduct(logOutputs);
-        
-        VectorXd one = VectorXd::Ones(YTrain.cols());
-        VectorXd term2 = one - YTrainRow;
-        term2 = term2.cwiseProduct(logOneMinusOutputs);
-        
-        UnitCosts = UnitCosts + (term1 - term2);
-        
-    }
+    MatrixXd logOneMinusOutputs = (MatrixXd::Ones(Outputs.rows(), Outputs.cols()) - Outputs).array().log();
+    MatrixXd term2 = (MatrixXd::Ones(YTrain.rows(),YTrain.cols()) - YTrain).cwiseProduct(logOneMinusOutputs);
     
-    Costs.push_back(0);
-    Costs[iter] = UnitCosts.sum();
+    Costs[iter] = (term1 - term2).sum();
     Costs[iter] *= (1/numTrainExamples);
     
     double RegTerm = 0;
-    
     RegTerm += (w1.cwiseProduct(w1)).sum();
     RegTerm += (w2.cwiseProduct(w2)).sum();
     RegTerm *= Lambda/(2*numTrainExamples);
     Costs[iter] += RegTerm;
+    
+    cout << "Cost for iter " << iter << " = " << Costs[iter] << endl;
     
     return;
 }
@@ -217,6 +195,7 @@ pair<MatrixXd,MatrixXd> NeuralNetwork::CalculateGradients(const MatrixXd& Output
     // Get the layer 2 errors
     MatrixXd delta2 = delta3 * w2;
     Sigmoid(z2);
+    
     delta2 = ((MatrixXd::Ones(z2.rows(), z2.cols()) - z2).cwiseProduct(z2)).cwiseProduct(delta2);
     delta2.transposeInPlace();
     delta2.conservativeResize(delta2.rows()-1, delta2.cols());
@@ -225,9 +204,12 @@ pair<MatrixXd,MatrixXd> NeuralNetwork::CalculateGradients(const MatrixXd& Output
     MatrixXd grad1 = delta2 * XTrain;
     MatrixXd grad2 = delta3.transpose() * z2;
     
+    grad1 *= 1/numTrainExamples;
+    grad2 *= 1/numTrainExamples;
+    
     // Regularise
-    grad1 += w1 * Lambda;
-    grad2 += w2 * Lambda;
+    grad1 += w1 * (Lambda/numTrainExamples);
+    grad2 += w2 * (Lambda/numTrainExamples);
     
     return make_pair(grad1, grad2);
 }
