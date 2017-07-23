@@ -28,13 +28,9 @@ void TwoLayerNNTest::Run()
     auto Separated = pp.SeperateXandY(FeatureVector, yloc);
     vector<vector<double>> XTrain = Separated.first;
     vector<double> YTrain = Separated.second;
-    
-    // Scale
-    //pp.NormaliseFit(XTrain);
-    //pp.NormaliseTransform(XTrain);
 
     // Train Network
-    double alpha = 0.01;
+    double alpha = 0.1;
     double lambda = 1;
     int numHidden = 50;
     int numOutput = 10;
@@ -43,33 +39,8 @@ void TwoLayerNNTest::Run()
     // One hot encode Y
     vector<vector<double>> YTrainEnc = pp.OneHotEncoding(YTrain, numOutput);
     
-    // Get into Eigen format
-    //from v1 to an eigen vector
-    
-    MatrixXd XT(XTrain.size(),XTrain[0].size());
-    
-    for(int i = 0; i < XTrain.size(); ++i)
-    {
-        vector<double> vec = XTrain[i];
-        double* ptr_data = &vec[0];
-        Eigen::VectorXd Xvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
-        
-        XT.row(i) = Xvec;
-    }
-    
-    MatrixXd YT(YTrainEnc.size(),YTrainEnc[0].size());
-    
-    for(int i = 0; i < YTrainEnc.size(); ++i)
-    {
-        vector<double> vec = YTrainEnc[i];
-        double* ptr_data = &vec[0];
-        Eigen::VectorXd Yvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
-        
-        YT.row(i) = Yvec;
-    }
-    
     NeuralNetwork nn(alpha, lambda, numHidden, numOutput, Iters);
-    nn.Fit(XT, YT);
+    nn.Fit(XTrain, YTrainEnc);
     
     cout << "Saving costs\n";
     

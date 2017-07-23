@@ -26,8 +26,11 @@ NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int num
 
 
 
-void NeuralNetwork::Fit(MatrixXd XTrain, const MatrixXd& YTrain)
+void NeuralNetwork::Fit(const vector<vector<double>>& X, const vector<vector<double>>& Y)
 {
+    pair<MatrixXd,MatrixXd> Eigens = ConvertToEigen(X, Y);
+    MatrixXd XTrain = Eigens.first;
+    MatrixXd YTrain = Eigens.second;
     
     numFeatures = XTrain.cols();
     numTrainExamples = XTrain.rows();
@@ -78,17 +81,6 @@ void NeuralNetwork::InitialiseWeights()
     return;
 }
 
-
-void NeuralNetwork::Sigmoid(vector<double>& Vec)
-{
-    for(int i = 0; i < Vec.size(); ++i)
-    {
-        Vec[i] = 1/(1+exp(-Vec[i]));
-    }
-    
-    return;
-}
-
 void NeuralNetwork::Sigmoid(MatrixXd& Mat)
 {
     MatrixXd Numerator = MatrixXd::Ones(Mat.rows(), Mat.cols());
@@ -100,9 +92,6 @@ void NeuralNetwork::Sigmoid(MatrixXd& Mat)
     
     return;
 }
-
-
-
 
 VectorXd NeuralNetwork::Predict(MatrixXd XTest)
 {
@@ -169,8 +158,8 @@ void NeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTra
     Costs[iter] *= (1/numTrainExamples);
     
     double RegTerm = 0;
-    RegTerm += (w1.cwiseProduct(w1)).sum();
-    RegTerm += (w2.cwiseProduct(w2)).sum();
+    RegTerm += ((w1.block(0, 0, w1.rows(), w1.cols()-1)).cwiseProduct((w1.block(0, 0, w1.rows(), w1.cols()-1)))).sum();
+    RegTerm += ((w2.block(0, 0, w2.rows(), w2.cols()-1)).cwiseProduct((w2.block(0, 0, w2.rows(), w2.cols()-1)))).sum();
     RegTerm *= Lambda/(2*numTrainExamples);
     Costs[iter] += RegTerm;
     
@@ -208,31 +197,12 @@ pair<MatrixXd,MatrixXd> NeuralNetwork::CalculateGradients(const MatrixXd& Output
     grad2 *= 1/numTrainExamples;
     
     // Regularise
-    grad1 += w1 * (Lambda/numTrainExamples);
-    grad2 += w2 * (Lambda/numTrainExamples);
+    grad1.block(0, 0, grad1.rows(), grad1.cols()-1) += (w1.block(0, 0, w1.rows(), w1.cols()-1)) * (Lambda/numTrainExamples);
+    
+    grad2.block(0, 0, grad2.rows(), grad2.cols()-1) += (w2.block(0, 0, w2.rows(), w2.cols()-1)) * (Lambda/numTrainExamples);
     
     return make_pair(grad1, grad2);
 }
-
-
-/*void NeuralNetwork::AddBiasUnit(MatrixXd &Activations, BiasLocation Location)
-{
-    if(Location == Row)
-    {
-        // Add a column of ones
-        for(int i = 0; i < Activations.size(); ++i)
-        {
-            Activations[i].push_back(1);
-        }
-    }
-    else if(Location == Column)
-    {
-        // Add a row of ones
-        Activations.push_back(vector<double> (Activations[0].size(), 1));
-    }
-    
-    return;
-}*/
 
 vector<double> NeuralNetwork::GetCosts()
 {
@@ -243,4 +213,30 @@ vector<double> NeuralNetwork::GetCosts()
     }
     
     return Costs;
+}
+
+pair<MatrixXd,MatrixXd> NeuralNetwork::ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain )
+{
+
+    MatrixXd XT(XTrain.size(),XTrain[0].size());
+
+    for(int i = 0; i < XTrain.size(); ++i)
+    {
+        vector<double> vec = XTrain[i];
+        Eigen::VectorXd Xvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
+    
+        XT.row(i) = Xvec;
+    }
+
+    MatrixXd YT(YTrain.size(),YTrain[0].size());
+
+    for(int i = 0; i < YTrain.size(); ++i)
+    {
+        vector<double> vec = YTrain[i];
+        Eigen::VectorXd Yvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
+    
+        YT.row(i) = Yvec;
+    }
+    
+    return make_pair(XT, YT);
 }

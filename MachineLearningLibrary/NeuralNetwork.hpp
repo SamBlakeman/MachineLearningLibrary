@@ -16,8 +16,6 @@
 using namespace std;
 using namespace Eigen;
 
-enum BiasLocation{Row,Column};
-
 class NeuralNetwork
 {
 public:
@@ -26,7 +24,7 @@ public:
     NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters);
     
     // Fit the weights of the model
-    void Fit(MatrixXd XTrain, const MatrixXd& YTrain);
+    void Fit(const vector<vector<double>>& X, const vector<vector<double>>& Y);
     void InitialiseWeights();
     
     // Predict
@@ -40,10 +38,9 @@ public:
 private:
     
     // Fit
-    void Sigmoid(vector<double>& Vec);
+    pair<MatrixXd,MatrixXd> ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain );
     void Sigmoid(MatrixXd& Mat);
     MatrixXd ForwardPropagation(const MatrixXd& X);
-    //void AddBiasUnit(vector<vector<double>>& Activations, BiasLocation Location);
     void CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter);
     pair<MatrixXd,MatrixXd> CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain);
     
