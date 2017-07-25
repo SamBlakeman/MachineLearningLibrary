@@ -13,6 +13,8 @@
 #include <vector>
 #include "Eigen/Dense"
 
+enum ActivationFunction {linear, sigmoid, relu};
+
 using namespace std;
 using namespace Eigen;
 
@@ -21,7 +23,7 @@ class NeuralNetwork
 public:
     
     // Constructors
-    NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters);
+    NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters, ActivationFunction AF);
     
     // Fit the weights of the model
     void Fit(const vector<vector<double>>& X, const vector<vector<double>>& Y);
@@ -39,10 +41,13 @@ private:
     
     // Fit
     pair<MatrixXd,MatrixXd> ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain );
+    void Linear(MatrixXd& Mat);
     void Sigmoid(MatrixXd& Mat);
+    void ReLU(MatrixXd& Mat);
     MatrixXd ForwardPropagation(const MatrixXd& X);
     void CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter);
     pair<MatrixXd,MatrixXd> CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain);
+    void Activate(MatrixXd& Mat);
     
     
     // Predict
@@ -58,6 +63,7 @@ private:
     MatrixXd w1;
     MatrixXd w2;
     vector<double> Costs;
+    ActivationFunction Activation;
     
     
     

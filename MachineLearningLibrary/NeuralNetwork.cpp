@@ -14,7 +14,7 @@
 #include <numeric>
 
 
-NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters)
+NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters, ActivationFunction AF)
 {
     Alpha = alpha;
     Lambda = lambda;
@@ -22,6 +22,7 @@ NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int num
     numOut = numOutput;
     Iterations = Iters;
     Costs = vector<double>(Iterations,0);
+    Activation = AF;
 }
 
 
@@ -81,6 +82,31 @@ void NeuralNetwork::InitialiseWeights()
     return;
 }
 
+void NeuralNetwork::Activate(MatrixXd& Mat)
+{
+    switch(Activation)
+    {
+        case linear:
+            Linear(Mat);
+            return;
+            
+        case sigmoid:
+            Sigmoid(Mat);
+            return;
+            
+        case relu:
+            ReLU(Mat);
+            return;
+    }
+    
+    return;
+}
+
+void NeuralNetwork::Linear(MatrixXd& Mat)
+{
+    return;
+}
+
 void NeuralNetwork::Sigmoid(MatrixXd& Mat)
 {
     MatrixXd Numerator = MatrixXd::Ones(Mat.rows(), Mat.cols());
@@ -89,6 +115,22 @@ void NeuralNetwork::Sigmoid(MatrixXd& Mat)
     MatrixXd Denominator = (MatrixXd::Ones(Mat.rows(), Mat.cols()) + temp);
     
     Mat = Numerator.array() / Denominator.array();
+    
+    return;
+}
+
+void NeuralNetwork::ReLU(MatrixXd& Mat)
+{
+    for(int c=0; c < Mat.cols(); ++c)
+    {
+        for(int r=0; r < Mat.rows(); ++r)
+        {
+            if(Mat(r,c) < 0)
+            {
+                Mat(r,c) = 0;
+            }
+        }
+    }
     
     return;
 }
@@ -120,14 +162,14 @@ VectorXd NeuralNetwork::Predict(MatrixXd XTest)
 MatrixXd NeuralNetwork::ForwardPropagation(const MatrixXd& X)
 {
     MatrixXd a2 = X * w1.transpose();
-    Sigmoid(a2);
+    Activate(a2);
     
     // Add a column of ones
     a2.conservativeResize(a2.rows(), a2.cols()+1);
     a2.col(a2.cols()-1) = VectorXd::Ones(a2.rows());
     
     MatrixXd a3 = a2 * w2.transpose();
-    Sigmoid(a3);
+    Activate(a3);
     
     return a3;
 }
@@ -183,7 +225,7 @@ pair<MatrixXd,MatrixXd> NeuralNetwork::CalculateGradients(const MatrixXd& Output
     
     // Get the layer 2 errors
     MatrixXd delta2 = delta3 * w2;
-    Sigmoid(z2);
+    Activate(z2);
     
     delta2 = ((MatrixXd::Ones(z2.rows(), z2.cols()) - z2).cwiseProduct(z2)).cwiseProduct(delta2);
     delta2.transposeInPlace();

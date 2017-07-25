@@ -28,6 +28,10 @@ void TwoLayerNNTest::Run()
     auto Separated = pp.SeperateXandY(FeatureVector, yloc);
     vector<vector<double>> XTrain = Separated.first;
     vector<double> YTrain = Separated.second;
+    
+    // Normalise
+    pp.NormaliseFit(XTrain);
+    pp.NormaliseTransform(XTrain);
 
     // Train Network
     double alpha = 0.1;
@@ -35,11 +39,12 @@ void TwoLayerNNTest::Run()
     int numHidden = 50;
     int numOutput = 10;
     int Iters = 100;
+    ActivationFunction AF = relu;
     
     // One hot encode Y
     vector<vector<double>> YTrainEnc = pp.OneHotEncoding(YTrain, numOutput);
     
-    NeuralNetwork nn(alpha, lambda, numHidden, numOutput, Iters);
+    NeuralNetwork nn(alpha, lambda, numHidden, numOutput, Iters, AF);
     nn.Fit(XTrain, YTrainEnc);
     
     cout << "Saving costs\n";
