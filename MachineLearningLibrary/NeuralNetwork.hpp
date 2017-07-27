@@ -23,7 +23,8 @@ class NeuralNetwork
 public:
     
     // Constructors
-    NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters, ActivationFunction AF);
+    NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters);
+    NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters, ActivationFunction HiddenActivation);
     
     // Fit the weights of the model
     void Fit(const vector<vector<double>>& X, const vector<vector<double>>& Y);
@@ -47,7 +48,8 @@ private:
     MatrixXd ForwardPropagation(const MatrixXd& X);
     void CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter);
     pair<MatrixXd,MatrixXd> CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain);
-    void Activate(MatrixXd& Mat);
+    void ActivateHidden(MatrixXd& Mat);
+    void ActivateOutput(MatrixXd& Mat);
     
     
     // Predict
@@ -63,9 +65,8 @@ private:
     MatrixXd w1;
     MatrixXd w2;
     vector<double> Costs;
-    ActivationFunction Activation;
-    
-    
+    ActivationFunction HiddenActFun = sigmoid;
+    ActivationFunction OutputActFun = sigmoid;
     
 };
 

@@ -22,6 +22,11 @@ int main(int argc, const char * argv[]) {
     
     /*
      TODO:
+     - Sort gradients for relu and linear in the hidden layer
+     - Maybe also include a leaky relu
+     - incorporate regression cost function and linear gradients at the outputs layer
+     
+     
      - Naive Bayes classifer
      - finish all the constructor combinations
      - make continuous and discrete an enum

@@ -13,8 +13,7 @@
 #include <iostream>
 #include <numeric>
 
-
-NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters, ActivationFunction AF)
+NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters)
 {
     Alpha = alpha;
     Lambda = lambda;
@@ -22,7 +21,17 @@ NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int num
     numOut = numOutput;
     Iterations = Iters;
     Costs = vector<double>(Iterations,0);
-    Activation = AF;
+}
+
+NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters, ActivationFunction HiddenActivation)
+{
+    Alpha = alpha;
+    Lambda = lambda;
+    numHid = numHidden;
+    numOut = numOutput;
+    Iterations = Iters;
+    Costs = vector<double>(Iterations,0);
+    HiddenActFun = HiddenActivation;
 }
 
 
@@ -76,15 +85,35 @@ void NeuralNetwork::InitialiseWeights()
     w1 = MatrixXd::Random(numHid, numFeatures+1);
     w2 = MatrixXd::Random(numOut, numHid+1);
 
-    w1 /= 100;
-    w2 /= 100;
+    w1 /= 1000;
+    w2 /= 1000;
     
     return;
 }
 
-void NeuralNetwork::Activate(MatrixXd& Mat)
+void NeuralNetwork::ActivateHidden(MatrixXd& Mat)
 {
-    switch(Activation)
+    switch(HiddenActFun)
+    {
+        case linear:
+            Linear(Mat);
+            return;
+            
+        case sigmoid:
+            Sigmoid(Mat);
+            return;
+            
+        case relu:
+            ReLU(Mat);
+            return;
+    }
+    
+    return;
+}
+
+void NeuralNetwork::ActivateOutput(MatrixXd& Mat)
+{
+    switch(OutputActFun)
     {
         case linear:
             Linear(Mat);
@@ -131,7 +160,6 @@ void NeuralNetwork::ReLU(MatrixXd& Mat)
             }
         }
     }
-    
     return;
 }
 
@@ -162,14 +190,14 @@ VectorXd NeuralNetwork::Predict(MatrixXd XTest)
 MatrixXd NeuralNetwork::ForwardPropagation(const MatrixXd& X)
 {
     MatrixXd a2 = X * w1.transpose();
-    Activate(a2);
+    ActivateHidden(a2);
     
     // Add a column of ones
     a2.conservativeResize(a2.rows(), a2.cols()+1);
     a2.col(a2.cols()-1) = VectorXd::Ones(a2.rows());
     
     MatrixXd a3 = a2 * w2.transpose();
-    Activate(a3);
+    ActivateOutput(a3);
     
     return a3;
 }
@@ -225,7 +253,7 @@ pair<MatrixXd,MatrixXd> NeuralNetwork::CalculateGradients(const MatrixXd& Output
     
     // Get the layer 2 errors
     MatrixXd delta2 = delta3 * w2;
-    Activate(z2);
+    ActivateHidden(z2);
     
     delta2 = ((MatrixXd::Ones(z2.rows(), z2.cols()) - z2).cwiseProduct(z2)).cwiseProduct(delta2);
     delta2.transposeInPlace();

@@ -30,8 +30,8 @@ void TwoLayerNNTest::Run()
     vector<double> YTrain = Separated.second;
     
     // Normalise
-    pp.NormaliseFit(XTrain);
-    pp.NormaliseTransform(XTrain);
+    //pp.NormaliseFit(XTrain);
+    //pp.NormaliseTransform(XTrain);
 
     // Train Network
     double alpha = 0.1;
