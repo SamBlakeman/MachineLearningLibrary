@@ -255,7 +255,7 @@ pair<MatrixXd,MatrixXd> NeuralNetwork::CalculateGradients(const MatrixXd& Output
     MatrixXd delta2 = delta3 * w2;
     ActivateHidden(z2);
     
-    delta2 = ((MatrixXd::Ones(z2.rows(), z2.cols()) - z2).cwiseProduct(z2)).cwiseProduct(delta2);
+    delta2 = (GetHiddenActivationGradient(z2)).cwiseProduct(delta2);
     delta2.transposeInPlace();
     delta2.conservativeResize(delta2.rows()-1, delta2.cols());
     
@@ -309,4 +309,34 @@ pair<MatrixXd,MatrixXd> NeuralNetwork::ConvertToEigen(const vector<vector<double
     }
     
     return make_pair(XT, YT);
+}
+
+MatrixXd NeuralNetwork::GetHiddenActivationGradient(const MatrixXd& Activations)
+{
+    switch(HiddenActFun)
+    {
+        case sigmoid:
+        {
+            return (MatrixXd::Ones(Activations.rows(), Activations.cols()) - Activations).cwiseProduct(Activations);
+        }
+        case relu:
+        {
+            MatrixXd Gradients = MatrixXd::Zero(Activations.rows(), Activations.cols());
+            for(int c=0; c < Activations.cols(); ++c)
+            {
+                for(int r=0; r < Activations.rows(); ++r)
+                {
+                    if(Activations(r,c) > 0)
+                    {
+                        Gradients(r,c) = 1;
+                    }
+                }
+            }
+            return Gradients;
+        }
+        case linear:
+        {
+            return MatrixXd::Ones(Activations.rows(), Activations.cols());
+        }
+    }
 }

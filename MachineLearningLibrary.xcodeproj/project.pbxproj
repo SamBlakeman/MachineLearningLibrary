@@ -19,6 +19,7 @@
 		8882BEA51EDCBE0900405A0E /* NBCTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8882BEA31EDCBE0900405A0E /* NBCTest.cpp */; };
 		88931E851ED4F5820041E9DC /* LogRegTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88931E831ED4F5820041E9DC /* LogRegTest.cpp */; };
 		88DC301B1ED0D0FC00BC9E38 /* LogisticRegression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88DC30191ED0D0FC00BC9E38 /* LogisticRegression.cpp */; };
+		88E6E10A1F2B8E61005F1A80 /* DeepNeuralNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88E6E1081F2B8E61005F1A80 /* DeepNeuralNetwork.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +59,8 @@
 		88931E841ED4F5820041E9DC /* LogRegTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LogRegTest.hpp; sourceTree = "<group>"; };
 		88DC30191ED0D0FC00BC9E38 /* LogisticRegression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogisticRegression.cpp; sourceTree = "<group>"; };
 		88DC301A1ED0D0FC00BC9E38 /* LogisticRegression.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LogisticRegression.hpp; sourceTree = "<group>"; };
+		88E6E1081F2B8E61005F1A80 /* DeepNeuralNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeepNeuralNetwork.cpp; sourceTree = "<group>"; };
+		88E6E1091F2B8E61005F1A80 /* DeepNeuralNetwork.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DeepNeuralNetwork.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +107,8 @@
 				88687A3A1ED9F09D00E1C256 /* NaiveBayesClassifier.hpp */,
 				8835FB3F1EE6F9C3003E7A98 /* NeuralNetwork.cpp */,
 				8835FB401EE6F9C3003E7A98 /* NeuralNetwork.hpp */,
+				88E6E1081F2B8E61005F1A80 /* DeepNeuralNetwork.cpp */,
+				88E6E1091F2B8E61005F1A80 /* DeepNeuralNetwork.hpp */,
 			);
 			path = MachineLearningLibrary;
 			sourceTree = "<group>";
@@ -193,6 +198,7 @@
 				883F0BA31EBCF31600A3E0E2 /* LinearRegression.cpp in Sources */,
 				883F0B9C1EB7F16700A3E0E2 /* NormaliseTest.cpp in Sources */,
 				88931E851ED4F5820041E9DC /* LogRegTest.cpp in Sources */,
+				88E6E10A1F2B8E61005F1A80 /* DeepNeuralNetwork.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

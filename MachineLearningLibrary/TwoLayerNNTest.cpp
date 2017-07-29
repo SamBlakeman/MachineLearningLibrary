@@ -34,7 +34,7 @@ void TwoLayerNNTest::Run()
     //pp.NormaliseTransform(XTrain);
 
     // Train Network
-    double alpha = 0.1;
+    double alpha = 0.001;
     double lambda = 1;
     int numHidden = 50;
     int numOutput = 10;

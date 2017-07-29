@@ -50,6 +50,7 @@ private:
     pair<MatrixXd,MatrixXd> CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain);
     void ActivateHidden(MatrixXd& Mat);
     void ActivateOutput(MatrixXd& Mat);
+    MatrixXd GetHiddenActivationGradient(const MatrixXd& Activations);
     
     
     // Predict
