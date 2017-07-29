@@ -49,18 +49,61 @@ void DenseLayer::Activate(MatrixXd& Mat)
     {
         case sigmoid:
         {
-            
+            Sigmoid(Mat);
+            return;
         }
         case relu:
         {
-            
+            ReLU(Mat);
+            return;
         }
         case linear:
         {
-            
+            Linear(Mat);
+            return;
         }  
     }
     
+}
+
+
+void DenseLayer::Linear(MatrixXd& Mat)
+{
+    return;
+}
+
+
+void DenseLayer::Sigmoid(MatrixXd& Mat)
+{
+    MatrixXd Numerator = MatrixXd::Ones(Mat.rows(), Mat.cols());
+    MatrixXd temp = -Mat;
+    temp = temp.array().exp();
+    MatrixXd Denominator = (MatrixXd::Ones(Mat.rows(), Mat.cols()) + temp);
+    
+    Mat = Numerator.array() / Denominator.array();
+    
+    return;
+}
+
+
+void DenseLayer::ReLU(MatrixXd& Mat)
+{
+    for(int c=0; c < Mat.cols(); ++c)
+    {
+        for(int r=0; r < Mat.rows(); ++r)
+        {
+            if(Mat(r,c) < 0)
+            {
+                Mat(r,c) = 0;
+            }
+        }
+    }
+    return;
+}
+
+double DenseLayer::GetPenalty()
+{
+    return ((w.block(0, 0, w.rows(), w.cols()-1)).cwiseProduct((w.block(0, 0, w.rows(), w.cols()-1)))).sum();
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -106,7 +149,7 @@ void DeepNeuralNetwork::Fit(const vector<vector<double>>& X, const vector<vector
         MatrixXd Outputs = ForwardPropagation(XTrain);
         
         // Calculate Cost
-        //CalculateCosts(Outputs, YTrain, iter);
+        CalculateCosts(Outputs, YTrain, iter);
         
         // Partial derivatives
         //pair<MatrixXd,MatrixXd> Gradients = CalculateGradients(Outputs, XTrain, YTrain);
@@ -181,6 +224,39 @@ void DeepNeuralNetwork::Sigmoid(MatrixXd& Mat)
     MatrixXd Denominator = (MatrixXd::Ones(Mat.rows(), Mat.cols()) + temp);
     
     Mat = Numerator.array() / Denominator.array();
+    
+    return;
+}
+
+
+void DeepNeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter)
+{
+    MatrixXd LogOutputs = Outputs.array().log();
+    MatrixXd term1 = -(YTrain.cwiseProduct(LogOutputs));
+    
+    MatrixXd logOneMinusOutputs = (MatrixXd::Ones(Outputs.rows(), Outputs.cols()) - Outputs).array().log();
+    MatrixXd term2 = (MatrixXd::Ones(YTrain.rows(),YTrain.cols()) - YTrain).cwiseProduct(logOneMinusOutputs);
+    
+    Costs[iter] = (term1 - term2).sum();
+    Costs[iter] *= (1/numTrainExamples);
+    
+    double RegTerm = 0;
+    
+    if(!HiddenLayers.empty())
+    {
+        for(int l=0; l < HiddenLayers.size(); ++l)
+        {
+            RegTerm += HiddenLayers[l].GetPenalty();
+        }
+        
+    }
+    
+    RegTerm += ((OutputWeights.block(0, 0, OutputWeights.rows(), OutputWeights.cols()-1)).cwiseProduct((OutputWeights.block(0, 0, OutputWeights.rows(), OutputWeights.cols()-1)))).sum();
+    
+    RegTerm *= Lambda/(2*numTrainExamples);
+    Costs[iter] += RegTerm;
+    
+    cout << "Cost for iter " << iter << " = " << Costs[iter] << endl;
     
     return;
 }

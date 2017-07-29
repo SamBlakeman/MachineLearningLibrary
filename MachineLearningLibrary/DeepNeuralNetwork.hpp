@@ -25,11 +25,15 @@ public:
     DenseLayer(int NumberOfUnits, int NumberOfInputs);
     DenseLayer(int NumberOfUnits, int NumberOfInputs, ActivationFunction Activation);
     int GetNumberOfUnits();
+    double GetPenalty();
     void Propagate(MatrixXd& Inputs);
     
 private:
     
     void Activate(MatrixXd& Mat);
+    void Linear(MatrixXd& Mat);
+    void Sigmoid(MatrixXd& Mat);
+    void ReLU(MatrixXd& Mat);
     
     MatrixXd w;
     double numInputs;
@@ -53,6 +57,7 @@ private:
     void InitialiseOutputWeights();
     MatrixXd ForwardPropagation(const MatrixXd& X);
     void Sigmoid(MatrixXd& Mat);
+    void CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter);
     pair<MatrixXd,MatrixXd> ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain );
     
     double Alpha = 0.1;

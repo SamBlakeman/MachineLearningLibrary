@@ -116,16 +116,20 @@ void NeuralNetwork::ActivateOutput(MatrixXd& Mat)
     switch(OutputActFun)
     {
         case linear:
+        {
             Linear(Mat);
             return;
-            
+        }
         case sigmoid:
+        {
             Sigmoid(Mat);
             return;
-            
+        }
         case relu:
+        {
             ReLU(Mat);
             return;
+        }
     }
     
     return;
