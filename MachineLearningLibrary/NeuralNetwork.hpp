@@ -35,7 +35,7 @@ public:
     
     // Getters
     //vector<double> GetWeights();
-    vector<double> GetCosts();
+    vector<double> GetCosts() const;
     //double GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y);
     
 private:

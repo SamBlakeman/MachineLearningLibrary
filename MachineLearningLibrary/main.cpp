@@ -12,13 +12,14 @@
 #include "LRTest.hpp"
 #include "LogRegTest.hpp"
 #include "NBCTest.hpp"
-#include "TwoLayerNNTest.hpp"
+#include "NeuralNetworkTest.hpp"
+#include "DeepNeuralNetworkTest.hpp"
 
 int main(int argc, const char * argv[]) {
     
-    TwoLayerNNTest NNTest;
+    DeepNeuralNetworkTest DNNTest;
     
-    NNTest.Run();
+    DNNTest.Run();
     
     /*
      TODO:

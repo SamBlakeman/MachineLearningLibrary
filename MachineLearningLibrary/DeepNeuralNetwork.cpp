@@ -14,8 +14,6 @@ DenseLayer::DenseLayer(int NumberOfUnits, int NumberOfInputs)
     numUnits = NumberOfUnits;
     numInputs = NumberOfInputs;
     
-    w = MatrixXd::Random(NumberOfUnits, NumberOfInputs+1);
-    w /= 1000;
     return;
 }
 
@@ -25,8 +23,17 @@ DenseLayer::DenseLayer(int NumberOfUnits, int NumberOfInputs, ActivationFunction
     numInputs = NumberOfInputs;
     ActFun = Activation;
     
-    w = MatrixXd::Random(NumberOfUnits, NumberOfInputs+1);
-    w /= 1000;
+    return;
+}
+
+void DenseLayer::InitialiseWeights(int NumberOfOutputs)
+{
+    numOutputs = NumberOfOutputs;
+    
+    // Xavier Initialization
+    double r = sqrt(6/(numInputs+1+numOutputs));
+    w = MatrixXd::Random(numUnits, numInputs+1)*r;
+    
     return;
 }
 
@@ -114,6 +121,7 @@ DeepNeuralNetwork::DeepNeuralNetwork(double alpha, double lambda, int numOutput,
     Lambda = lambda;
     numOut = numOutput;
     Iterations = Iters;
+    Costs = vector<double>(Iterations,0);
     
     return;
 }
@@ -139,6 +147,7 @@ void DeepNeuralNetwork::Fit(const vector<vector<double>>& X, const vector<vector
     XTrain.col(XTrain.cols()-1) = VectorXd::Ones(XTrain.rows());
     
     // Randomise output weights
+    InitialiseHiddenWeights();
     InitialiseOutputWeights();
     
     cout << "Starting training\n";
@@ -172,15 +181,30 @@ void DeepNeuralNetwork::InitialiseOutputWeights()
     // Zero initialisation
     if(HiddenLayers.empty())
     {
-        OutputWeights = MatrixXd::Random(numOut, numFeatures+1);
+        double r = sqrt(6/(numFeatures+1+1));
+        OutputWeights = MatrixXd::Random(numOut, numFeatures+1)*r;
     }
     else
     {
-        DenseLayer LastLayer = HiddenLayers[HiddenLayers.size()-1];
-        OutputWeights = MatrixXd::Random(numOut, LastLayer.GetNumberOfUnits()+1);
+        DenseLayer* LastLayer = &HiddenLayers[HiddenLayers.size()-1];
+        double r = sqrt(6/(LastLayer->GetNumberOfUnits()+1+1));
+        OutputWeights = MatrixXd::Random(numOut, LastLayer->GetNumberOfUnits()+1)*r;
     }
     
-    OutputWeights /= 1000;
+    return;
+}
+
+void DeepNeuralNetwork::InitialiseHiddenWeights()
+{
+    if(!HiddenLayers.empty())
+    {
+        for(int l=0; l < HiddenLayers.size(); ++l)
+        {
+            DenseLayer* Layer = &HiddenLayers[l];
+            int NumberOfOutputs = HiddenLayers[l+1].GetNumberOfUnits();
+            Layer->InitialiseWeights(NumberOfOutputs);
+        }
+    }
     
     return;
 }
@@ -199,10 +223,10 @@ MatrixXd DeepNeuralNetwork::ForwardPropagation(const MatrixXd& X)
     {
         for(int l=0; l < HiddenLayers.size(); ++l)
         {
-            DenseLayer Layer = HiddenLayers[l];
-            Layer.Propagate(Activations);
+            DenseLayer* Layer = &HiddenLayers[l];
+            Layer->Propagate(Activations);
             
-            // Add a column of ones (CHECK that we are always adding to the right dimension
+            // Add a column of ones (CHECK that we are always adding to the right dimension)
             Activations.conservativeResize(Activations.rows(), Activations.cols()+1);
             Activations.col(Activations.cols()-1) = VectorXd::Ones(Activations.rows());
         }
@@ -286,4 +310,16 @@ pair<MatrixXd,MatrixXd> DeepNeuralNetwork::ConvertToEigen(const vector<vector<do
     }
     
     return make_pair(XT, YT);
+}
+
+
+vector<double> DeepNeuralNetwork::GetCosts() const
+{
+    // Check for weights
+    if(Costs.empty())
+    {
+        cout << endl << "Error in GetCosts() - No costs have been calculated" << endl;
+    }
+    
+    return Costs;
 }

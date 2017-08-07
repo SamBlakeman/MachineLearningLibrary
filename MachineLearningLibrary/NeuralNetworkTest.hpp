@@ -6,12 +6,12 @@
 //  Copyright © 2017 Sam Blakeman. All rights reserved.
 //
 
-#ifndef TwoLayerNNTest_hpp
-#define TwoLayerNNTest_hpp
+#ifndef NeuralNetworkTest_hpp
+#define NeuralNetworkTest_hpp
 
 #include <stdio.h>
 
-class TwoLayerNNTest
+class NeuralNetworkTest
 {
 public:
     
@@ -23,4 +23,4 @@ private:
     
 };
 
-#endif /* TwoLayerNNTest_hpp */
+#endif /* NeuralNetworkTest_hpp */

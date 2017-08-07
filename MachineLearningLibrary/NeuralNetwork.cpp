@@ -81,12 +81,17 @@ void NeuralNetwork::Fit(const vector<vector<double>>& X, const vector<vector<dou
 
 void NeuralNetwork::InitialiseWeights()
 {
-    // Zero initialisation
-    w1 = MatrixXd::Random(numHid, numFeatures+1);
-    w2 = MatrixXd::Random(numOut, numHid+1);
-
-    w1 /= 1000;
-    w2 /= 1000;
+    // Xavier initialisation
+    double r1 = sqrt(6/(numFeatures+1+numOut));
+    double r2 = sqrt(6/(numHid+1+1));
+    
+    if(HiddenActFun == relu)
+    {
+        r1 *= sqrt(2);
+    }
+    
+    w1 = MatrixXd::Random(numHid, numFeatures+1)*r1;
+    w2 = MatrixXd::Random(numOut, numHid+1)*r2;
     
     return;
 }
@@ -278,7 +283,7 @@ pair<MatrixXd,MatrixXd> NeuralNetwork::CalculateGradients(const MatrixXd& Output
     return make_pair(grad1, grad2);
 }
 
-vector<double> NeuralNetwork::GetCosts()
+vector<double> NeuralNetwork::GetCosts() const
 {
     // Check for weights
     if(Costs.empty())

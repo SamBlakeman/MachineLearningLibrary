@@ -1,19 +1,19 @@
 //
-//  TwoLayerNNTest.cpp
+//  NeuralNetworkTest.cpp
 //  MachineLearningLibrary
 //
 //  Created by Sam Blakeman on 21/06/2017.
 //  Copyright © 2017 Sam Blakeman. All rights reserved.
 //
 
-#include "TwoLayerNNTest.hpp"
+#include "NeuralNetworkTest.hpp"
 #include "Utilities.hpp"
 #include "PreProcessing.hpp"
 #include "NeuralNetwork.hpp"
 #include <string>
 #include <iostream>
 
-void TwoLayerNNTest::Run()
+void NeuralNetworkTest::Run()
 {
     string fn = "/Users/samblakeman/Desktop/mnist_train.csv";
     const char* FileName = fn.c_str();
@@ -35,11 +35,11 @@ void TwoLayerNNTest::Run()
 
     // Train Network
     double alpha = 0.001;
-    double lambda = 1;
+    double lambda = 0;
     int numHidden = 50;
     int numOutput = 10;
     int Iters = 100;
-    ActivationFunction AF = relu;
+    ActivationFunction AF = sigmoid;
     
     // One hot encode Y
     vector<vector<double>> YTrainEnc = pp.OneHotEncoding(YTrain, numOutput);

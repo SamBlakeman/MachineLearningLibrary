@@ -24,6 +24,7 @@ public:
     
     DenseLayer(int NumberOfUnits, int NumberOfInputs);
     DenseLayer(int NumberOfUnits, int NumberOfInputs, ActivationFunction Activation);
+    void InitialiseWeights(int NumberOfOutputs);
     int GetNumberOfUnits();
     double GetPenalty();
     void Propagate(MatrixXd& Inputs);
@@ -38,6 +39,7 @@ private:
     MatrixXd w;
     double numInputs;
     double numUnits;
+    double numOutputs;
     ActivationFunction ActFun = sigmoid;
     
 };
@@ -50,10 +52,12 @@ public:
     DeepNeuralNetwork(double alpha, double lambda, int numOutput, int Iters);
     void AddDenseLayer(int NumberOfUnits, int NumberOfInputs);
     void Fit(const vector<vector<double>>& X, const vector<vector<double>>& Y);
+    vector<double> GetCosts() const;
     
     
 private:
     
+    void InitialiseHiddenWeights();
     void InitialiseOutputWeights();
     MatrixXd ForwardPropagation(const MatrixXd& X);
     void Sigmoid(MatrixXd& Mat);

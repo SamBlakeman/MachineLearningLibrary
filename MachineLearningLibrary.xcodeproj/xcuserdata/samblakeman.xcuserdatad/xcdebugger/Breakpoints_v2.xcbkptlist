@@ -366,7 +366,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "137"
             endingLineNumber = "137"
-            landmarkName = "NeuralNetwork::Linear(MatrixXd&amp; Mat)"
+            landmarkName = "NeuralNetwork::ActivateOutput(MatrixXd&amp; Mat)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -382,7 +382,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "196"
             endingLineNumber = "196"
-            landmarkName = "NeuralNetwork::ForwardPropagation(const MatrixXd&amp; X)"
+            landmarkName = "NeuralNetwork::Predict(MatrixXd XTest)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -460,22 +460,6 @@
             timestampString = "522540855.404559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "NeuralNetwork::InitialiseWeights()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MachineLearningLibrary/NeuralNetwork.cpp"
-            timestampString = "522540855.404559"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
             endingLineNumber = "81">
          </BreakpointContent>
@@ -492,7 +476,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "168"
             endingLineNumber = "168"
-            landmarkName = "NeuralNetwork::Predict(MatrixXd XTest)"
+            landmarkName = "NeuralNetwork::ReLU(MatrixXd&amp; Mat)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -556,7 +540,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "97"
             endingLineNumber = "97"
-            landmarkName = "NeuralNetwork::ActivateHidden(MatrixXd&amp; Mat)"
+            landmarkName = "NeuralNetwork::InitialiseWeights()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -571,7 +555,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
-            endingLineNumber = "93">
+            endingLineNumber = "93"
+            landmarkName = "NeuralNetwork::InitialiseWeights()"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -585,7 +571,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
-            endingLineNumber = "93">
+            endingLineNumber = "93"
+            landmarkName = "NeuralNetwork::InitialiseWeights()"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -600,7 +588,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "97"
             endingLineNumber = "97"
-            landmarkName = "NeuralNetwork::ActivateHidden(MatrixXd&amp; Mat)"
+            landmarkName = "NeuralNetwork::InitialiseWeights()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -631,7 +619,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "165"
-            endingLineNumber = "165">
+            endingLineNumber = "165"
+            landmarkName = "NeuralNetwork::ReLU(MatrixXd&amp; Mat)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -646,7 +636,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "192"
             endingLineNumber = "192"
-            landmarkName = "NeuralNetwork::ForwardPropagation(const MatrixXd&amp; X)"
+            landmarkName = "NeuralNetwork::Predict(MatrixXd XTest)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -663,6 +653,22 @@
             startingLineNumber = "256"
             endingLineNumber = "256"
             landmarkName = "NeuralNetwork::CalculateGradients(const MatrixXd&amp; Outputs, const MatrixXd&amp; XTrain, const MatrixXd&amp; YTrain)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
+            timestampString = "523816410.014304"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "DeepNeuralNetwork::InitialiseHiddenWeights()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
