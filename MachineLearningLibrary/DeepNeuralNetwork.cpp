@@ -37,7 +37,7 @@ void DenseLayer::InitialiseWeights(int NumberOfOutputs)
     return;
 }
 
-int DenseLayer::GetNumberOfUnits()
+int DenseLayer::GetNumberOfUnits() const
 {
     return int(numUnits);
 }
@@ -46,6 +46,7 @@ void DenseLayer::Propagate(MatrixXd& Inputs)
 {
     Inputs = Inputs * w.transpose();
     Activate(Inputs);
+    A = Inputs;
     
     return;
 }
@@ -108,9 +109,14 @@ void DenseLayer::ReLU(MatrixXd& Mat)
     return;
 }
 
-double DenseLayer::GetPenalty()
+double DenseLayer::GetPenalty() const
 {
     return ((w.block(0, 0, w.rows(), w.cols()-1)).cwiseProduct((w.block(0, 0, w.rows(), w.cols()-1)))).sum();
+}
+
+MatrixXd DenseLayer::GetWeights() const
+{
+    return w;
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -161,7 +167,7 @@ void DeepNeuralNetwork::Fit(const vector<vector<double>>& X, const vector<vector
         CalculateCosts(Outputs, YTrain, iter);
         
         // Partial derivatives
-        //pair<MatrixXd,MatrixXd> Gradients = CalculateGradients(Outputs, XTrain, YTrain);
+        vector<MatrixXd> Gradients = CalculateGradients(Outputs, XTrain, YTrain);
         
         // Update the weights
         //MatrixXd deltaW1 = Alpha * Gradients.first;
@@ -284,6 +290,64 @@ void DeepNeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& 
     
     return;
 }
+
+
+
+vector<MatrixXd> DeepNeuralNetwork::CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain)
+{
+    vector<MatrixXd> Deltas(HiddenLayers.size()+1);
+    vector<MatrixXd> Grads(HiddenLayers.size()+1);
+    
+    // Get the output errors
+    Deltas[HiddenLayers.size()-1] = Outputs - YTrain;
+    
+    for(int l = HiddenLayers.size()-2; l >= 0; --l)
+    {
+        Deltas[l] = Deltas[l+1] * HiddenLayers[l+1].GetWeights();
+        Deltas[l] = `
+    }
+    
+    
+    
+    // Get the net input into layer 2
+    MatrixXd z2 = XTrain * w1.transpose();
+    
+    // Add a column of ones
+    z2.conservativeResize(z2.rows(), z2.cols()+1);
+    z2.col(z2.cols()-1) = VectorXd::Ones(z2.rows());
+    
+    // Get the layer 2 errors
+    MatrixXd delta2 = delta3 * w2;
+    ActivateHidden(z2);
+    
+    delta2 = (GetHiddenActivationGradient(z2)).cwiseProduct(delta2);
+    delta2.transposeInPlace();
+    delta2.conservativeResize(delta2.rows()-1, delta2.cols());
+    
+    // Calculate the two gradients
+    MatrixXd grad1 = delta2 * XTrain;
+    MatrixXd grad2 = delta3.transpose() * z2;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    grad1 *= 1/numTrainExamples;
+    grad2 *= 1/numTrainExamples;
+    
+    // Regularise
+    grad1.block(0, 0, grad1.rows(), grad1.cols()-1) += (w1.block(0, 0, w1.rows(), w1.cols()-1)) * (Lambda/numTrainExamples);
+    
+    grad2.block(0, 0, grad2.rows(), grad2.cols()-1) += (w2.block(0, 0, w2.rows(), w2.cols()-1)) * (Lambda/numTrainExamples);
+    
+    return make_pair(grad1, grad2);
+}
+
 
 
 pair<MatrixXd,MatrixXd> DeepNeuralNetwork::ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain )
