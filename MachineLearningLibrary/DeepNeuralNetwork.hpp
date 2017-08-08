@@ -28,7 +28,10 @@ public:
     int GetNumberOfUnits() const;
     double GetPenalty() const;
     MatrixXd GetWeights() const;
+    MatrixXd GetActivations() const;
+    MatrixXd GetHiddenActivationGradient();
     void Propagate(MatrixXd& Inputs);
+    void UpdateWeights(const MatrixXd& Grad, double Alpha);
     
 private:
     
@@ -65,6 +68,7 @@ private:
     void Sigmoid(MatrixXd& Mat);
     void CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter);
     vector<MatrixXd> CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain);
+    void UpdateLayers(const vector<MatrixXd>& Grads);
     pair<MatrixXd,MatrixXd> ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain );
     
     double Alpha = 0.1;
