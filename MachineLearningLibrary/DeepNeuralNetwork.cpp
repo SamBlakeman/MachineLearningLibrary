@@ -31,8 +31,11 @@ void DenseLayer::InitialiseWeights(int NumberOfOutputs)
     numOutputs = NumberOfOutputs;
     
     // Xavier Initialization
-    double r = sqrt(6/(numInputs+1+numOutputs));
-    w = MatrixXd::Random(numUnits, numInputs+1)*r;
+    double r = 4*sqrt(6/(numInputs+1+numOutputs));
+    w = MatrixXd::Random(numUnits, numInputs+1);
+    w = w.cwiseAbs();
+    w *= (numInputs+1);
+    w *= sqrt(2/(numInputs+1));
     
     return;
 }
@@ -48,7 +51,8 @@ void DenseLayer::Propagate(MatrixXd& Inputs)
     Activate(Inputs);
     
     // Add a column of ones to A for when we need to calculate the partial derivatives
-    // TODO
+    Inputs.conservativeResize(Inputs.rows(), Inputs.cols()+1);
+    Inputs.col(Inputs.cols()-1) = VectorXd::Ones(Inputs.rows());
     A = Inputs;
     
     return;
@@ -271,10 +275,6 @@ MatrixXd DeepNeuralNetwork::ForwardPropagation(const MatrixXd& X)
         {
             DenseLayer* Layer = &HiddenLayers[l];
             Layer->Propagate(Activations);
-            
-            // Add a column of ones (CHECK that we are always adding to the right dimension)
-            Activations.conservativeResize(Activations.rows(), Activations.cols()+1);
-            Activations.col(Activations.cols()-1) = VectorXd::Ones(Activations.rows());
         }
         
         NetInput = Activations * OutputWeights.transpose();
@@ -350,7 +350,7 @@ vector<MatrixXd> DeepNeuralNetwork::CalculateGradients(const MatrixXd& Outputs, 
         }
         else
         {
-            Deltas[l] = Deltas[l+1] * HiddenLayers[l+1].GetWeights();
+            Deltas[l] = Deltas[l+1].transpose() * HiddenLayers[l+1].GetWeights();
         }
         
         MatrixXd A = HiddenLayers[l].GetActivations();
@@ -369,7 +369,6 @@ vector<MatrixXd> DeepNeuralNetwork::CalculateGradients(const MatrixXd& Outputs, 
         
         Grads[l] *= 1/numTrainExamples;
         Grads[l].block(0, 0, Grads[l].rows(), Grads[l].cols()-1) += (HiddenLayers[l].GetWeights().block(0, 0, HiddenLayers[l].GetWeights().rows(), HiddenLayers[l].GetWeights().cols()-1)) * (Lambda/numTrainExamples);
-        
     }
     
     return Grads;

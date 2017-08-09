@@ -36,7 +36,7 @@ void DeepNeuralNetworkTest::Run()
     //pp.NormaliseTransform(XTrain);
     
     // Construct Network
-    double alpha = 0.001;
+    double alpha = 0.00001;
     double lambda = 0;
     int numOutput = 10;
     int Iters = 100;
@@ -46,7 +46,8 @@ void DeepNeuralNetworkTest::Run()
     
     DeepNeuralNetwork dnn(alpha, lambda, numOutput, Iters);
     dnn.AddDenseLayer(50, int(XTrain[0].size()));
-    dnn.AddDenseLayer(50, 50);
+    dnn.AddDenseLayer(30, 50);
+    dnn.AddDenseLayer(20, 30);
     
     // Train Network
     dnn.Fit(XTrain, YTrainEnc);
