@@ -54,10 +54,17 @@ class DeepNeuralNetwork
 {
 public:
     
+    // Construction
     DeepNeuralNetwork(double alpha, double lambda, int numOutput, int Iters);
     void AddDenseLayer(int NumberOfUnits, int NumberOfInputs);
+    void AddDenseLayer(int NumberOfUnits, int NumberOfInputs, ActivationFunction ActFun);
+    
+    // Fit
     void Fit(const vector<vector<double>>& X, const vector<vector<double>>& Y);
     vector<double> GetCosts() const;
+    
+    // Predict
+    vector<int> Predict(const vector<vector<double>>& XTest);
     
     
 private:
@@ -70,6 +77,8 @@ private:
     vector<MatrixXd> CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain);
     void UpdateLayers(const vector<MatrixXd>& Grads);
     pair<MatrixXd,MatrixXd> ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain );
+    MatrixXd ConvertToEigen(const vector<vector<double>>& X);
+    vector<int> WinningOutput(const MatrixXd& Outputs);
     
     double Alpha = 0.1;
     double Lambda = 0.f;

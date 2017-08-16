@@ -31,7 +31,7 @@ public:
     void InitialiseWeights();
     
     // Predict
-    VectorXd Predict(MatrixXd XTest);
+    vector<int> Predict(const vector<vector<double>>& XTest);
     
     // Getters
     //vector<double> GetWeights();
@@ -42,6 +42,7 @@ private:
     
     // Fit
     pair<MatrixXd,MatrixXd> ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain );
+    MatrixXd ConvertToEigen(const vector<vector<double>>& X);
     void Linear(MatrixXd& Mat);
     void Sigmoid(MatrixXd& Mat);
     void ReLU(MatrixXd& Mat);
@@ -54,7 +55,7 @@ private:
     
     
     // Predict
-    VectorXd WinningOutput(MatrixXd Outputs);
+    vector<int> WinningOutput(const MatrixXd& Outputs);
     
     double Alpha = 0.1;
     double Lambda = 0.f;

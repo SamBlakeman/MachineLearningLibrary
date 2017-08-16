@@ -442,6 +442,25 @@ void Utilities::SaveVectorAsCSV(const vector<double>& Vec, const char* FileName)
     return;
 }
 
+void Utilities::SaveVectorAsCSV(const vector<int>& Vec, const char* FileName)
+{
+    ofstream myFile(FileName);
+    
+    for(int i = 0; i < Vec.size(); ++i)
+    {
+        myFile << Vec[i] << ',';
+    }
+    
+    if(myFile.is_open())
+    {
+        myFile.close();
+    }
+    
+    cout << ".txt file saved successfully" << endl;
+    
+    return;
+}
+
 
 
 

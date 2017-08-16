@@ -56,6 +56,7 @@ public:
     // Reading and saving txt files (comma separated and returns between examples)
     static vector<vector<double>> ReadCSVFeatureVector(const char* FileName);
     static void SaveVectorAsCSV(const vector<double>& Vec, const char* FileName);
+    static void SaveVectorAsCSV(const vector<int>& Vec, const char* FileName);
     
 };
 

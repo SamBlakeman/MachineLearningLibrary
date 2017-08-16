@@ -172,25 +172,28 @@ void NeuralNetwork::ReLU(MatrixXd& Mat)
     return;
 }
 
-VectorXd NeuralNetwork::Predict(MatrixXd XTest)
+vector<int> NeuralNetwork::Predict(const vector<vector<double>>& XTest)
 {
+    
+    MatrixXd X = ConvertToEigen(XTest);
+    
     // Check for weights
     if(w1.isZero() || w2.isZero())
     {
         cout << endl << "Error in Predict() - No weights have been fit" << endl;
-        return VectorXd (XTest.rows(),0);
+        return vector<int> (X.rows(),0);
         
     }
     
     // Add a column of ones
-    XTest.conservativeResize(XTest.rows(), XTest.cols()+1);
-    XTest.col(XTest.cols()-1) = VectorXd::Ones(XTest.rows());
+    X.conservativeResize(X.rows(), X.cols()+1);
+    X.col(X.cols()-1) = VectorXd::Ones(X.rows());
     
     // Forward propagation
-    MatrixXd Outputs = ForwardPropagation(XTest);
+    MatrixXd Outputs = ForwardPropagation(X);
     
     // Get max prediction
-    VectorXd Predictions = WinningOutput(Outputs);
+    vector<int> Predictions = WinningOutput(Outputs);
     
     return Predictions;
 }
@@ -212,13 +215,13 @@ MatrixXd NeuralNetwork::ForwardPropagation(const MatrixXd& X)
 }
 
 
-VectorXd NeuralNetwork::WinningOutput(MatrixXd Outputs)
+vector<int> NeuralNetwork::WinningOutput(const MatrixXd& Outputs)
 {
-    VectorXd Predictions = VectorXd::Zero(Outputs.size());
+    vector<int> Predictions(Outputs.rows(),0);
     
-    for(int i=0; i < Outputs.size(); ++i)
+    for(int i=0; i < Outputs.rows(); ++i)
     {
-        Outputs.row(i).maxCoeff( &Predictions(i) );
+        Outputs.row(i).maxCoeff( &Predictions[i] );
     }
     
     return Predictions;
@@ -319,6 +322,24 @@ pair<MatrixXd,MatrixXd> NeuralNetwork::ConvertToEigen(const vector<vector<double
     
     return make_pair(XT, YT);
 }
+
+
+MatrixXd NeuralNetwork::ConvertToEigen(const vector<vector<double>>& X)
+{
+    
+    MatrixXd XT(X.size(),X[0].size());
+    
+    for(int i = 0; i < X.size(); ++i)
+    {
+        vector<double> vec = X[i];
+        Eigen::VectorXd Xvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
+        
+        XT.row(i) = Xvec;
+    }
+    
+    return XT;
+}
+
 
 MatrixXd NeuralNetwork::GetHiddenActivationGradient(const MatrixXd& Activations)
 {

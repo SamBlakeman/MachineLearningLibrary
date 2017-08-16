@@ -119,7 +119,7 @@ pair<vector<vector<double>>,vector<double>> PreProcessing::SeperateXandY(vector<
         {
             for(int f = 1; f < numFeatures + 1; ++f)
             {
-                X[e][f] = FeatureVector[e][f];
+                X[e][f-1] = FeatureVector[e][f];
             }
             
             Y[e] = FeatureVector[e][0];

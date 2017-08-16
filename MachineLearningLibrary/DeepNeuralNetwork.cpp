@@ -32,10 +32,10 @@ void DenseLayer::InitialiseWeights(int NumberOfOutputs)
     
     // Xavier Initialization
     double r = 4*sqrt(6/(numInputs+1+numOutputs));
-    w = MatrixXd::Random(numUnits, numInputs+1);
-    w = w.cwiseAbs();
-    w *= (numInputs+1);
-    w *= sqrt(2/(numInputs+1));
+    w = MatrixXd::Random(numUnits, numInputs+1)*r;
+    //w = w.cwiseAbs();
+    //w *= (numInputs+1);
+    //w *= sqrt(2/(numInputs+1));
     
     return;
 }
@@ -183,6 +183,12 @@ DeepNeuralNetwork::DeepNeuralNetwork(double alpha, double lambda, int numOutput,
 void DeepNeuralNetwork::AddDenseLayer(int NumberOfUnits, int NumberOfInputs)
 {
     DenseLayer Layer(NumberOfUnits, NumberOfInputs);
+    HiddenLayers.push_back(Layer);
+}
+
+void DeepNeuralNetwork::AddDenseLayer(int NumberOfUnits, int NumberOfInputs, ActivationFunction ActFun)
+{
+    DenseLayer Layer(NumberOfUnits, NumberOfInputs, ActFun);
     HiddenLayers.push_back(Layer);
 }
 
@@ -403,6 +409,23 @@ pair<MatrixXd,MatrixXd> DeepNeuralNetwork::ConvertToEigen(const vector<vector<do
 }
 
 
+MatrixXd DeepNeuralNetwork::ConvertToEigen(const vector<vector<double>>& X)
+{
+    
+    MatrixXd XT(X.size(),X[0].size());
+    
+    for(int i = 0; i < X.size(); ++i)
+    {
+        vector<double> vec = X[i];
+        Eigen::VectorXd Xvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
+        
+        XT.row(i) = Xvec;
+    }
+    
+    return XT;
+}
+
+
 vector<double> DeepNeuralNetwork::GetCosts() const
 {
     // Check for weights
@@ -426,4 +449,41 @@ void DeepNeuralNetwork::UpdateLayers(const vector<MatrixXd>& Grads)
         HiddenLayers[l].UpdateWeights(Grads[l], Alpha);
     }
     
+}
+
+vector<int> DeepNeuralNetwork::Predict(const vector<vector<double>>& XTest)
+{
+    MatrixXd X = ConvertToEigen(XTest);
+    
+    // Check for weights
+    if(OutputWeights.isZero())
+    {
+        cout << endl << "Error in Predict() - No weights have been fit" << endl;
+        return vector<int> (X.rows(),0);
+        
+    }
+    
+    // Add a column of ones
+    X.conservativeResize(X.rows(), X.cols()+1);
+    X.col(X.cols()-1) = VectorXd::Ones(X.rows());
+    
+    // Forward propagation
+    MatrixXd Outputs = ForwardPropagation(X);
+    
+    // Get max prediction
+    vector<int> Predictions = WinningOutput(Outputs);
+    
+    return Predictions;
+}
+
+vector<int> DeepNeuralNetwork::WinningOutput(const MatrixXd& Outputs)
+{
+    vector<int> Predictions(Outputs.rows(),0);
+    
+    for(int i=0; i < Outputs.rows(); ++i)
+    {
+        Outputs.row(i).maxCoeff( &Predictions[i] );
+    }
+    
+    return Predictions;
 }

@@ -17,14 +17,15 @@
 
 int main(int argc, const char * argv[]) {
     
+    NeuralNetworkTest NNTest;
     DeepNeuralNetworkTest DNNTest;
     
     DNNTest.Run();
     
     /*
      TODO:
-     - Sort gradients for relu and linear in the hidden layer
-     - Maybe also include a leaky relu
+     - Investigate the other activation functions, maybe try a leaky relu
+     - Accuracy measures for ANN and DNN
      - incorporate regression cost function and linear gradients at the outputs layer
      
      
@@ -36,8 +37,6 @@ int main(int argc, const char * argv[]) {
      - accuracy, confusion matrix etc.
      - maybe also allow for strings
      
-     - Neural Network - two layer implementation, forward propagation implemented
-     - Improve transpose method
      - SVM
      - learning curve
      - validation curve
