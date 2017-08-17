@@ -13,7 +13,7 @@
 #include <vector>
 #include "Eigen/Dense"
 
-enum ActivationFunction {linear, sigmoid, relu};
+enum ActivationFunction {linear, sigmoid, relu, leakyrelu};
 
 using namespace std;
 using namespace Eigen;
@@ -36,7 +36,7 @@ public:
     // Getters
     //vector<double> GetWeights();
     vector<double> GetCosts() const;
-    //double GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y);
+    double GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y);
     
 private:
     
@@ -46,6 +46,7 @@ private:
     void Linear(MatrixXd& Mat);
     void Sigmoid(MatrixXd& Mat);
     void ReLU(MatrixXd& Mat);
+    void LeakyReLU(MatrixXd& Mat);
     MatrixXd ForwardPropagation(const MatrixXd& X);
     void CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter);
     pair<MatrixXd,MatrixXd> CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain);

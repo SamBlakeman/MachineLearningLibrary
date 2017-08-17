@@ -16,7 +16,7 @@
 using namespace std;
 using namespace Eigen;
 
-enum ActivationFunction {linear, sigmoid, relu};
+enum ActivationFunction {linear, sigmoid, relu, leakyrelu};
 
 class DenseLayer
 {
@@ -39,6 +39,7 @@ private:
     void Linear(MatrixXd& Mat);
     void Sigmoid(MatrixXd& Mat);
     void ReLU(MatrixXd& Mat);
+    void LeakyReLU(MatrixXd& Mat);
     
     MatrixXd w;
     double numInputs;
@@ -61,10 +62,13 @@ public:
     
     // Fit
     void Fit(const vector<vector<double>>& X, const vector<vector<double>>& Y);
-    vector<double> GetCosts() const;
     
     // Predict
     vector<int> Predict(const vector<vector<double>>& XTest);
+    
+    // Getters
+    vector<double> GetCosts() const;
+    double GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y);
     
     
 private:

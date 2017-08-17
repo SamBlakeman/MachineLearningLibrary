@@ -50,7 +50,7 @@ void NeuralNetworkTest::Run()
     int numHidden = 50;
     int numOutput = 2;
     int Iters = 1000;
-    ActivationFunction AF = sigmoid;
+    ActivationFunction AF = leakyrelu;
     
     // One hot encode Y
     vector<vector<double>> YTrainEnc = pp.OneHotEncoding(YTrain, numOutput);
@@ -64,6 +64,10 @@ void NeuralNetworkTest::Run()
     string name = "/Users/samblakeman/Desktop/NNCosts.txt";
     auto filename = name.c_str();
     Utilities::SaveVectorAsCSV(Costs, filename);
+    
+    // Print accuracy on test set
+    double Accuracy = nn.GetAccuracy(XTest, YTest);
+    cout << "Test Accuracy = " << Accuracy << endl;
     
     // Try some predictions
     vector<int> Predictions = nn.Predict(XTest);

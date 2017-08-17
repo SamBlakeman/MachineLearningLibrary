@@ -72,11 +72,16 @@ void DenseLayer::Activate(MatrixXd& Mat)
             ReLU(Mat);
             return;
         }
+        case leakyrelu:
+        {
+            LeakyReLU(Mat);
+            return;
+        }
         case linear:
         {
             Linear(Mat);
             return;
-        }  
+        }
     }
     
 }
@@ -116,6 +121,22 @@ void DenseLayer::ReLU(MatrixXd& Mat)
     return;
 }
 
+void DenseLayer::LeakyReLU(MatrixXd& Mat)
+{
+    for(int c=0; c < Mat.cols(); ++c)
+    {
+        for(int r=0; r < Mat.rows(); ++r)
+        {
+            if(Mat(r,c) < 0)
+            {
+                Mat(r,c) = 0.5 * Mat(r,c);
+            }
+        }
+    }
+    return;
+}
+
+
 double DenseLayer::GetPenalty() const
 {
     return ((w.block(0, 0, w.rows(), w.cols()-1)).cwiseProduct((w.block(0, 0, w.rows(), w.cols()-1)))).sum();
@@ -142,6 +163,22 @@ MatrixXd DenseLayer::GetHiddenActivationGradient()
         case relu:
         {
             MatrixXd Gradients = MatrixXd::Zero(A.rows(), A.cols());
+            for(int c=0; c < A.cols(); ++c)
+            {
+                for(int r=0; r < A.rows(); ++r)
+                {
+                    if(A(r,c) > 0)
+                    {
+                        Gradients(r,c) = 1;
+                    }
+                }
+            }
+            return Gradients;
+        }
+        case leakyrelu:
+        {
+            MatrixXd Gradients = MatrixXd::Zero(A.rows(), A.cols());
+            Gradients = Gradients.array() + 0.5;
             for(int c=0; c < A.cols(); ++c)
             {
                 for(int r=0; r < A.rows(); ++r)
@@ -332,7 +369,10 @@ void DeepNeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& 
     RegTerm *= Lambda/(2*numTrainExamples);
     Costs[iter] += RegTerm;
     
-    cout << "Cost for iter " << iter << " = " << Costs[iter] << endl;
+    if(iter%50 == 0)
+    {
+        cout << "Cost for iter " << iter << " = " << Costs[iter] << endl;
+    }
     
     return;
 }
@@ -486,4 +526,25 @@ vector<int> DeepNeuralNetwork::WinningOutput(const MatrixXd& Outputs)
     }
     
     return Predictions;
+}
+
+
+double DeepNeuralNetwork::GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y)
+{
+    double Accuracy;
+    vector<int> Predictions = Predict(X);
+    
+    int numCorrect = 0;
+    
+    for(int i = 0; i < X.size(); ++i)
+    {
+        if(Y[i] == Predictions[i])
+        {
+            ++numCorrect;
+        }
+    }
+    
+    Accuracy = (double(numCorrect)/X.size())*100;
+    
+    return Accuracy;
 }

@@ -85,7 +85,7 @@ void NeuralNetwork::InitialiseWeights()
     double r1 = sqrt(6/(numFeatures+1+numOut));
     double r2 = sqrt(6/(numHid+1+1));
     
-    if(HiddenActFun == relu)
+    if(HiddenActFun == relu || HiddenActFun == leakyrelu)
     {
         r1 *= sqrt(2);
     }
@@ -111,6 +111,9 @@ void NeuralNetwork::ActivateHidden(MatrixXd& Mat)
         case relu:
             ReLU(Mat);
             return;
+        case leakyrelu:
+            LeakyReLU(Mat);
+            return;
     }
     
     return;
@@ -133,6 +136,11 @@ void NeuralNetwork::ActivateOutput(MatrixXd& Mat)
         case relu:
         {
             ReLU(Mat);
+            return;
+        }
+        case leakyrelu:
+        {
+            LeakyReLU(Mat);
             return;
         }
     }
@@ -166,6 +174,21 @@ void NeuralNetwork::ReLU(MatrixXd& Mat)
             if(Mat(r,c) < 0)
             {
                 Mat(r,c) = 0;
+            }
+        }
+    }
+    return;
+}
+
+void NeuralNetwork::LeakyReLU(MatrixXd& Mat)
+{
+    for(int c=0; c < Mat.cols(); ++c)
+    {
+        for(int r=0; r < Mat.rows(); ++r)
+        {
+            if(Mat(r,c) < 0)
+            {
+                Mat(r,c) = 0.5 * Mat(r,c);
             }
         }
     }
@@ -245,7 +268,10 @@ void NeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTra
     RegTerm *= Lambda/(2*numTrainExamples);
     Costs[iter] += RegTerm;
     
-    cout << "Cost for iter " << iter << " = " << Costs[iter] << endl;
+    if(iter%50 == 0)
+    {
+        cout << "Cost for iter " << iter << " = " << Costs[iter] << endl;
+    }
     
     return;
 }
@@ -364,9 +390,46 @@ MatrixXd NeuralNetwork::GetHiddenActivationGradient(const MatrixXd& Activations)
             }
             return Gradients;
         }
+        case leakyrelu:
+        {
+            MatrixXd Gradients = MatrixXd::Zero(Activations.rows(), Activations.cols());
+            Gradients = Gradients.array() + 0.5;
+            for(int c=0; c < Activations.cols(); ++c)
+            {
+                for(int r=0; r < Activations.rows(); ++r)
+                {
+                    if(Activations(r,c) > 0)
+                    {
+                        Gradients(r,c) = 1;
+                    }
+                }
+            }
+            return Gradients;
+        }
         case linear:
         {
             return MatrixXd::Ones(Activations.rows(), Activations.cols());
         }
     }
+}
+
+
+double NeuralNetwork::GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y)
+{
+    double Accuracy;
+    vector<int> Predictions = Predict(X);
+    
+    int numCorrect = 0;
+    
+    for(int i = 0; i < X.size(); ++i)
+    {
+        if(Y[i] == Predictions[i])
+        {
+            ++numCorrect;
+        }
+    }
+    
+    Accuracy = (double(numCorrect)/X.size())*100;
+    
+    return Accuracy;
 }

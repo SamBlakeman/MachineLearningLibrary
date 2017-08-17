@@ -71,6 +71,10 @@ void DeepNeuralNetworkTest::Run()
     auto filename = name.c_str();
     Utilities::SaveVectorAsCSV(Costs, filename);
     
+    // Print accuracy on test set
+    double Accuracy = dnn.GetAccuracy(XTest, YTest);
+    cout << "Test Accuracy = " << Accuracy << endl;
+    
     // Try some predictions
     vector<int> Predictions = dnn.Predict(XTest);
     
