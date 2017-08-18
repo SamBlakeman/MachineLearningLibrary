@@ -27,7 +27,7 @@ public:
     NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters, ActivationFunction HiddenActivation);
     
     // Fit the weights of the model
-    void Fit(const vector<vector<double>>& X, const vector<vector<double>>& Y);
+    void Fit(const vector<vector<double>>& X, const vector<double>& Y);
     void InitialiseWeights();
     
     // Predict
@@ -41,6 +41,7 @@ public:
 private:
     
     // Fit
+    vector<vector<double>> OneHotEncode(const vector<double>& Y);
     pair<MatrixXd,MatrixXd> ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain );
     MatrixXd ConvertToEigen(const vector<vector<double>>& X);
     void Linear(MatrixXd& Mat);

@@ -206,13 +206,14 @@ void DenseLayer::UpdateWeights(const MatrixXd& Grad, double Alpha)
 
 ///////////////////////////////////////////////////////////////////////
 
-DeepNeuralNetwork::DeepNeuralNetwork(double alpha, double lambda, int numOutput, int Iters)
+DeepNeuralNetwork::DeepNeuralNetwork(double alpha, double lambda, int numOutput, int Iters, CostFunction Cost)
 {
     Alpha = alpha;
     Lambda = lambda;
     numOut = numOutput;
     Iterations = Iters;
     Costs = vector<double>(Iterations,0);
+    CostFun = Cost;
     
     return;
 }
@@ -230,9 +231,12 @@ void DeepNeuralNetwork::AddDenseLayer(int NumberOfUnits, int NumberOfInputs, Act
 }
 
 
-void DeepNeuralNetwork::Fit(const vector<vector<double>>& X, const vector<vector<double>>& Y)
+void DeepNeuralNetwork::Fit(const vector<vector<double>>& X, const vector<double>& Y)
 {
-    pair<MatrixXd,MatrixXd> Eigens = ConvertToEigen(X, Y);
+    // One hot encode Y if neccessary
+    vector<vector<double>> YEnc = OneHotEncode(Y);
+    
+    pair<MatrixXd,MatrixXd> Eigens = ConvertToEigen(X, YEnc);
     MatrixXd XTrain = Eigens.first;
     MatrixXd YTrain = Eigens.second;
     
@@ -266,6 +270,37 @@ void DeepNeuralNetwork::Fit(const vector<vector<double>>& X, const vector<vector
     }
     
     return;
+}
+
+
+vector<vector<double>> DeepNeuralNetwork::OneHotEncode(const vector<double>& Y)
+{
+    int numExamples = (int)Y.size();
+    vector<vector<double>> EncodedY (numExamples, vector<double>(numOut, 0));
+    
+    if(numOut == 1)
+    {
+        for(int e = 0; e < numExamples; ++e)
+        {
+            EncodedY[e][0] = Y[e];
+        }
+    }
+    else
+    {
+        for(int e = 0; e < numExamples; ++e)
+        {
+            if(Y[e] >= EncodedY[0].size())
+            {
+                cout << "There are not enough output units to encode Y!" << endl;
+            }
+            else
+            {
+                EncodedY[e][Y[e]] = 1;
+            }
+        }
+    }
+    
+    return EncodedY;
 }
 
 
@@ -323,7 +358,19 @@ MatrixXd DeepNeuralNetwork::ForwardPropagation(const MatrixXd& X)
         NetInput = Activations * OutputWeights.transpose();
     }
     
-    Sigmoid(NetInput);
+    // Handle the activation function of the output units
+    switch(CostFun)
+    {
+        case CrossEntropy:
+        {
+            Sigmoid(NetInput);
+            break;
+        }
+        case SumOfSquaredErrors:
+        {
+            break;
+        }
+    }
     
     return NetInput;
 }
@@ -342,7 +389,33 @@ void DeepNeuralNetwork::Sigmoid(MatrixXd& Mat)
 }
 
 
-void DeepNeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter)
+void DeepNeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, const int& iter)
+{
+    switch(CostFun)
+    {
+        case CrossEntropy:
+        {
+            CrossEntropyCosts(Outputs, YTrain, iter);
+            break;
+        }
+        case SumOfSquaredErrors:
+        {
+            SumOfSquaredErrorsCosts(Outputs, YTrain, iter);
+            break;
+        }
+    }
+    
+    Regularize(iter);
+    
+    if(iter%50 == 0)
+    {
+        cout << "Cost for iter " << iter << " = " << Costs[iter] << endl;
+    }
+    
+    return;
+}
+
+void DeepNeuralNetwork::CrossEntropyCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, const int& iter)
 {
     MatrixXd LogOutputs = Outputs.array().log();
     MatrixXd term1 = -(YTrain.cwiseProduct(LogOutputs));
@@ -353,6 +426,22 @@ void DeepNeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& 
     Costs[iter] = (term1 - term2).sum();
     Costs[iter] *= (1/numTrainExamples);
     
+    return;
+}
+
+
+void DeepNeuralNetwork::SumOfSquaredErrorsCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, const int& iter)
+{
+    MatrixXd O = Outputs;
+    MatrixXd Y = YTrain;
+    Costs[iter] = ((O - Y).transpose()*(O - YTrain)).value();
+    Costs[iter] *= (1/numTrainExamples);
+    
+    return;
+}
+
+void DeepNeuralNetwork::Regularize(const int& iter)
+{
     double RegTerm = 0;
     
     if(!HiddenLayers.empty())
@@ -369,14 +458,8 @@ void DeepNeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& 
     RegTerm *= Lambda/(2*numTrainExamples);
     Costs[iter] += RegTerm;
     
-    if(iter%50 == 0)
-    {
-        cout << "Cost for iter " << iter << " = " << Costs[iter] << endl;
-    }
-    
     return;
 }
-
 
 
 vector<MatrixXd> DeepNeuralNetwork::CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain)
@@ -547,4 +630,12 @@ double DeepNeuralNetwork::GetAccuracy(const vector<vector<double>>& X, const vec
     Accuracy = (double(numCorrect)/X.size())*100;
     
     return Accuracy;
+}
+
+void PreTrain(const vector<vector<double>>& X)
+{
+    
+    
+    
+    return;
 }

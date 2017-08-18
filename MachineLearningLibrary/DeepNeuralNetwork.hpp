@@ -17,6 +17,7 @@ using namespace std;
 using namespace Eigen;
 
 enum ActivationFunction {linear, sigmoid, relu, leakyrelu};
+enum CostFunction {CrossEntropy, SumOfSquaredErrors};
 
 class DenseLayer
 {
@@ -56,12 +57,15 @@ class DeepNeuralNetwork
 public:
     
     // Construction
-    DeepNeuralNetwork(double alpha, double lambda, int numOutput, int Iters);
+    DeepNeuralNetwork(double alpha, double lambda, int numOutput, int Iters, CostFunction Cost);
     void AddDenseLayer(int NumberOfUnits, int NumberOfInputs);
     void AddDenseLayer(int NumberOfUnits, int NumberOfInputs, ActivationFunction ActFun);
     
+    // Pre-Training
+    void PreTrain(const vector<vector<double>>& X);
+    
     // Fit
-    void Fit(const vector<vector<double>>& X, const vector<vector<double>>& Y);
+    void Fit(const vector<vector<double>>& X, const vector<double>& Y);
     
     // Predict
     vector<int> Predict(const vector<vector<double>>& XTest);
@@ -73,11 +77,15 @@ public:
     
 private:
     
+    vector<vector<double>> OneHotEncode(const vector<double>& Y);
     void InitialiseHiddenWeights();
     void InitialiseOutputWeights();
     MatrixXd ForwardPropagation(const MatrixXd& X);
     void Sigmoid(MatrixXd& Mat);
-    void CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter);
+    void CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, const int& iter);
+    void CrossEntropyCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, const int& iter);
+    void SumOfSquaredErrorsCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, const int& iter);
+    void Regularize(const int& iter);
     vector<MatrixXd> CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain);
     void UpdateLayers(const vector<MatrixXd>& Grads);
     pair<MatrixXd,MatrixXd> ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain );
@@ -93,6 +101,7 @@ private:
     MatrixXd OutputWeights;
     vector<double> Costs;
     vector<DenseLayer> HiddenLayers;
+    CostFunction CostFun;
     
 };
 

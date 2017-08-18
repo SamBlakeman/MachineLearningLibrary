@@ -15,7 +15,8 @@ class DeepNeuralNetworkTest
 {
 public:
     
-    void Run();
+    void RunClassificationTest();
+    void RunRegressionTest();
     
     
 private:

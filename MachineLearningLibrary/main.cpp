@@ -20,15 +20,17 @@ int main(int argc, const char * argv[]) {
     NeuralNetworkTest NNTest;
     DeepNeuralNetworkTest DNNTest;
     
-    DNNTest.Run();
+    //DNNTest.RunClassificationTest();
+    NNTest.Run();
     
     /*
      TODO:
-     - Investigate the other activation functions, maybe try a leaky relu
+     - remove one hot encoding from pre processing and add to neural network
+     - incorporate regression cost function and linear gradients at the outputs layer
      - Generative Pre-Training
      - Dropout
      - Weight decay
-     - incorporate regression cost function and linear gradients at the outputs layer
+     - Softmax
      
      
      - Naive Bayes classifer

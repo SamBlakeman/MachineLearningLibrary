@@ -398,7 +398,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "77"
             endingLineNumber = "77"
-            landmarkName = "NeuralNetwork::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;vector&lt;double&gt;&gt;&amp; Y)"
+            landmarkName = "NeuralNetwork::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -414,7 +414,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
             endingLineNumber = "53"
-            landmarkName = "NeuralNetwork::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;vector&lt;double&gt;&gt;&amp; Y)"
+            landmarkName = "NeuralNetwork::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -430,7 +430,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "67"
             endingLineNumber = "67"
-            landmarkName = "NeuralNetwork::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;vector&lt;double&gt;&gt;&amp; Y)"
+            landmarkName = "NeuralNetwork::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -446,7 +446,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "50"
             endingLineNumber = "50"
-            landmarkName = "NeuralNetwork::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;vector&lt;double&gt;&gt;&amp; Y)"
+            landmarkName = "NeuralNetwork::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -492,7 +492,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "202"
             endingLineNumber = "202"
-            landmarkName = "NeuralNetwork::ForwardPropagation(const MatrixXd&amp; X)"
+            landmarkName = "NeuralNetwork::Predict(const vector&lt;vector&lt;double&gt;&gt;&amp; XTest)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -508,7 +508,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "62"
             endingLineNumber = "62"
-            landmarkName = "NeuralNetwork::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;vector&lt;double&gt;&gt;&amp; Y)"
+            landmarkName = "NeuralNetwork::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -524,7 +524,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "60"
             endingLineNumber = "60"
-            landmarkName = "NeuralNetwork::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;vector&lt;double&gt;&gt;&amp; Y)"
+            landmarkName = "NeuralNetwork::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -620,7 +620,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "165"
             endingLineNumber = "165"
-            landmarkName = "NeuralNetwork::ReLU(MatrixXd&amp; Mat)"
+            landmarkName = "NeuralNetwork::Sigmoid(MatrixXd&amp; Mat)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -636,7 +636,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "195"
             endingLineNumber = "195"
-            landmarkName = "NeuralNetwork::Predict(const vector&lt;vector&lt;double&gt;&gt;&amp; XTest)"
+            landmarkName = "NeuralNetwork::LeakyReLU(MatrixXd&amp; Mat)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -652,7 +652,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "262"
             endingLineNumber = "262"
-            landmarkName = "NeuralNetwork::CalculateGradients(const MatrixXd&amp; Outputs, const MatrixXd&amp; XTrain, const MatrixXd&amp; YTrain)"
+            landmarkName = "NeuralNetwork::CalculateCosts(const MatrixXd&amp; Outputs, const MatrixXd&amp; YTrain, int iter)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -663,11 +663,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524666280.129711"
+            timestampString = "524755195.838821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
+            startingLineNumber = "316"
+            endingLineNumber = "316"
             landmarkName = "DeepNeuralNetwork::InitialiseOutputWeights()"
             landmarkType = "5">
          </BreakpointContent>
@@ -679,11 +679,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524666280.129711"
+            timestampString = "524755195.838821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "421"
-            endingLineNumber = "421"
+            startingLineNumber = "497"
+            endingLineNumber = "497"
             landmarkName = "DeepNeuralNetwork::CalculateGradients(const MatrixXd&amp; Outputs, const MatrixXd&amp; XTrain, const MatrixXd&amp; YTrain)"
             landmarkType = "5">
          </BreakpointContent>
@@ -695,11 +695,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524666280.129711"
+            timestampString = "524755195.838821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
+            startingLineNumber = "367"
+            endingLineNumber = "367"
             landmarkName = "DeepNeuralNetwork::ForwardPropagation(const MatrixXd&amp; X)"
             landmarkType = "5">
          </BreakpointContent>
@@ -711,11 +711,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524666280.129711"
+            timestampString = "524755195.838821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "326"
-            endingLineNumber = "326"
+            startingLineNumber = "366"
+            endingLineNumber = "366"
             landmarkName = "DeepNeuralNetwork::ForwardPropagation(const MatrixXd&amp; X)"
             landmarkType = "5">
          </BreakpointContent>
@@ -727,11 +727,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524666280.129711"
+            timestampString = "524755195.838821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
             landmarkName = "DeepNeuralNetwork::ForwardPropagation(const MatrixXd&amp; X)"
             landmarkType = "5">
          </BreakpointContent>
@@ -743,11 +743,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524666280.129711"
+            timestampString = "524755195.838821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "321"
-            endingLineNumber = "321"
+            startingLineNumber = "349"
+            endingLineNumber = "349"
             landmarkName = "DeepNeuralNetwork::ForwardPropagation(const MatrixXd&amp; X)"
             landmarkType = "5">
          </BreakpointContent>
@@ -759,11 +759,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524666280.129711"
+            timestampString = "524755195.838821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "529"
-            endingLineNumber = "529"
+            startingLineNumber = "605"
+            endingLineNumber = "605"
             landmarkName = "DeepNeuralNetwork::WinningOutput(const MatrixXd&amp; Outputs)"
             landmarkType = "5">
          </BreakpointContent>

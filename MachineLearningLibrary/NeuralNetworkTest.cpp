@@ -48,15 +48,12 @@ void NeuralNetworkTest::Run()
     double alpha = 0.01;
     double lambda = 0;
     int numHidden = 50;
-    int numOutput = 2;
+    int numOutput = 1;
     int Iters = 1000;
     ActivationFunction AF = leakyrelu;
     
-    // One hot encode Y
-    vector<vector<double>> YTrainEnc = pp.OneHotEncoding(YTrain, numOutput);
-    
     NeuralNetwork nn(alpha, lambda, numHidden, numOutput, Iters, AF);
-    nn.Fit(XTrain, YTrainEnc);
+    nn.Fit(XTrain, YTrain);
     
     // Save the costs for plotting
     cout << "Saving costs\n";

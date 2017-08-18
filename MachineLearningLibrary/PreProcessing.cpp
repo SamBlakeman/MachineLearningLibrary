@@ -175,16 +175,3 @@ pair<vector<vector<vector<double>>>,vector<vector<double>>> PreProcessing::GetTr
     return make_pair(Xs,Ys);
 }
 
-
-vector<vector<double>> PreProcessing::OneHotEncoding(vector<double>& Y, int numOut)
-{
-    int numExamples = (int)Y.size();
-    vector<vector<double>> EncodedY (numExamples, vector<double>(numOut, 0));
-    
-    for(int e = 0; e < numExamples; ++e)
-    {
-        EncodedY[e][Y[e]] = 1;
-    }
-    
-    return EncodedY;
-}

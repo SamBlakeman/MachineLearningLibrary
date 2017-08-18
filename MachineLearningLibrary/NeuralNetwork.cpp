@@ -36,9 +36,12 @@ NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int num
 
 
 
-void NeuralNetwork::Fit(const vector<vector<double>>& X, const vector<vector<double>>& Y)
+void NeuralNetwork::Fit(const vector<vector<double>>& X, const vector<double>& Y)
 {
-    pair<MatrixXd,MatrixXd> Eigens = ConvertToEigen(X, Y);
+    // One hot encode Y if neccessary
+    vector<vector<double>> YEnc = OneHotEncode(Y);
+    
+    pair<MatrixXd,MatrixXd> Eigens = ConvertToEigen(X, YEnc);
     MatrixXd XTrain = Eigens.first;
     MatrixXd YTrain = Eigens.second;
     
@@ -76,6 +79,37 @@ void NeuralNetwork::Fit(const vector<vector<double>>& X, const vector<vector<dou
     
     
     return;
+}
+
+
+vector<vector<double>> NeuralNetwork::OneHotEncode(const vector<double>& Y)
+{
+    int numExamples = (int)Y.size();
+    vector<vector<double>> EncodedY (numExamples, vector<double>(numOut, 0));
+    
+    if(numOut == 1)
+    {
+        for(int e = 0; e < numExamples; ++e)
+        {
+            EncodedY[e][0] = Y[e];
+        }
+    }
+    else
+    {
+        for(int e = 0; e < numExamples; ++e)
+        {
+            if(Y[e] >= EncodedY[0].size())
+            {
+                cout << "There are not enough output units to encode Y!" << endl;
+            }
+            else
+            {
+                EncodedY[e][Y[e]] = 1;
+            }
+        }
+    }
+    
+    return EncodedY;
 }
 
 
