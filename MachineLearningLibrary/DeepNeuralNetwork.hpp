@@ -68,7 +68,7 @@ public:
     void Fit(const vector<vector<double>>& X, const vector<double>& Y);
     
     // Predict
-    vector<int> Predict(const vector<vector<double>>& XTest);
+    vector<double> Predict(const vector<vector<double>>& XTest);
     
     // Getters
     vector<double> GetCosts() const;
@@ -90,7 +90,7 @@ private:
     void UpdateLayers(const vector<MatrixXd>& Grads);
     pair<MatrixXd,MatrixXd> ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain );
     MatrixXd ConvertToEigen(const vector<vector<double>>& X);
-    vector<int> WinningOutput(const MatrixXd& Outputs);
+    vector<double> WinningOutput(const MatrixXd& Outputs);
     
     double Alpha = 0.1;
     double Lambda = 0.f;

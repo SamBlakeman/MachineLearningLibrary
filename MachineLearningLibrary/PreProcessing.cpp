@@ -45,6 +45,30 @@ void PreProcessing::NormaliseTransform(vector<vector<double>>& X)
 }
 
 
+void PreProcessing::NormaliseFit(const vector<double>& Y)
+{
+    Ymin = Y[0];
+    Ymax = Y[0];
+        
+    // get the min and the max over all the examples
+    for(int example = 0; example < Y.size(); ++example)
+    {
+        if(Y[example] > Ymax){Ymax = Y[example];}
+        if(Y[example] < Ymin){Ymin = Y[example];}
+    }
+    return;
+}
+
+void PreProcessing::NormaliseTransform(vector<double>& Y)
+{
+    // normalise
+    for(int example = 0; example < Y.size(); ++example)
+    {
+        Y[example] = (Y[example] - Ymin)/(Ymax - Ymin);
+    }
+    return;
+}
+
 
 void PreProcessing::StandardiseFit(const vector<vector<double>>& X)
 {

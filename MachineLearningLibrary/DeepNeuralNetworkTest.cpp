@@ -49,7 +49,7 @@ void DeepNeuralNetworkTest::RunClassificationTest()
     // Construct Network
     double alpha = 0.001;
     double lambda = 0;
-    int numOutput = 1;
+    int numOutput = 2;
     int Iters = 1000;
     CostFunction CostFun = CrossEntropy;
     ActivationFunction AF = sigmoid;
@@ -74,7 +74,7 @@ void DeepNeuralNetworkTest::RunClassificationTest()
     cout << "Test Accuracy = " << Accuracy << endl;
     
     // Try some predictions
-    vector<int> Predictions = dnn.Predict(XTest);
+    vector<double> Predictions = dnn.Predict(XTest);
     
     // Save the predictions and the actual values
     cout << "Saving predictions\n";
@@ -95,16 +95,14 @@ void DeepNeuralNetworkTest::RunClassificationTest()
 
 void DeepNeuralNetworkTest::RunRegressionTest()
 {
-    string fn = "/Users/samblakeman/Desktop/WisconsinDataSet.csv";
+    string fn = "/Users/samblakeman/Desktop/Concrete_Data.csv";
     const char* FileName = fn.c_str();
     
     vector<vector<double>> FeatureVector = Utilities::ReadCSVFeatureVector(FileName);
     
-    //FeatureVector.resize(6000);
-    
     // Separate
     PreProcessing pp;
-    YLocation yloc = FirstColumn;
+    YLocation yloc = LastColumn;
     auto Separated = pp.SeperateXandY(FeatureVector, yloc);
     vector<vector<double>> X = Separated.first;
     vector<double> Y = Separated.second;
@@ -125,12 +123,12 @@ void DeepNeuralNetworkTest::RunRegressionTest()
     pp.NormaliseTransform(XTest);
     
     // Construct Network
-    double alpha = 0.001;
+    double alpha = 0.000001;
     double lambda = 0;
     int numOutput = 1;
     int Iters = 1000;
-    CostFunction CostFun = CrossEntropy;
-    ActivationFunction AF = sigmoid;
+    CostFunction CostFun = SumOfSquaredErrors;
+    ActivationFunction AF = leakyrelu;
     
     DeepNeuralNetwork dnn(alpha, lambda, numOutput, Iters, CostFun);
     dnn.AddDenseLayer(50, int(XTrain[0].size()), AF);
@@ -147,12 +145,9 @@ void DeepNeuralNetworkTest::RunRegressionTest()
     auto filename = name.c_str();
     Utilities::SaveVectorAsCSV(Costs, filename);
     
-    // Print accuracy on test set
-    double Accuracy = dnn.GetAccuracy(XTest, YTest);
-    cout << "Test Accuracy = " << Accuracy << endl;
     
     // Try some predictions
-    vector<int> Predictions = dnn.Predict(XTest);
+    vector<double> Predictions = dnn.Predict(XTest);
     
     // Save the predictions and the actual values
     cout << "Saving predictions\n";

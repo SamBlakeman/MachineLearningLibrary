@@ -574,7 +574,7 @@ void DeepNeuralNetwork::UpdateLayers(const vector<MatrixXd>& Grads)
     
 }
 
-vector<int> DeepNeuralNetwork::Predict(const vector<vector<double>>& XTest)
+vector<double> DeepNeuralNetwork::Predict(const vector<vector<double>>& XTest)
 {
     MatrixXd X = ConvertToEigen(XTest);
     
@@ -582,7 +582,7 @@ vector<int> DeepNeuralNetwork::Predict(const vector<vector<double>>& XTest)
     if(OutputWeights.isZero())
     {
         cout << endl << "Error in Predict() - No weights have been fit" << endl;
-        return vector<int> (X.rows(),0);
+        return vector<double> (X.rows(),0);
         
     }
     
@@ -593,15 +593,27 @@ vector<int> DeepNeuralNetwork::Predict(const vector<vector<double>>& XTest)
     // Forward propagation
     MatrixXd Outputs = ForwardPropagation(X);
     
-    // Get max prediction
-    vector<int> Predictions = WinningOutput(Outputs);
+    vector<double> Predictions(Outputs.rows(),0);
+    
+    if(CostFun == CrossEntropy)
+    {
+        // Get max prediction
+        Predictions = WinningOutput(Outputs);
+    }
+    else
+    {
+        for(int i = 0; i < Outputs.rows(); ++i)
+        {
+            Predictions[i] = Outputs(i,0);
+        }
+    }
     
     return Predictions;
 }
 
-vector<int> DeepNeuralNetwork::WinningOutput(const MatrixXd& Outputs)
+vector<double> DeepNeuralNetwork::WinningOutput(const MatrixXd& Outputs)
 {
-    vector<int> Predictions(Outputs.rows(),0);
+    vector<double> Predictions(Outputs.rows(),0);
     
     for(int i=0; i < Outputs.rows(); ++i)
     {
@@ -614,8 +626,14 @@ vector<int> DeepNeuralNetwork::WinningOutput(const MatrixXd& Outputs)
 
 double DeepNeuralNetwork::GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y)
 {
+    if(CostFun == SumOfSquaredErrors)
+    {
+        cout << "Sum of squared errors has no accuracy" << endl;
+        return 0;
+    }
+    
     double Accuracy;
-    vector<int> Predictions = Predict(X);
+    vector<double> Predictions = Predict(X);
     
     int numCorrect = 0;
     

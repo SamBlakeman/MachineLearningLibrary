@@ -23,6 +23,8 @@ public:
     // Transform features onto the same scale
     void NormaliseFit(const vector<vector<double>>& X);
     void NormaliseTransform(vector<vector<double>>& X);
+    void NormaliseFit(const vector<double>& Y);
+    void NormaliseTransform(vector<double>& Y);
     
     void StandardiseFit(const vector<vector<double>>& X);
     void StandardiseTransform(vector<vector<double>>& X);
@@ -38,6 +40,9 @@ private:
     vector<double> std;
     vector<double> min;
     vector<double> max;
+    
+    double Ymin;
+    double Ymax;
     
     
 };

@@ -21,12 +21,12 @@ int main(int argc, const char * argv[]) {
     DeepNeuralNetworkTest DNNTest;
     
     //DNNTest.RunClassificationTest();
-    NNTest.Run();
+    DNNTest.RunRegressionTest();
+    //NNTest.Run();
     
     /*
      TODO:
-     - remove one hot encoding from pre processing and add to neural network
-     - incorporate regression cost function and linear gradients at the outputs layer
+     - Regression for standard neural network
      - Generative Pre-Training
      - Dropout
      - Weight decay

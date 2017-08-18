@@ -48,7 +48,7 @@ void NeuralNetworkTest::Run()
     double alpha = 0.01;
     double lambda = 0;
     int numHidden = 50;
-    int numOutput = 1;
+    int numOutput = 2;
     int Iters = 1000;
     ActivationFunction AF = leakyrelu;
     
