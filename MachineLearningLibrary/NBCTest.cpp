@@ -42,18 +42,20 @@ void NBCTest::DiscreteTest()
     
     vector<double> YTest = {1,1,1,0,0};
     
+    vector<double> numAttributeVals = {3, 3, 3, 3};
+    
     NaiveBayesClassifier nbc;
     
+    nbc.AddNumAttributeValues(numAttributeVals);
     nbc.Fit(X, Y);
     
     vector<double> Predictions;
     Predictions = nbc.Predict(XTest);
-    
     cout << "Predictions:\n";
     Utilities::PrintVector(Predictions);
     
-    cout << "Accuracy:\n";
     double Accuracy = nbc.GetAccuracy(XTest, YTest);
+    cout << "Accuracy:\n";
     cout << Accuracy << "%\n\n";
     
     

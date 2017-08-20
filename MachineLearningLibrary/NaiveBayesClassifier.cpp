@@ -10,34 +10,55 @@
 #include "Utilities.hpp"
 #include <numeric>
 #include <cmath>
+#include <iostream>
 
 
 // Constructors
 NaiveBayesClassifier::NaiveBayesClassifier()
 {
-    
+    if(!Continuous)
+    {
+        cout << "\nWarning - To avoid zero probabilties please specify the number of values each attribute can take using the method AddNumAttributeValues()\n";
+    }
 }
 
 NaiveBayesClassifier::NaiveBayesClassifier(bool ContinuousInputVariables)
 {
     Continuous = ContinuousInputVariables;
+    
+    if(!Continuous)
+    {
+        cout << "\nWarning - To avoid zero probabilties please specify the number of values each attribute can take using the method AddNumAttributeValues()\n";
+    }
 }
 
 NaiveBayesClassifier::NaiveBayesClassifier(vector<double> Priors)
 {
     ClassPriors = Priors;
-}
-
-NaiveBayesClassifier::NaiveBayesClassifier(double EquivalentSampSize)
-{
-    EquivalentSampleSize = EquivalentSampSize;
+    
+    if(!Continuous)
+    {
+        cout << "\nWarning - To avoid zero probabilties please specify the number of values each attribute can take using the method AddNumAttributeValues()\n";
+    }
 }
 
 NaiveBayesClassifier::NaiveBayesClassifier(bool ContinuousInputVariables, vector<double> Priors)
 {
     Continuous = ContinuousInputVariables;
     ClassPriors = Priors;
+    
+    if(!Continuous)
+    {
+        cout << "\nWarning - To avoid zero probabilties please specify the number of values each attribute can take using the method AddNumAttributeValues()\n";
+    }
 }
+
+
+void NaiveBayesClassifier::AddNumAttributeValues(vector<double> numAttributeValues)
+{
+    numAtrributeVals = numAttributeValues;
+}
+
 
 // Fit the classifier
 void NaiveBayesClassifier::Fit(const vector<vector<double>>& XTrain, const vector<double>& YTrain)
@@ -199,10 +220,16 @@ vector<double> NaiveBayesClassifier::CalculateDiscClassLikelihoods(const vector<
         {
             value = Example[a];
             double nc = GetAttributeValueCountForClass(c, a, value);
-            
-            likelihood *= (nc + (EquivalentSampleSize*ClassPriors[c]))/(ClassCounts[c] + EquivalentSampleSize);
+            // Laplace smoothing
+            if(numAtrributeVals.empty())
+            {
+                likelihood *= nc/ClassCounts[c];
+            }
+            else
+            {
+                likelihood *= (nc + 1)/(ClassCounts[c] + numAtrributeVals[a]);
+            }
         }
-        
         ClassLikelihoods.push_back(likelihood);
     }
     
@@ -225,9 +252,6 @@ double NaiveBayesClassifier::GetAttributeValueCountForClass(int Class, int Attri
 
 double NaiveBayesClassifier::Gaussian(int Class, int Attribute, double Value)
 {
-    //double coeff = (1/(ClassAttributeStds[Class][Attribute]*sqrt(2*pi)));
-    //double exponential = -(1/2)*(pow((Value - ClassAttributeMeans[Class][Attribute])/ClassAttributeStds[Class][Attribute], 2));
-    
     double coeff = (1/(ClassAttributeStds[Class][Attribute]*sqrt(2*pi)));
     double exponential = -pow((Value-ClassAttributeMeans[Class][Attribute]),2)/(2*pow(ClassAttributeStds[Class][Attribute],2));
     

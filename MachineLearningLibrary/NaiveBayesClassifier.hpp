@@ -22,11 +22,11 @@ public:
     // Constructors
     NaiveBayesClassifier();
     NaiveBayesClassifier(bool ContinuousInputVariables);
-    NaiveBayesClassifier(double EquivalentSampSize);
     NaiveBayesClassifier(vector<double> Priors);
     NaiveBayesClassifier(bool ContinuousInputVariables, vector<double> Priors);
     
     // Fit the classifier
+    void AddNumAttributeValues(vector<double> numAttributeValues);
     void Fit(const vector<vector<double>>& XTrain, const vector<double>& YTrain);
     
     // Predict
@@ -52,7 +52,8 @@ private:
     int numClasses = 2;
     int numExamples;
     int numAttributes;
-    double EquivalentSampleSize = 0;
+    //double EquivalentSampleSize = 0;
+    vector<double> numAtrributeVals;
     
     vector<vector<double>> X;
     vector<double> Y;
