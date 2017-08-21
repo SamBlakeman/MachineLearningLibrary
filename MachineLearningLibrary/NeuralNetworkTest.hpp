@@ -15,7 +15,8 @@ class NeuralNetworkTest
 {
 public:
     
-    void Run();
+    void RunClassificationTest();
+    void RunRegressionTest();
     
     
 private:

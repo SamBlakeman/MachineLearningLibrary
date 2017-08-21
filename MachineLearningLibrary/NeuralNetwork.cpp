@@ -13,7 +13,7 @@
 #include <iostream>
 #include <numeric>
 
-NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters)
+NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters, CostFunction Cost)
 {
     Alpha = alpha;
     Lambda = lambda;
@@ -21,9 +21,10 @@ NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int num
     numOut = numOutput;
     Iterations = Iters;
     Costs = vector<double>(Iterations,0);
+    CostFun = Cost;
 }
 
-NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters, ActivationFunction HiddenActivation)
+NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters, CostFunction Cost, ActivationFunction HiddenActivation)
 {
     Alpha = alpha;
     Lambda = lambda;
@@ -32,6 +33,7 @@ NeuralNetwork::NeuralNetwork(double alpha, double lambda, int numHidden, int num
     Iterations = Iters;
     Costs = vector<double>(Iterations,0);
     HiddenActFun = HiddenActivation;
+    CostFun = Cost;
 }
 
 
@@ -229,7 +231,7 @@ void NeuralNetwork::LeakyReLU(MatrixXd& Mat)
     return;
 }
 
-vector<int> NeuralNetwork::Predict(const vector<vector<double>>& XTest)
+vector<double> NeuralNetwork::Predict(const vector<vector<double>>& XTest)
 {
     
     MatrixXd X = ConvertToEigen(XTest);
@@ -238,7 +240,7 @@ vector<int> NeuralNetwork::Predict(const vector<vector<double>>& XTest)
     if(w1.isZero() || w2.isZero())
     {
         cout << endl << "Error in Predict() - No weights have been fit" << endl;
-        return vector<int> (X.rows(),0);
+        return vector<double> (X.rows(),0);
         
     }
     
@@ -249,8 +251,20 @@ vector<int> NeuralNetwork::Predict(const vector<vector<double>>& XTest)
     // Forward propagation
     MatrixXd Outputs = ForwardPropagation(X);
     
-    // Get max prediction
-    vector<int> Predictions = WinningOutput(Outputs);
+    vector<double> Predictions(Outputs.rows(),0);
+    
+    if(CostFun == CrossEntropy)
+    {
+        // Get max prediction
+        Predictions = WinningOutput(Outputs);
+    }
+    else
+    {
+        for(int i = 0; i < Outputs.rows(); ++i)
+        {
+            Predictions[i] = Outputs(i,0);
+        }
+    }
     
     return Predictions;
 }
@@ -266,15 +280,29 @@ MatrixXd NeuralNetwork::ForwardPropagation(const MatrixXd& X)
     a2.col(a2.cols()-1) = VectorXd::Ones(a2.rows());
     
     MatrixXd a3 = a2 * w2.transpose();
-    ActivateOutput(a3);
+    
+    
+    // Handle the activation function of the output units
+    switch(CostFun)
+    {
+        case CrossEntropy:
+        {
+            ActivateOutput(a3);
+            break;
+        }
+        case SumOfSquaredErrors:
+        {
+            break;
+        }
+    }
     
     return a3;
 }
 
 
-vector<int> NeuralNetwork::WinningOutput(const MatrixXd& Outputs)
+vector<double> NeuralNetwork::WinningOutput(const MatrixXd& Outputs)
 {
-    vector<int> Predictions(Outputs.rows(),0);
+    vector<double> Predictions(Outputs.rows(),0);
     
     for(int i=0; i < Outputs.rows(); ++i)
     {
@@ -287,6 +315,33 @@ vector<int> NeuralNetwork::WinningOutput(const MatrixXd& Outputs)
 
 void NeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter)
 {
+    switch(CostFun)
+    {
+        case CrossEntropy:
+        {
+            CrossEntropyCosts(Outputs, YTrain, iter);
+            break;
+        }
+        case SumOfSquaredErrors:
+        {
+            SumOfSquaredErrorsCosts(Outputs, YTrain, iter);
+            break;
+        }
+    }
+    
+    Regularize(iter);
+    
+    if(iter%50 == 0)
+    {
+        cout << "Cost for iter " << iter << " = " << Costs[iter] << endl;
+    }
+    
+    return;
+}
+
+
+void NeuralNetwork::CrossEntropyCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, const int& iter)
+{
     MatrixXd LogOutputs = Outputs.array().log();
     MatrixXd term1 = -(YTrain.cwiseProduct(LogOutputs));
     
@@ -296,19 +351,32 @@ void NeuralNetwork::CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTra
     Costs[iter] = (term1 - term2).sum();
     Costs[iter] *= (1/numTrainExamples);
     
+    return;
+}
+
+
+void NeuralNetwork::SumOfSquaredErrorsCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, const int& iter)
+{
+    MatrixXd O = Outputs;
+    MatrixXd Y = YTrain;
+    Costs[iter] = ((O - Y).transpose()*(O - YTrain)).value();
+    Costs[iter] *= (1/numTrainExamples);
+    
+    return;
+}
+
+
+void NeuralNetwork::Regularize(const int& iter)
+{
     double RegTerm = 0;
     RegTerm += ((w1.block(0, 0, w1.rows(), w1.cols()-1)).cwiseProduct((w1.block(0, 0, w1.rows(), w1.cols()-1)))).sum();
     RegTerm += ((w2.block(0, 0, w2.rows(), w2.cols()-1)).cwiseProduct((w2.block(0, 0, w2.rows(), w2.cols()-1)))).sum();
     RegTerm *= Lambda/(2*numTrainExamples);
     Costs[iter] += RegTerm;
     
-    if(iter%50 == 0)
-    {
-        cout << "Cost for iter " << iter << " = " << Costs[iter] << endl;
-    }
-    
     return;
 }
+
 
 
 pair<MatrixXd,MatrixXd> NeuralNetwork::CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain)
@@ -451,7 +519,7 @@ MatrixXd NeuralNetwork::GetHiddenActivationGradient(const MatrixXd& Activations)
 double NeuralNetwork::GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y)
 {
     double Accuracy;
-    vector<int> Predictions = Predict(X);
+    vector<double> Predictions = Predict(X);
     
     int numCorrect = 0;
     

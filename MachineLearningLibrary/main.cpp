@@ -19,18 +19,16 @@ int main(int argc, const char * argv[]) {
     
     NeuralNetworkTest NNTest;
     DeepNeuralNetworkTest DNNTest;
-    NBCTest nbc;
     
-    nbc.DiscreteTest();
     //DNNTest.RunClassificationTest();
     //DNNTest.RunRegressionTest();
-    //NNTest.Run();
+    NNTest.RunRegressionTest();
     
     /*
      TODO:
-     - sort out the laplace smoothin, just have +1 on the top and +k on the bottom, quivalent sample size is too confusing because it would need to be specified for each attribute etc.
      
      - Regression for standard neural network
+     - Allow for several outputs for regression (sort out one hot encoding function)
      - Generative Pre-Training
      - Dropout
      - Weight decay

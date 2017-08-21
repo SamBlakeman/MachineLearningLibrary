@@ -14,6 +14,7 @@
 #include "Eigen/Dense"
 
 enum ActivationFunction {linear, sigmoid, relu, leakyrelu};
+enum CostFunction {CrossEntropy, SumOfSquaredErrors};
 
 using namespace std;
 using namespace Eigen;
@@ -23,15 +24,15 @@ class NeuralNetwork
 public:
     
     // Constructors
-    NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters);
-    NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters, ActivationFunction HiddenActivation);
+    NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters, CostFunction Cost);
+    NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters, CostFunction Cost, ActivationFunction HiddenActivation);
     
     // Fit the weights of the model
     void Fit(const vector<vector<double>>& X, const vector<double>& Y);
     void InitialiseWeights();
     
     // Predict
-    vector<int> Predict(const vector<vector<double>>& XTest);
+    vector<double> Predict(const vector<vector<double>>& XTest);
     
     // Getters
     //vector<double> GetWeights();
@@ -50,6 +51,9 @@ private:
     void LeakyReLU(MatrixXd& Mat);
     MatrixXd ForwardPropagation(const MatrixXd& X);
     void CalculateCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, int iter);
+    void CrossEntropyCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, const int& iter);
+    void SumOfSquaredErrorsCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, const int& iter);
+    void Regularize(const int& iter);
     pair<MatrixXd,MatrixXd> CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain);
     void ActivateHidden(MatrixXd& Mat);
     void ActivateOutput(MatrixXd& Mat);
@@ -57,7 +61,7 @@ private:
     
     
     // Predict
-    vector<int> WinningOutput(const MatrixXd& Outputs);
+    vector<double> WinningOutput(const MatrixXd& Outputs);
     
     double Alpha = 0.1;
     double Lambda = 0.f;
@@ -69,6 +73,7 @@ private:
     MatrixXd w1;
     MatrixXd w2;
     vector<double> Costs;
+    CostFunction CostFun;
     ActivationFunction HiddenActFun = sigmoid;
     ActivationFunction OutputActFun = sigmoid;
     

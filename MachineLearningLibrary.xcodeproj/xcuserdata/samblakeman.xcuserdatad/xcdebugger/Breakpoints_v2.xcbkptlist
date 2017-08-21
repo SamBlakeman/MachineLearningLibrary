@@ -269,9 +269,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "NaiveBayesClassifier::CalculateClassPriors()"
-            landmarkType = "5">
+            endingLineNumber = "91">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -637,22 +635,6 @@
             startingLineNumber = "229"
             endingLineNumber = "229"
             landmarkName = "NeuralNetwork::LeakyReLU(MatrixXd&amp; Mat)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MachineLearningLibrary/NeuralNetwork.cpp"
-            timestampString = "524760730.79223"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
-            landmarkName = "NeuralNetwork::CalculateCosts(const MatrixXd&amp; Outputs, const MatrixXd&amp; YTrain, int iter)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
