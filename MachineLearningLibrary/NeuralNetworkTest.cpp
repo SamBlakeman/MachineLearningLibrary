@@ -56,23 +56,21 @@ void NeuralNetworkTest::RunClassificationTest()
     NeuralNetwork nn(alpha, lambda, numHidden, numOutput, Iters, Cost, AF);
     nn.Fit(XTrain, YTrain);
     
-    // Save the costs for plotting
-    cout << "Saving costs\n";
-    vector<double> Costs = nn.GetCosts();
-    string name = "/Users/samblakeman/Desktop/NNCosts.txt";
-    auto filename = name.c_str();
-    Utilities::SaveVectorAsCSV(Costs, filename);
-    
     // Print accuracy on test set
     double Accuracy = nn.GetAccuracy(XTest, YTest);
     cout << "Test Accuracy = " << Accuracy << endl;
     
-    // Try some predictions
-    vector<double> Predictions = nn.Predict(XTest);
+    // Save the costs for plotting
+    cout << "Saving costs\n";
+    vector<double> Costs = nn.GetCosts();
+    string name = "/Users/samblakeman/Desktop/Costs.txt";
+    auto filename = name.c_str();
+    Utilities::SaveVectorAsCSV(Costs, filename);
     
     // Save the predictions and the actual values
+    vector<double> Predictions = nn.Predict(XTest);
     cout << "Saving predictions\n";
-    name = "/Users/samblakeman/Desktop/DNNPredictions.txt";
+    name = "/Users/samblakeman/Desktop/Predictions.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(Predictions, filename);
     
@@ -130,23 +128,21 @@ void NeuralNetworkTest::RunRegressionTest()
     // Train Network
     nn.Fit(XTrain, YTrain);
     
-    // Save the costs for plotting
-    cout << "Saving costs\n";
-    vector<double> Costs = nn.GetCosts();
-    string name = "/Users/samblakeman/Desktop/NNCosts.txt";
-    auto filename = name.c_str();
-    Utilities::SaveVectorAsCSV(Costs, filename);
-    
     // Print accuracy on test set
     double Accuracy = nn.GetAccuracy(XTest, YTest);
     cout << "Test Accuracy = " << Accuracy << endl;
     
-    // Try some predictions
-    vector<double> Predictions = nn.Predict(XTest);
+    // Save the costs for plotting
+    cout << "Saving costs\n";
+    vector<double> Costs = nn.GetCosts();
+    string name = "/Users/samblakeman/Desktop/Costs.txt";
+    auto filename = name.c_str();
+    Utilities::SaveVectorAsCSV(Costs, filename);
     
     // Save the predictions and the actual values
+    vector<double> Predictions = nn.Predict(XTest);
     cout << "Saving predictions\n";
-    name = "/Users/samblakeman/Desktop/DNNPredictions.txt";
+    name = "/Users/samblakeman/Desktop/Predictions.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(Predictions, filename);
     
@@ -154,8 +150,6 @@ void NeuralNetworkTest::RunRegressionTest()
     name = "/Users/samblakeman/Desktop/YTest.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(YTest, filename);
-    
-    
     
     return;
 }

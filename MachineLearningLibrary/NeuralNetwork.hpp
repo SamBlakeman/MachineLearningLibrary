@@ -43,8 +43,6 @@ private:
     
     // Fit
     vector<vector<double>> OneHotEncode(const vector<double>& Y);
-    pair<MatrixXd,MatrixXd> ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain );
-    MatrixXd ConvertToEigen(const vector<vector<double>>& X);
     void Linear(MatrixXd& Mat);
     void Sigmoid(MatrixXd& Mat);
     void ReLU(MatrixXd& Mat);

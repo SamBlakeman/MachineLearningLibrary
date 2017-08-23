@@ -88,8 +88,6 @@ private:
     void Regularize(const int& iter);
     vector<MatrixXd> CalculateGradients(const MatrixXd& Outputs, const MatrixXd& XTrain, const MatrixXd& YTrain);
     void UpdateLayers(const vector<MatrixXd>& Grads);
-    pair<MatrixXd,MatrixXd> ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain );
-    MatrixXd ConvertToEigen(const vector<vector<double>>& X);
     vector<double> WinningOutput(const MatrixXd& Outputs);
     
     double Alpha = 0.1;

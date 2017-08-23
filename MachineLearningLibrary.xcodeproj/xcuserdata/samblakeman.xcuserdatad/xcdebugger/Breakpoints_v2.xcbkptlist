@@ -41,38 +41,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MachineLearningLibrary/LRTest.cpp"
-            timestampString = "516491818.8342"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "LRTest::Run()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MachineLearningLibrary/LRTest.cpp"
-            timestampString = "516492001.184583"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "LRTest::Run()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/PreProcessing.cpp"
             timestampString = "524763714.366608"
             startingColumnNumber = "9223372036854775807"
@@ -96,22 +64,6 @@
             startingLineNumber = "164"
             endingLineNumber = "164"
             landmarkName = "PreProcessing::GetTrainAndTest(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y, float trainSize)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MachineLearningLibrary/LRTest.cpp"
-            timestampString = "516746960.70383"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "LRTest::Run()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -379,9 +331,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "233"
-            endingLineNumber = "233"
-            landmarkName = "NeuralNetwork::Predict(const vector&lt;vector&lt;double&gt;&gt;&amp; XTest)"
-            landmarkType = "5">
+            endingLineNumber = "233">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -459,7 +409,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "115"
-            endingLineNumber = "115">
+            endingLineNumber = "115"
+            landmarkName = "NeuralNetwork::OneHotEncode(const vector&lt;double&gt;&amp; Y)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -474,7 +426,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "202"
             endingLineNumber = "202"
-            landmarkName = "NeuralNetwork::ReLU(MatrixXd&amp; Mat)"
+            landmarkName = "NeuralNetwork::Sigmoid(MatrixXd&amp; Mat)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -645,11 +597,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524760730.79223"
+            timestampString = "525209222.885342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
             landmarkName = "DeepNeuralNetwork::InitialiseOutputWeights()"
             landmarkType = "5">
          </BreakpointContent>
@@ -661,11 +613,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524760730.79223"
+            timestampString = "525209222.885342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "504"
-            endingLineNumber = "504"
+            startingLineNumber = "505"
+            endingLineNumber = "505"
             landmarkName = "DeepNeuralNetwork::CalculateGradients(const MatrixXd&amp; Outputs, const MatrixXd&amp; XTrain, const MatrixXd&amp; YTrain)"
             landmarkType = "5">
          </BreakpointContent>
@@ -677,7 +629,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524760730.79223"
+            timestampString = "525209222.885342"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
+            landmarkName = "DeepNeuralNetwork::ForwardPropagation(const MatrixXd&amp; X)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
+            timestampString = "525209222.885342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "374"
@@ -693,11 +661,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524760730.79223"
+            timestampString = "525209222.885342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "373"
-            endingLineNumber = "373"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "DeepNeuralNetwork::ForwardPropagation(const MatrixXd&amp; X)"
             landmarkType = "5">
          </BreakpointContent>
@@ -709,11 +677,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524760730.79223"
+            timestampString = "525209222.885342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "354"
-            endingLineNumber = "354"
+            startingLineNumber = "357"
+            endingLineNumber = "357"
             landmarkName = "DeepNeuralNetwork::ForwardPropagation(const MatrixXd&amp; X)"
             landmarkType = "5">
          </BreakpointContent>
@@ -725,27 +693,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524760730.79223"
+            timestampString = "525209222.885342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "356"
-            endingLineNumber = "356"
-            landmarkName = "DeepNeuralNetwork::ForwardPropagation(const MatrixXd&amp; X)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524763714.366608"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "624"
-            endingLineNumber = "624"
+            startingLineNumber = "580"
+            endingLineNumber = "580"
             landmarkName = "DeepNeuralNetwork::WinningOutput(const MatrixXd&amp; Outputs)"
             landmarkType = "5">
          </BreakpointContent>
@@ -757,11 +709,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepNeuralNetwork.cpp"
-            timestampString = "524666280.129711"
+            timestampString = "525209222.885342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "DenseLayer::GetHiddenActivationGradient()"
             landmarkType = "5">
          </BreakpointContent>

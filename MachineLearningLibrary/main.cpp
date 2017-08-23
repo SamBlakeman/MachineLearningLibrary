@@ -10,6 +10,7 @@
 
 #include "NormaliseTest.hpp"
 #include "LRTest.hpp"
+#include "LWRTest.hpp"
 #include "LogRegTest.hpp"
 #include "NBCTest.hpp"
 #include "NeuralNetworkTest.hpp"
@@ -17,17 +18,27 @@
 
 int main(int argc, const char * argv[]) {
     
-    NeuralNetworkTest NNTest;
-    DeepNeuralNetworkTest DNNTest;
+//    LRTest lr;
+//    lr.Run();
     
-    //DNNTest.RunClassificationTest();
-    //DNNTest.RunRegressionTest();
-    NNTest.RunRegressionTest();
+    LWRTest lwr;
+    lwr.Run();
     
     /*
      TODO:
      
-     - Regression for standard neural network
+     
+     Locally Weighted Regression:
+     - Implement
+     
+     
+     Linear Regression:
+     - Normal equations
+     - Normal equations with regularization
+     
+     
+     Neural Networks:
+     - R squared for regressions
      - Allow for several outputs for regression (sort out one hot encoding function)
      - Generative Pre-Training
      - Dropout
@@ -35,7 +46,7 @@ int main(int argc, const char * argv[]) {
      - Softmax
      
      
-     - Naive Bayes classifer
+     Naive Bayes classifer:
      - finish all the constructor combinations
      - make continuous and discrete an enum
      - allow for continuous input variables - needs testing
@@ -43,7 +54,24 @@ int main(int argc, const char * argv[]) {
      - accuracy, confusion matrix etc.
      - maybe also allow for strings
      
-     - SVM
+     
+     Gaussian Discriminant Analysis:
+     - Implement
+     
+     
+     SVM:
+     - Implement
+     
+     
+     Decision Trees:
+     - Implement
+     
+     
+     AutoEncoder:
+     - Implement
+     
+    
+     Misc:
      - learning curve
      - validation curve
      

@@ -11,8 +11,10 @@
 
 #include <stdio.h>
 #include <vector>
+#include "Eigen/Dense"
 
 using namespace std;
+using namespace Eigen;
 
 class Utilities
 {
@@ -57,6 +59,11 @@ public:
     static vector<vector<double>> ReadCSVFeatureVector(const char* FileName);
     static void SaveVectorAsCSV(const vector<double>& Vec, const char* FileName);
     static void SaveVectorAsCSV(const vector<int>& Vec, const char* FileName);
+    
+    // Converting to Eigen
+    static MatrixXd ConvertToEigen(const vector<vector<double>>& Mat);
+    static MatrixXd ConvertToEigen(const vector<double>& Mat);
+    static pair<MatrixXd,MatrixXd> ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain);
     
 };
 

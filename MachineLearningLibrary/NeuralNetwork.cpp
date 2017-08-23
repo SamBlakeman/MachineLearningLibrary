@@ -43,7 +43,7 @@ void NeuralNetwork::Fit(const vector<vector<double>>& X, const vector<double>& Y
     // One hot encode Y if neccessary
     vector<vector<double>> YEnc = OneHotEncode(Y);
     
-    pair<MatrixXd,MatrixXd> Eigens = ConvertToEigen(X, YEnc);
+    pair<MatrixXd,MatrixXd> Eigens = Utilities::ConvertToEigen(X, YEnc);
     MatrixXd XTrain = Eigens.first;
     MatrixXd YTrain = Eigens.second;
     
@@ -234,7 +234,7 @@ void NeuralNetwork::LeakyReLU(MatrixXd& Mat)
 vector<double> NeuralNetwork::Predict(const vector<vector<double>>& XTest)
 {
     
-    MatrixXd X = ConvertToEigen(XTest);
+    MatrixXd X = Utilities::ConvertToEigen(XTest);
     
     // Check for weights
     if(w1.isZero() || w2.isZero())
@@ -425,49 +425,6 @@ vector<double> NeuralNetwork::GetCosts() const
     return Costs;
 }
 
-pair<MatrixXd,MatrixXd> NeuralNetwork::ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain )
-{
-
-    MatrixXd XT(XTrain.size(),XTrain[0].size());
-
-    for(int i = 0; i < XTrain.size(); ++i)
-    {
-        vector<double> vec = XTrain[i];
-        Eigen::VectorXd Xvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
-    
-        XT.row(i) = Xvec;
-    }
-
-    MatrixXd YT(YTrain.size(),YTrain[0].size());
-
-    for(int i = 0; i < YTrain.size(); ++i)
-    {
-        vector<double> vec = YTrain[i];
-        Eigen::VectorXd Yvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
-    
-        YT.row(i) = Yvec;
-    }
-    
-    return make_pair(XT, YT);
-}
-
-
-MatrixXd NeuralNetwork::ConvertToEigen(const vector<vector<double>>& X)
-{
-    
-    MatrixXd XT(X.size(),X[0].size());
-    
-    for(int i = 0; i < X.size(); ++i)
-    {
-        vector<double> vec = X[i];
-        Eigen::VectorXd Xvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
-        
-        XT.row(i) = Xvec;
-    }
-    
-    return XT;
-}
-
 
 MatrixXd NeuralNetwork::GetHiddenActivationGradient(const MatrixXd& Activations)
 {
@@ -518,6 +475,12 @@ MatrixXd NeuralNetwork::GetHiddenActivationGradient(const MatrixXd& Activations)
 
 double NeuralNetwork::GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y)
 {
+    if(CostFun == SumOfSquaredErrors)
+    {
+        cout << "Sum of squared errors has no accuracy" << endl;
+        return 0;
+    }
+    
     double Accuracy;
     vector<double> Predictions = Predict(X);
     

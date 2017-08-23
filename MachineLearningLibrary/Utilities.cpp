@@ -462,6 +462,62 @@ void Utilities::SaveVectorAsCSV(const vector<int>& Vec, const char* FileName)
 }
 
 
+MatrixXd Utilities::ConvertToEigen(const vector<vector<double>>& Mat)
+{
+    MatrixXd M(Mat.size(),Mat[0].size());
+    
+    for(int i = 0; i < Mat.size(); ++i)
+    {
+        vector<double> vec = Mat[i];
+        Eigen::VectorXd Mvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
+        
+        M.row(i) = Mvec;
+    }
+    
+    return M;
+}
 
+
+MatrixXd Utilities::ConvertToEigen(const vector<double>& Mat)
+{
+    MatrixXd M(Mat.size(),1);
+    
+    for(int i = 0; i < Mat.size(); ++i)
+    {
+        vector<double> vec = {Mat[i]};
+        Eigen::VectorXd Mvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
+        
+        M.row(i) = Mvec;
+    }
+    
+    return M;
+}
+
+
+pair<MatrixXd,MatrixXd> Utilities::ConvertToEigen(const vector<vector<double>>& X, const vector<vector<double>>& Y )
+{
+    
+    MatrixXd XT(X.size(),X[0].size());
+    
+    for(int i = 0; i < X.size(); ++i)
+    {
+        vector<double> vec = X[i];
+        Eigen::VectorXd Xvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
+        
+        XT.row(i) = Xvec;
+    }
+    
+    MatrixXd YT(Y.size(),Y[0].size());
+    
+    for(int i = 0; i < Y.size(); ++i)
+    {
+        vector<double> vec = Y[i];
+        Eigen::VectorXd Yvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
+        
+        YT.row(i) = Yvec;
+    }
+    
+    return make_pair(XT, YT);
+}
 
 

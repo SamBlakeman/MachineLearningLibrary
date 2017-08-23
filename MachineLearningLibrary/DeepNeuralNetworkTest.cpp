@@ -62,23 +62,21 @@ void DeepNeuralNetworkTest::RunClassificationTest()
     // Train Network
     dnn.Fit(XTrain, YTrain);
     
-    // Save the costs for plotting
-    cout << "Saving costs\n";
-    vector<double> Costs = dnn.GetCosts();
-    string name = "/Users/samblakeman/Desktop/NNCosts.txt";
-    auto filename = name.c_str();
-    Utilities::SaveVectorAsCSV(Costs, filename);
-    
     // Print accuracy on test set
     double Accuracy = dnn.GetAccuracy(XTest, YTest);
     cout << "Test Accuracy = " << Accuracy << endl;
     
-    // Try some predictions
-    vector<double> Predictions = dnn.Predict(XTest);
+    // Save the costs for plotting
+    cout << "Saving costs\n";
+    vector<double> Costs = dnn.GetCosts();
+    string name = "/Users/samblakeman/Desktop/Costs.txt";
+    auto filename = name.c_str();
+    Utilities::SaveVectorAsCSV(Costs, filename);
     
     // Save the predictions and the actual values
+    vector<double> Predictions = dnn.Predict(XTest);
     cout << "Saving predictions\n";
-    name = "/Users/samblakeman/Desktop/DNNPredictions.txt";
+    name = "/Users/samblakeman/Desktop/Predictions.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(Predictions, filename);
     
@@ -141,17 +139,14 @@ void DeepNeuralNetworkTest::RunRegressionTest()
     // Save the costs for plotting
     cout << "Saving costs\n";
     vector<double> Costs = dnn.GetCosts();
-    string name = "/Users/samblakeman/Desktop/NNCosts.txt";
+    string name = "/Users/samblakeman/Desktop/Costs.txt";
     auto filename = name.c_str();
     Utilities::SaveVectorAsCSV(Costs, filename);
     
-    
-    // Try some predictions
-    vector<double> Predictions = dnn.Predict(XTest);
-    
     // Save the predictions and the actual values
+    vector<double> Predictions = dnn.Predict(XTest);
     cout << "Saving predictions\n";
-    name = "/Users/samblakeman/Desktop/DNNPredictions.txt";
+    name = "/Users/samblakeman/Desktop/Predictions.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(Predictions, filename);
     

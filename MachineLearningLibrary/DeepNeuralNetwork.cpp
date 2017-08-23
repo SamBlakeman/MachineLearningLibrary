@@ -7,6 +7,7 @@
 //
 
 #include "DeepNeuralNetwork.hpp"
+#include "Utilities.hpp"
 #include <iostream>
 
 DenseLayer::DenseLayer(int NumberOfUnits, int NumberOfInputs)
@@ -236,7 +237,7 @@ void DeepNeuralNetwork::Fit(const vector<vector<double>>& X, const vector<double
     // One hot encode Y if neccessary
     vector<vector<double>> YEnc = OneHotEncode(Y);
     
-    pair<MatrixXd,MatrixXd> Eigens = ConvertToEigen(X, YEnc);
+    pair<MatrixXd,MatrixXd> Eigens = Utilities::ConvertToEigen(X, YEnc);
     MatrixXd XTrain = Eigens.first;
     MatrixXd YTrain = Eigens.second;
     
@@ -504,51 +505,6 @@ vector<MatrixXd> DeepNeuralNetwork::CalculateGradients(const MatrixXd& Outputs, 
 }
 
 
-
-pair<MatrixXd,MatrixXd> DeepNeuralNetwork::ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain )
-{
-    
-    MatrixXd XT(XTrain.size(),XTrain[0].size());
-    
-    for(int i = 0; i < XTrain.size(); ++i)
-    {
-        vector<double> vec = XTrain[i];
-        Eigen::VectorXd Xvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
-        
-        XT.row(i) = Xvec;
-    }
-    
-    MatrixXd YT(YTrain.size(),YTrain[0].size());
-    
-    for(int i = 0; i < YTrain.size(); ++i)
-    {
-        vector<double> vec = YTrain[i];
-        Eigen::VectorXd Yvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
-        
-        YT.row(i) = Yvec;
-    }
-    
-    return make_pair(XT, YT);
-}
-
-
-MatrixXd DeepNeuralNetwork::ConvertToEigen(const vector<vector<double>>& X)
-{
-    
-    MatrixXd XT(X.size(),X[0].size());
-    
-    for(int i = 0; i < X.size(); ++i)
-    {
-        vector<double> vec = X[i];
-        Eigen::VectorXd Xvec = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vec.data(), vec.size());
-        
-        XT.row(i) = Xvec;
-    }
-    
-    return XT;
-}
-
-
 vector<double> DeepNeuralNetwork::GetCosts() const
 {
     // Check for weights
@@ -576,7 +532,7 @@ void DeepNeuralNetwork::UpdateLayers(const vector<MatrixXd>& Grads)
 
 vector<double> DeepNeuralNetwork::Predict(const vector<vector<double>>& XTest)
 {
-    MatrixXd X = ConvertToEigen(XTest);
+    MatrixXd X = Utilities::ConvertToEigen(XTest);
     
     // Check for weights
     if(OutputWeights.isZero())

@@ -1,23 +1,24 @@
 //
-//  LRTest.cpp
+//  LWRTest.cpp
 //  MachineLearningLibrary
 //
-//  Created by Sam Blakeman on 06/05/2017.
+//  Created by Sam Blakeman on 23/08/2017.
 //  Copyright © 2017 Sam Blakeman. All rights reserved.
 //
 
-#include "LRTest.hpp"
-#include "PreProcessing.hpp"
+#include "LWRTest.hpp"
 #include "Utilities.hpp"
-#include "LinearRegression.hpp"
+#include "PreProcessing.hpp"
+#include "LocallyWeightedRegression.hpp"
 #include <vector>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
-void LRTest::Run()
+void LWRTest::Run()
 {
- 
+    
     string fn = "/Users/samblakeman/Desktop/Concrete_Data.csv";
     const char* FileName = fn.c_str();
     
@@ -45,32 +46,29 @@ void LRTest::Run()
     pp.NormaliseTransform(XTrain);
     pp.NormaliseTransform(XTest);
     
-    // Fit linear regression model
-    LinearRegression lr(0, .01, 10000);
-    lr.Fit(XTrain, YTrain);
+    // Fit locally weighted regression model
+    LocallyWeightedRegression lwr(.1);
+    lwr.Fit(XTrain, YTrain);
     
     // Calculate R squared
-    double RSq = lr.CalculateRSquared(XTest, YTest);
+    double RSq = lwr.CalculateRSquared(XTest, YTest);
     cout << endl << "R Squared:\n" << RSq << endl;
     
-    // Save the costs for plotting
-    cout << "Saving costs\n";
-    vector<double> Costs = lr.GetCosts();
-    string name = "/Users/samblakeman/Desktop/Costs.txt";
-    auto filename = name.c_str();
-    Utilities::SaveVectorAsCSV(Costs, filename);
-    
     // Save the predictions and the actual values
-    vector<double> Predictions = lr.Predict(XTest);
+    vector<double> Predictions = lwr.Predict(XTest);
     cout << "Saving predictions\n";
-    name = "/Users/samblakeman/Desktop/Predictions.txt";
-    filename = name.c_str();
+    string name = "/Users/samblakeman/Desktop/Predictions.txt";
+    auto filename = name.c_str();
     Utilities::SaveVectorAsCSV(Predictions, filename);
     
     cout << "Saving test values\n";
     name = "/Users/samblakeman/Desktop/YTest.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(YTest, filename);
+
     
     return;
+    
+    
+    
 }
