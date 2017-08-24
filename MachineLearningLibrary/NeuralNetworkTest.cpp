@@ -128,9 +128,9 @@ void NeuralNetworkTest::RunRegressionTest()
     // Train Network
     nn.Fit(XTrain, YTrain);
     
-    // Print accuracy on test set
-    double Accuracy = nn.GetAccuracy(XTest, YTest);
-    cout << "Test Accuracy = " << Accuracy << endl;
+    // Calculate R squared
+    double RSq = nn.CalculateRSquared(XTest, YTest);
+    cout << endl << "R Squared:\n" << RSq << endl;
     
     // Save the costs for plotting
     cout << "Saving costs\n";

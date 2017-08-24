@@ -73,6 +73,7 @@ public:
     // Getters
     vector<double> GetCosts() const;
     double GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y);
+    double CalculateRSquared(const vector<vector<double>>& X, const vector<double>& Y);
     
     
 private:

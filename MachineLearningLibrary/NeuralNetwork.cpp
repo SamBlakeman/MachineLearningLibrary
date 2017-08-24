@@ -481,7 +481,7 @@ double NeuralNetwork::GetAccuracy(const vector<vector<double>>& X, const vector<
         return 0;
     }
     
-    double Accuracy;
+    double Accuracy = 0;
     vector<double> Predictions = Predict(X);
     
     int numCorrect = 0;
@@ -497,4 +497,41 @@ double NeuralNetwork::GetAccuracy(const vector<vector<double>>& X, const vector<
     Accuracy = (double(numCorrect)/X.size())*100;
     
     return Accuracy;
+}
+
+
+double NeuralNetwork::CalculateRSquared(const vector<vector<double>>& X, const vector<double>& Y)
+{
+    if(CostFun == CrossEntropy)
+    {
+        cout << "Cross Entropy has no R squared" << endl;
+        return 0;
+    }
+    
+    double RSquared = 0;
+    
+    // Residuals sum of squares
+    double RSS = 0;
+    vector<double> Predictions = Predict(X);
+    
+    for(int i = 0; i < Predictions.size(); ++i)
+    {
+        RSS += pow(Y[i] - Predictions[i], 2);
+    }
+    
+    
+    // Total sum of squares
+    double TSS = 0;
+    double sum = accumulate(Y.begin(), Y.end(), 0);
+    double mean = sum/Y.size();
+    
+    for(int i = 0; i < Y.size(); ++i)
+    {
+        TSS += pow(Y[i] - mean, 2);
+    }
+    
+    // Calculate R squared
+    RSquared = 1 - (RSS/TSS);
+    
+    return RSquared;
 }

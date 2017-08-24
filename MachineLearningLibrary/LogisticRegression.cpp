@@ -106,6 +106,7 @@ void LogisticRegression::GradientDescent(const vector<vector<double>>& XTrain, c
     return;
 }
 
+
 void LogisticRegression::Sigmoid(vector<double>& Vec)
 {
     for(int i = 0; i < Vec.size(); ++i)

@@ -77,7 +77,7 @@ vector<double> LocallyWeightedRegression::Predict(const vector<vector<double>>& 
 }
 
 
-double LocallyWeightedRegression::CalculateRSquared(vector<vector<double>> X, const vector<double>& Y)
+double LocallyWeightedRegression::CalculateRSquared(const vector<vector<double>>& X, const vector<double>& Y)
 {
     double RSquared = 0;
     

@@ -14,8 +14,6 @@
 
 using namespace std;
 
-
-
 class LogisticRegression
 {
 public:

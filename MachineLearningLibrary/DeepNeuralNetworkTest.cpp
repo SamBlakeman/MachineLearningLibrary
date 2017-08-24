@@ -136,6 +136,10 @@ void DeepNeuralNetworkTest::RunRegressionTest()
     // Train Network
     dnn.Fit(XTrain, YTrain);
     
+    // Calculate R squared
+    double RSq = dnn.CalculateRSquared(XTest, YTest);
+    cout << endl << "R Squared:\n" << RSq << endl;
+    
     // Save the costs for plotting
     cout << "Saving costs\n";
     vector<double> Costs = dnn.GetCosts();

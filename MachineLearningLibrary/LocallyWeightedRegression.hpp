@@ -30,7 +30,7 @@ public:
     vector<double> Predict(const vector<vector<double>>& XTest);
     
     // Goodness of fit
-    double CalculateRSquared(vector<vector<double>> X, const vector<double>& Y);
+    double CalculateRSquared(const vector<vector<double>>& X, const vector<double>& Y);
     
     // Getters
     vector<double> GetWeights();

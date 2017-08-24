@@ -18,24 +18,21 @@
 
 int main(int argc, const char * argv[]) {
     
-    LRTest lr;
-    lr.Run();
+//    NeuralNetworkTest NNTest;
+//    NNTest.RunRegressionTest();
     
+    DeepNeuralNetworkTest DNNTest;
+    DNNTest.RunRegressionTest();
     
     /*
      TODO:
      
-     Linear Regression:
-     - Normal equations
-     - Normal equations with regularization
-     
      
      Logistic Regression:
-     - Newtons Method
+     - Newtons Method --> unsure of how to calculate the Hessian
      
      
      Neural Networks:
-     - R squared for regressions
      - Allow for several outputs for regression (sort out one hot encoding function)
      - Generative Pre-Training
      - Dropout
