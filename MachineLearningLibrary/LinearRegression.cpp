@@ -12,24 +12,50 @@
 #include <numeric>
 #include <iostream>
 
-LinearRegression::LinearRegression(double lambda, double alpha, int iter)
+LinearRegression::LinearRegression(double lambda, OptimizationMethod Op)
+{
+    Lambda = lambda;
+    Opt = Op;
+    
+    if(Op == BatchGradientDescent)
+    {
+        cout << "\nUse Constructor with Gradient Descent Parameters!\n";
+    }
+    
+    return;
+}
+
+
+LinearRegression::LinearRegression(double lambda, double alpha, int iter, OptimizationMethod Op)
 {
     Lambda = lambda;
     Alpha = alpha;
     Iterations = iter;
+    Opt = Op;
+    
+    if(Op == NormalEquations)
+    {
+        cout << "\nAlpha and Iter will be unused for Normal Equations, use other constructor in the future\n";
+    }
+    
     return;
 }
 
-LinearRegression::LinearRegression(vector<double> weights, double lambda, double alpha, int iter)
+
+LinearRegression::LinearRegression(vector<double> weights)
 {
     Weights = weights;
-    Alpha = alpha;
-    Iterations = iter;
     return;
 }
 
 void LinearRegression::Fit(vector<vector<double>> XTrain, const vector<double>& YTrain)
 {
+    if(!Weights.empty())
+    {
+        cout << "\nWeights have already been provided!\n" << endl;
+        return;
+    }
+    
     numFeatures = XTrain[0].size() + 1;
     numTrainExamples = XTrain.size();
     
@@ -47,10 +73,16 @@ void LinearRegression::Fit(vector<vector<double>> XTrain, const vector<double>& 
     vector<double> C_init(Iterations, 0);
     Costs = C_init;
     
-    // Run gradient descent
-    GradientDescent(XTrain, YTrain);
-    
-    return;
+    // Run optimization
+    switch(Opt)
+    {
+        case BatchGradientDescent:
+            GradientDescent(XTrain, YTrain);
+            return;
+        case NormalEquations:
+            NormalEquation(XTrain, YTrain);
+            return;
+    }
 }
 
 void LinearRegression::GradientDescent(const vector<vector<double>>& XTrain, const vector<double>& YTrain)
@@ -94,6 +126,22 @@ void LinearRegression::GradientDescent(const vector<vector<double>>& XTrain, con
     return;
 }
 
+void LinearRegression::NormalEquation(const vector<vector<double>>& XTrain, const vector<double>& YTrain)
+{
+    MatrixXd LambdaMat = MatrixXd::Identity(numFeatures, numFeatures);
+    LambdaMat = LambdaMat.array() * Lambda;
+    LambdaMat(0,0) = 0; // do not regularise intercept term
+    
+    MatrixXd X = Utilities::ConvertToEigen(XTrain);
+    MatrixXd Y = Utilities::ConvertToEigen(YTrain);
+    
+    VectorXd Theta = (((X.transpose()*X)+LambdaMat).inverse())*X.transpose()*Y;
+    
+    Weights = Utilities::ConvertFromEigen(Theta);
+    
+    return;
+}
+
 vector<double> LinearRegression::Predict(vector<vector<double>> XTest)
 {
     vector<double> Predictions(XTest.size(),0);
@@ -101,7 +149,7 @@ vector<double> LinearRegression::Predict(vector<vector<double>> XTest)
     // Check for weights
     if(Weights.empty())
     {
-        cout << endl << "Error in Predict() - No weights have been fit" << endl;
+        cout << endl << "\nError in Predict() - No weights have been fit\n" << endl;
         return Predictions;
         
     }
@@ -126,7 +174,7 @@ double LinearRegression::CalculateRSquared(vector<vector<double>> X, const vecto
     // Check for weights
     if(Weights.empty())
     {
-        cout << endl << "Error in CalculateRSquared() - No weights have been fit" << endl;
+        cout << endl << "\nError in CalculateRSquared() - No weights have been fit\n" << endl;
         return RSquared;
         
     }
@@ -169,7 +217,7 @@ vector<double> LinearRegression::GetWeights()
     // Check for weights
     if(Weights.empty())
     {
-        cout << endl << "Error in GetWeights() - No weights have been fit" << endl;
+        cout << endl << "\nError in GetWeights() - No weights have been fit\n" << endl;
     }
     
     return Weights;
@@ -181,7 +229,7 @@ vector<double> LinearRegression::GetCosts()
     // Check for weights
     if(Costs.empty())
     {
-        cout << endl << "Error in GetCosts() - No costs have been calculated from gradient descent" << endl;
+        cout << endl << "\nError in GetCosts() - No costs have been calculated from optimization\n" << endl;
     }
     
     return Costs;

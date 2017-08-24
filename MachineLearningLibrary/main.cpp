@@ -18,23 +18,20 @@
 
 int main(int argc, const char * argv[]) {
     
-//    LRTest lr;
-//    lr.Run();
+    LRTest lr;
+    lr.Run();
     
-    LWRTest lwr;
-    lwr.Run();
     
     /*
      TODO:
      
-     
-     Locally Weighted Regression:
-     - Implement
-     
-     
      Linear Regression:
      - Normal equations
      - Normal equations with regularization
+     
+     
+     Logistic Regression:
+     - Newtons Method
      
      
      Neural Networks:

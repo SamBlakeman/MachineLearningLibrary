@@ -22,7 +22,7 @@ public:
     
     // Constructors
     LogisticRegression(double lambda, double alpha, int iter);
-    LogisticRegression(vector<double> weights, double lambda, double alpha, int iter);
+    LogisticRegression(vector<double> weights);
     
     // Fit the weights of the model
     void Fit(vector<vector<double>> XTrain, const vector<double>& YTrain);

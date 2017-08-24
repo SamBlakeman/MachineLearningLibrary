@@ -46,28 +46,29 @@ void LRTest::Run()
     pp.NormaliseTransform(XTest);
     
     // Fit linear regression model
-    LinearRegression lr(0, .01, 10000);
+    //LinearRegression lr(0, .01, 10000, BatchGradientDescent);
+    LinearRegression lr(0, NormalEquations);
     lr.Fit(XTrain, YTrain);
     
     // Calculate R squared
     double RSq = lr.CalculateRSquared(XTest, YTest);
     cout << endl << "R Squared:\n" << RSq << endl;
     
-    // Save the costs for plotting
-    cout << "Saving costs\n";
-    vector<double> Costs = lr.GetCosts();
-    string name = "/Users/samblakeman/Desktop/Costs.txt";
-    auto filename = name.c_str();
-    Utilities::SaveVectorAsCSV(Costs, filename);
+//    // Save the costs for plotting
+//    cout << "Saving costs\n";
+//    vector<double> Costs = lr.GetCosts();
+//    string name = "/Users/samblakeman/Desktop/Costs.txt";
+//    auto filename = name.c_str();
+//    Utilities::SaveVectorAsCSV(Costs, filename);
     
     // Save the predictions and the actual values
     vector<double> Predictions = lr.Predict(XTest);
-    cout << "Saving predictions\n";
-    name = "/Users/samblakeman/Desktop/Predictions.txt";
-    filename = name.c_str();
+    cout << "\nSaving predictions";
+    string name = "/Users/samblakeman/Desktop/Predictions.txt";
+    auto filename = name.c_str();
     Utilities::SaveVectorAsCSV(Predictions, filename);
     
-    cout << "Saving test values\n";
+    cout << "\nSaving test values";
     name = "/Users/samblakeman/Desktop/YTest.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(YTest, filename);

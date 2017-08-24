@@ -60,10 +60,11 @@ public:
     static void SaveVectorAsCSV(const vector<double>& Vec, const char* FileName);
     static void SaveVectorAsCSV(const vector<int>& Vec, const char* FileName);
     
-    // Converting to Eigen
+    // Converting to and from Eigen
     static MatrixXd ConvertToEigen(const vector<vector<double>>& Mat);
     static MatrixXd ConvertToEigen(const vector<double>& Mat);
     static pair<MatrixXd,MatrixXd> ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain);
+    static vector<double> ConvertFromEigen(const VectorXd& Vec);
     
 };
 

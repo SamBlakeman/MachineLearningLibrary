@@ -74,7 +74,7 @@ vector<vector<double>> Utilities::Product(const vector<vector<double>>& Vec1, co
 {
     if(Vec1[0].size() != Vec2.size())
     {
-        cout << "Error - Matrix Dimension Mismatch";
+        cout << "\nError - Matrix Dimension Mismatch\n";
         return Vec1;
     }
     
@@ -110,7 +110,7 @@ vector<double> Utilities::Product(const vector<vector<double>>& Vec1, const vect
 {
     if(Vec1[0].size() != Vec2.size())
     {
-        cout << "Error - Matrix Dimension Mismatch";
+        cout << "\nError - Matrix Dimension Mismatch\n";
         return Vec2;
     }
     
@@ -132,7 +132,7 @@ vector<double> Utilities::Product(const vector<double>& Vec1, const vector<vecto
 {
     if(Vec1.size() != Vec2.size())
     {
-        cout << "Error - Matrix Dimension Mismatch";
+        cout << "\nError - Matrix Dimension Mismatch\n";
         return Vec1;
     }
     
@@ -158,7 +158,7 @@ double Utilities::Product(const vector<double>& Vec1, const vector<double>& Vec2
 {
     if(Vec1.size() != Vec2.size())
     {
-        cout << "Error - Matrix Dimension Mismatch";
+        cout << "\nError - Matrix Dimension Mismatch\n";
         return 0.f;
     }
     
@@ -390,7 +390,7 @@ vector<vector<double>> Utilities::ReadCSVFeatureVector(const char* FileName)
     // Check that it opens
     if(!file.is_open())
     {
-        cout << "file not open" << endl;
+        cout << "\nfile not open\n" << endl;
         return Result;
     }
     
@@ -418,7 +418,7 @@ vector<vector<double>> Utilities::ReadCSVFeatureVector(const char* FileName)
         }
     }
     
-    cout << ".txt file read successfully" << endl;
+    cout << "\n.txt file read successfully\n" << endl;
     
     return Result;
 }
@@ -437,7 +437,7 @@ void Utilities::SaveVectorAsCSV(const vector<double>& Vec, const char* FileName)
         myFile.close();
     }
     
-    cout << ".txt file saved successfully" << endl;
+    cout << "\n.txt file saved successfully\n" << endl;
     
     return;
 }
@@ -456,7 +456,7 @@ void Utilities::SaveVectorAsCSV(const vector<int>& Vec, const char* FileName)
         myFile.close();
     }
     
-    cout << ".txt file saved successfully" << endl;
+    cout << "\n.txt file saved successfully\n" << endl;
     
     return;
 }
@@ -518,6 +518,13 @@ pair<MatrixXd,MatrixXd> Utilities::ConvertToEigen(const vector<vector<double>>& 
     }
     
     return make_pair(XT, YT);
+}
+
+
+vector<double> Utilities::ConvertFromEigen(const VectorXd& Vec)
+{
+    vector<double> V(Vec.data(),Vec.data()+Vec.size());
+    return V;
 }
 
 

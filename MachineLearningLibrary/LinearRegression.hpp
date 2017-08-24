@@ -14,13 +14,16 @@
 
 using namespace std;
 
+enum OptimizationMethod {BatchGradientDescent, NormalEquations};
+
 class LinearRegression
 {
 public:
     
     // Constructors
-    LinearRegression(double lambda, double alpha, int iter);
-    LinearRegression(vector<double> weights, double lambda, double alpha, int iter);
+    LinearRegression(double lambda, OptimizationMethod Op);
+    LinearRegression(double lambda, double alpha, int iter, OptimizationMethod Op);
+    LinearRegression(vector<double> weights);
     
     // Fit the weights of the model
     void Fit(vector<vector<double>> XTrain, const vector<double>& YTrain);
@@ -39,6 +42,7 @@ private:
     
     // Fit
     void GradientDescent(const vector<vector<double>>& XTrain, const vector<double>& YTrain);
+    void NormalEquation(const vector<vector<double>>& XTrain, const vector<double>& YTrain);
     
     double Lambda = 0.f;
     double Alpha = 0.1;
@@ -47,6 +51,7 @@ private:
     double numTrainExamples = 0;
     vector<double> Weights;
     vector<double> Costs;
+    OptimizationMethod Opt;
     
 };
 

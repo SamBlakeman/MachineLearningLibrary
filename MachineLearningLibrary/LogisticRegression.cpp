@@ -21,17 +21,21 @@ LogisticRegression::LogisticRegression(double lambda, double alpha, int iter)
     return;
 }
 
-LogisticRegression::LogisticRegression(vector<double> weights, double lambda, double alpha, int iter)
+LogisticRegression::LogisticRegression(vector<double> weights)
 {
     Weights = weights;
-    Alpha = alpha;
-    Iterations = iter;
     return;
 }
 
 
 void LogisticRegression::Fit(vector<vector<double>> XTrain, const vector<double>& YTrain)
 {
+    if(!Weights.empty())
+    {
+        cout << "Weights have already been provided!" << endl;
+        return;
+    }
+    
     numFeatures = XTrain[0].size() + 1;
     numTrainExamples = XTrain.size();
     
