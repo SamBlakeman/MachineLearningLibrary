@@ -48,8 +48,6 @@ private:
     double Tau = 0.f;
     int numFeatures = 0;
     int numTrainExamples = 0;
-    vector<double> Weights;
-    vector<double> Costs;
     
 };
 

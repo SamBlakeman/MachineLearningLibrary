@@ -18,6 +18,7 @@ LogisticRegression::LogisticRegression(double lambda, double alpha, int iter)
     Lambda = lambda;
     Alpha = alpha;
     Iterations = iter;
+    Costs = vector<double>(Iterations, 0);
     return;
 }
 
@@ -46,12 +47,7 @@ void LogisticRegression::Fit(vector<vector<double>> XTrain, const vector<double>
     }
     
     // Zero initialise the weights
-    vector<double> W_init(numFeatures, 0);
-    Weights = W_init;
-    
-    // Zero initialise the costs
-    vector<double> C_init(Iterations, 0);
-    Costs = C_init;
+    Weights = vector<double>(numFeatures, 0);
     
     // Run gradient descent
     GradientDescent(XTrain, YTrain);
