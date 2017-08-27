@@ -30,29 +30,15 @@ void SupportVectorMachine::AddGaussianKernel(double Variance)
 void SupportVectorMachine::Fit(const vector<vector<double>>& X, const vector<double>& Y)
 {
     // Convert to Eigen
-    MatrixXd XTrain = Utilities::ConvertToEigen(X);
+    MatrixXd F = Utilities::ConvertToEigen(X);
     MatrixXd YTrain = Utilities::ConvertToEigen(Y);
-    
-    // Add a column of ones
-    XTrain.conservativeResize(XTrain.rows(), XTrain.cols()+1);
-    XTrain.col(XTrain.cols()-1) = VectorXd::Ones(XTrain.rows());
     
     // Set member variables
     numTrainExamples = X.size();
+    numFeatures = X[0].size() + 1;
     
-    switch(Ker)
-    {
-        case Linear:
-        {
-            numFeatures = X[0].size() + 1;
-            break;
-        }
-        case Gaussian:
-        {
-            numFeatures = numTrainExamples;
-            break;
-        }
-    }
+    ProcessFeatures(F, true);
+    
     
     // Zero initialise the weights
     Theta = VectorXd::Zero(numFeatures);
@@ -63,6 +49,34 @@ void SupportVectorMachine::Fit(const vector<vector<double>>& X, const vector<dou
     
     return;
 }
+
+void SupportVectorMachine::ProcessFeatures(MatrixXd& F, bool bTraining)
+{
+    
+    switch(Ker)
+    {
+        case Linear:
+        {
+            // Add a column of ones
+            F.conservativeResize(F.rows(), F.cols()+1);
+            F.col(F.cols()-1) = VectorXd::Ones(F.rows());
+            
+            break;
+        }
+        case Gaussian:
+        {
+            if(bTraining)
+            {
+                numFeatures = numTrainExamples + 1;
+                XTrain = F;
+            }
+            
+            F = GaussianKernel(F);
+            
+            break;
+        }
+    }
+};
 
 
 void SupportVectorMachine::GradientDescent(const MatrixXd& XTrain, const MatrixXd& YTrain)
@@ -93,26 +107,40 @@ void SupportVectorMachine::GradientDescent(const MatrixXd& XTrain, const MatrixX
 vector<double> SupportVectorMachine::Predict(const vector<vector<double>>& X)
 {
     vector<double> Predictions(X.size(),0);
-    MatrixXd F;
+    MatrixXd F = Utilities::ConvertToEigen(X);
     
-    switch(Ker)
-    {
-        case Linear:
-        {
-            F = Utilities::ConvertToEigen(X);
-            break;
-        }
-        case Gaussian:
-        {
-            
-            break;
-        }
-    }
-    
-    
+    ProcessFeatures(F, false);
     VectorXd Outputs = F*Theta;
     
+    for(int i = 0; i < Outputs.size();  ++i)
+    {
+        Outputs(i) < 0 ? Predictions[i] = 0 : Predictions[i] = 1;
+    }
+    
     return Predictions;
+}
+
+MatrixXd SupportVectorMachine::GaussianKernel(const MatrixXd& X)
+{
+    
+    MatrixXd F = MatrixXd::Zero(X.rows(), numTrainExamples);
+    
+    for(int example = 0; example < X.rows(); ++example)
+    {
+        MatrixXd Xi = (X.row(example)).replicate(numTrainExamples,1);
+        
+        VectorXd exponent = -(Xi - XTrain) * ((Xi - XTrain).transpose());
+        exponent /= (2*Var);
+        
+        F.row(example) = exponent.array().exp();
+        
+    }
+    
+    // Add a column of ones
+    F.conservativeResize(F.rows(), F.cols()+1);
+    F.col(F.cols()-1) = VectorXd::Ones(F.rows());
+    
+    return F;
 }
 
 

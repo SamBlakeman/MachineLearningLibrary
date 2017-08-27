@@ -40,6 +40,11 @@ public:
     
 private:
     
+    void ProcessFeatures(MatrixXd& F, bool bTraining);
+    
+    // Predict
+    MatrixXd GaussianKernel(const MatrixXd& X);
+    
     // Fit
     void GradientDescent(const MatrixXd& XTrain, const MatrixXd& YTrain);
     
@@ -55,6 +60,8 @@ private:
     
     VectorXd Theta;
     vector<double> Costs;
+    
+    MatrixXd XTrain;
     
 };
 
