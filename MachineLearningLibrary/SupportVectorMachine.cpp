@@ -8,6 +8,7 @@
 
 #include "SupportVectorMachine.hpp"
 #include "Utilities.hpp"
+#include <iostream>
 
 
 SupportVectorMachine::SupportVectorMachine(double c, double alpha, int iters)
@@ -45,13 +46,17 @@ void SupportVectorMachine::Fit(const vector<vector<double>>& X, const vector<dou
     
     
     // Run Gradient Descent
-    GradientDescent(XTrain, YTrain);
+    GradientDescent(F, YTrain);
     
     return;
 }
 
 void SupportVectorMachine::ProcessFeatures(MatrixXd& F, bool bTraining)
 {
+    if(bFeaturesProcessed)
+    {
+        return;
+    }
     
     switch(Ker)
     {
@@ -76,19 +81,21 @@ void SupportVectorMachine::ProcessFeatures(MatrixXd& F, bool bTraining)
             break;
         }
     }
+    
+    bFeaturesProcessed = true;
 };
 
 
-void SupportVectorMachine::GradientDescent(const MatrixXd& XTrain, const MatrixXd& YTrain)
+void SupportVectorMachine::GradientDescent(const MatrixXd& F, const MatrixXd& YTrain)
 {
     for(int iter = 0; iter < Iterations; ++iter)
     {
         
         // Predictions
-        
+        VectorXd Outputs = F*Theta;
         
         // Cost
-        
+        CalculateCost(Outputs, YTrain, iter);
         
         // Partial derivatives
         
@@ -102,6 +109,46 @@ void SupportVectorMachine::GradientDescent(const MatrixXd& XTrain, const MatrixX
     return;
 }
 
+void SupportVectorMachine::CalculateCost(const VectorXd& Outputs, const MatrixXd& YTrain, int iter)
+{
+    
+    VectorXd Ones = VectorXd::Ones(YTrain.rows(), YTrain.cols());
+    
+    VectorXd ExampleCosts = YTrain.cwiseProduct(Cost1(Outputs)) + (Ones - YTrain).cwiseProduct(Cost0(Outputs));
+    
+    Costs[iter] = ExampleCosts.sum();
+    Costs[iter] *= C;
+    
+    // Regularize
+    double R = Theta.dot(Theta);
+    Costs[iter] += (1/2)*R;
+    
+    if(iter%50 == 0)
+    {
+        cout << "Cost for iter " << iter << " = " << Costs[iter] << endl;
+    }
+    
+    return;
+}
+
+
+VectorXd SupportVectorMachine::Cost1(const VectorXd& Outputs)
+{
+    VectorXd costs = Outputs.cwiseMin(1);
+    costs *= -1;
+    costs = costs.array() + 1;
+    
+    return costs;
+}
+
+
+VectorXd SupportVectorMachine::Cost0(const VectorXd& Outputs)
+{
+    VectorXd costs = Outputs.cwiseMax(-1);
+    costs = costs.array() + 1;
+    
+    return costs;
+}
 
 
 vector<double> SupportVectorMachine::Predict(const vector<vector<double>>& X)
@@ -129,7 +176,10 @@ MatrixXd SupportVectorMachine::GaussianKernel(const MatrixXd& X)
     {
         MatrixXd Xi = (X.row(example)).replicate(numTrainExamples,1);
         
-        VectorXd exponent = -(Xi - XTrain) * ((Xi - XTrain).transpose());
+        MatrixXd Differences = Xi - XTrain;
+        
+        MatrixXd e = -(Xi - XTrain) * ((Xi - XTrain).transpose());
+        VectorXd exponent = e.diagonal();
         exponent /= (2*Var);
         
         F.row(example) = exponent.array().exp();

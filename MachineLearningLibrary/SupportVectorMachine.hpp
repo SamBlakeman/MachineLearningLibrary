@@ -46,7 +46,10 @@ private:
     MatrixXd GaussianKernel(const MatrixXd& X);
     
     // Fit
-    void GradientDescent(const MatrixXd& XTrain, const MatrixXd& YTrain);
+    void GradientDescent(const MatrixXd& F, const MatrixXd& YTrain);
+    void CalculateCost(const VectorXd& Outputs, const MatrixXd& YTrain, int iter);
+    VectorXd Cost1(const VectorXd& Outputs);
+    VectorXd Cost0(const VectorXd& Outputs);
     
     double C = 1;
     double Var = 1;
@@ -62,6 +65,8 @@ private:
     vector<double> Costs;
     
     MatrixXd XTrain;
+    
+    bool bFeaturesProcessed = false;
     
 };
 
