@@ -53,19 +53,10 @@ void SupportVectorMachine::Fit(const vector<vector<double>>& X, const vector<dou
 
 void SupportVectorMachine::ProcessFeatures(MatrixXd& F, bool bTraining)
 {
-    if(bFeaturesProcessed)
-    {
-        return;
-    }
-    
     switch(Ker)
     {
         case Linear:
         {
-            // Add a column of ones
-            F.conservativeResize(F.rows(), F.cols()+1);
-            F.col(F.cols()-1) = VectorXd::Ones(F.rows());
-            
             break;
         }
         case Gaussian:
@@ -75,14 +66,17 @@ void SupportVectorMachine::ProcessFeatures(MatrixXd& F, bool bTraining)
                 numFeatures = numTrainExamples + 1;
                 XTrain = F;
             }
-            
+        
             F = GaussianKernel(F);
-            
+        
             break;
         }
     }
     
-    bFeaturesProcessed = true;
+    // Add a column of ones
+    F.conservativeResize(F.rows(), F.cols()+1);
+    F.col(F.cols()-1) = VectorXd::Ones(F.rows());
+    
 };
 
 
@@ -98,11 +92,10 @@ void SupportVectorMachine::GradientDescent(const MatrixXd& F, const MatrixXd& YT
         CalculateCost(Outputs, YTrain, iter);
         
         // Partial derivatives
-        
+        VectorXd Gradients = CalculateGradients(Outputs, F, YTrain);
         
         // Update theta
-        
-        
+        UpdateTheta(Gradients);
         
     }
     
@@ -151,6 +144,44 @@ VectorXd SupportVectorMachine::Cost0(const VectorXd& Outputs)
 }
 
 
+VectorXd SupportVectorMachine::CalculateGradients(const MatrixXd& Outputs, const MatrixXd& F, const MatrixXd& YTrain)
+{
+    VectorXd Gradients = VectorXd::Zero(Theta.size());
+    
+    for(int i = 0; i < numTrainExamples; ++i)
+    {
+        if(YTrain(i) == 1)
+        {
+            if(Outputs(i) < 1)
+            {
+                Gradients += -(F.row(i));
+            }
+        }
+        else
+        {
+            if(Outputs(i) > -1)
+            {
+                Gradients += F.row(i);
+            }
+        }
+    }
+    
+    Gradients *= C;
+    Gradients += Theta;
+    Gradients(Gradients.size()-1) -= Theta(Theta.size()-1); // do not regularize the intercept term
+    
+    return Gradients;
+}
+
+
+void SupportVectorMachine::UpdateTheta(const VectorXd& Gradients)
+{
+    Theta -= Alpha*(Gradients);
+    
+    return;
+}
+
+
 vector<double> SupportVectorMachine::Predict(const vector<vector<double>>& X)
 {
     vector<double> Predictions(X.size(),0);
@@ -169,6 +200,7 @@ vector<double> SupportVectorMachine::Predict(const vector<vector<double>>& X)
 
 MatrixXd SupportVectorMachine::GaussianKernel(const MatrixXd& X)
 {
+    cout << "\nConstructing Gaussian Kernel...\n";
     
     MatrixXd F = MatrixXd::Zero(X.rows(), numTrainExamples);
     
@@ -186,10 +218,6 @@ MatrixXd SupportVectorMachine::GaussianKernel(const MatrixXd& X)
         
     }
     
-    // Add a column of ones
-    F.conservativeResize(F.rows(), F.cols()+1);
-    F.col(F.cols()-1) = VectorXd::Ones(F.rows());
-    
     return F;
 }
 
@@ -203,6 +231,21 @@ vector<double> SupportVectorMachine::GetCosts()
 double SupportVectorMachine::GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y)
 {
     double Accuracy = 0;
+    
+    vector<double> Predictions = Predict(X);
+    
+    double numCorrect = 0;
+    double total = Y.size();
+    
+    for(int e = 0; e < total; ++e)
+    {
+        if(Predictions[e] == Y[e])
+        {
+            ++numCorrect;
+        }
+    }
+    
+    Accuracy = (numCorrect/total)*100;
     
     
     return Accuracy;

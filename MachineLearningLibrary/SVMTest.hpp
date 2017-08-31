@@ -17,7 +17,8 @@ class SVMTest
 {
 public:
     
-    void Run();
+    void Test1();
+    void Test2();
     
     
 private:

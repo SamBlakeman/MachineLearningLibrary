@@ -20,7 +20,7 @@
 int main(int argc, const char * argv[]) {
     
     SVMTest svm;
-    svm.Run();
+    svm.Test2();
     
     /*
      TODO:

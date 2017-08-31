@@ -50,6 +50,8 @@ private:
     void CalculateCost(const VectorXd& Outputs, const MatrixXd& YTrain, int iter);
     VectorXd Cost1(const VectorXd& Outputs);
     VectorXd Cost0(const VectorXd& Outputs);
+    VectorXd CalculateGradients(const MatrixXd& Outputs, const MatrixXd& F, const MatrixXd& YTrain);
+    void UpdateTheta(const VectorXd& Gradients);
     
     double C = 1;
     double Var = 1;
@@ -65,8 +67,6 @@ private:
     vector<double> Costs;
     
     MatrixXd XTrain;
-    
-    bool bFeaturesProcessed = false;
     
 };
 

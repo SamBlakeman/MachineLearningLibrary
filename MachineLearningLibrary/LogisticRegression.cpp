@@ -82,7 +82,10 @@ void LogisticRegression::GradientDescent(const vector<vector<double>>& XTrain, c
         RegTerm *= Lambda/(2*numTrainExamples);
         Costs[iter] += RegTerm;
         
-        
+        if(iter%50 == 0)
+        {
+            cout << "Cost for iter " << iter << " = " << Costs[iter] << endl;
+        }
         
         //delta = (1/m) * (X'*(X*theta - y));
         Hypotheses = Utilities::Product(XTrain, Weights);
