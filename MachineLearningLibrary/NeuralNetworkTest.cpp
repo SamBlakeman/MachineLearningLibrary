@@ -57,11 +57,11 @@ void NeuralNetworkTest::RunClassificationTest()
     nn.Fit(XTrain, YTrain);
     
     // Print accuracy on test set
-    double Accuracy = nn.GetAccuracy(XTest, YTest);
-    cout << "Test Accuracy = " << Accuracy << endl;
+    double Accuracy = nn.CalculateAccuracy(XTest, YTest);
+    cout << "\nTest Accuracy = " << Accuracy << endl << endl;
     
     // Save the costs for plotting
-    cout << "Saving costs\n";
+    cout << "Saving costs";
     vector<double> Costs = nn.GetCosts();
     string name = "/Users/samblakeman/Desktop/Costs.txt";
     auto filename = name.c_str();
@@ -69,12 +69,12 @@ void NeuralNetworkTest::RunClassificationTest()
     
     // Save the predictions and the actual values
     vector<double> Predictions = nn.Predict(XTest);
-    cout << "Saving predictions\n";
+    cout << "Saving predictions";
     name = "/Users/samblakeman/Desktop/Predictions.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(Predictions, filename);
     
-    cout << "Saving test values\n";
+    cout << "Saving test values";
     name = "/Users/samblakeman/Desktop/YTest.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(YTest, filename);
@@ -130,10 +130,10 @@ void NeuralNetworkTest::RunRegressionTest()
     
     // Calculate R squared
     double RSq = nn.CalculateRSquared(XTest, YTest);
-    cout << endl << "R Squared:\n" << RSq << endl;
+    cout << endl << "\nR Squared:\n" << RSq << endl << endl;
     
     // Save the costs for plotting
-    cout << "Saving costs\n";
+    cout << "Saving costs";
     vector<double> Costs = nn.GetCosts();
     string name = "/Users/samblakeman/Desktop/Costs.txt";
     auto filename = name.c_str();
@@ -141,12 +141,12 @@ void NeuralNetworkTest::RunRegressionTest()
     
     // Save the predictions and the actual values
     vector<double> Predictions = nn.Predict(XTest);
-    cout << "Saving predictions\n";
+    cout << "Saving predictions";
     name = "/Users/samblakeman/Desktop/Predictions.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(Predictions, filename);
     
-    cout << "Saving test values\n";
+    cout << "Saving test values";
     name = "/Users/samblakeman/Desktop/YTest.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(YTest, filename);

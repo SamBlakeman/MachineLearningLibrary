@@ -12,10 +12,11 @@
 #include <stdio.h>
 #include <vector>
 #include <map>
+#include "MachineLearningModel.hpp"
 
 using namespace std;
 
-class NaiveBayesClassifier
+class NaiveBayesClassifier : public MachineLearningModel
 {
 public:
     
@@ -30,10 +31,9 @@ public:
     void Fit(const vector<vector<double>>& XTrain, const vector<double>& YTrain);
     
     // Predict
-    vector<double> Predict(const vector<vector<double>>& XTest);
+    virtual vector<double> Predict(const vector<vector<double>>& XTest) override;
     
     // Getters
-    double GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y);
     
     
 private:

@@ -16,6 +16,8 @@
 // Constructors
 NaiveBayesClassifier::NaiveBayesClassifier()
 {
+    CostFun = CrossEntropy;
+    
     if(!Continuous)
     {
         cout << "\nWarning - To avoid zero probabilties please specify the number of values each attribute can take using the method AddNumAttributeValues()\n";
@@ -25,6 +27,7 @@ NaiveBayesClassifier::NaiveBayesClassifier()
 NaiveBayesClassifier::NaiveBayesClassifier(bool ContinuousInputVariables)
 {
     Continuous = ContinuousInputVariables;
+    CostFun = CrossEntropy;
     
     if(!Continuous)
     {
@@ -35,6 +38,7 @@ NaiveBayesClassifier::NaiveBayesClassifier(bool ContinuousInputVariables)
 NaiveBayesClassifier::NaiveBayesClassifier(vector<double> Priors)
 {
     ClassPriors = Priors;
+    CostFun = CrossEntropy;
     
     if(!Continuous)
     {
@@ -46,6 +50,7 @@ NaiveBayesClassifier::NaiveBayesClassifier(bool ContinuousInputVariables, vector
 {
     Continuous = ContinuousInputVariables;
     ClassPriors = Priors;
+    CostFun = CrossEntropy;
     
     if(!Continuous)
     {
@@ -257,28 +262,5 @@ double NaiveBayesClassifier::Gaussian(int Class, int Attribute, double Value)
     
     return coeff*exp(exponential);
 }
-
-double NaiveBayesClassifier::GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y)
-{
-    double Accuracy;
-    
-    vector<double> Predictions = Predict(X);
-    
-    double numCorrect = 0;
-    double total = Y.size();
-    
-    for(int e = 0; e < total; ++e)
-    {
-        if(Predictions[e] == Y[e])
-        {
-            ++numCorrect;
-        }
-    }
-    
-    Accuracy = (numCorrect/total)*100;
-    
-    return Accuracy;
-}
-
 
 

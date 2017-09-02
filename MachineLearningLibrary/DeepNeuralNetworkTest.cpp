@@ -63,11 +63,11 @@ void DeepNeuralNetworkTest::RunClassificationTest()
     dnn.Fit(XTrain, YTrain);
     
     // Print accuracy on test set
-    double Accuracy = dnn.GetAccuracy(XTest, YTest);
-    cout << "Test Accuracy = " << Accuracy << endl;
+    double Accuracy = dnn.CalculateAccuracy(XTest, YTest);
+    cout << "\nTest Accuracy = " << Accuracy << endl;
     
     // Save the costs for plotting
-    cout << "Saving costs\n";
+    cout << "Saving costs";
     vector<double> Costs = dnn.GetCosts();
     string name = "/Users/samblakeman/Desktop/Costs.txt";
     auto filename = name.c_str();
@@ -75,12 +75,12 @@ void DeepNeuralNetworkTest::RunClassificationTest()
     
     // Save the predictions and the actual values
     vector<double> Predictions = dnn.Predict(XTest);
-    cout << "Saving predictions\n";
+    cout << "Saving predictions";
     name = "/Users/samblakeman/Desktop/Predictions.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(Predictions, filename);
     
-    cout << "Saving predictions\n";
+    cout << "Saving actual values";
     name = "/Users/samblakeman/Desktop/YTest.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(YTest, filename);
@@ -148,13 +148,13 @@ void DeepNeuralNetworkTest::RunRegressionTest()
     Utilities::SaveVectorAsCSV(Costs, filename);
     
     // Save the predictions and the actual values
-    vector<double> Predictions = dnn.Predict(XTest);
     cout << "Saving predictions\n";
+    vector<double> Predictions = dnn.Predict(XTest);
     name = "/Users/samblakeman/Desktop/Predictions.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(Predictions, filename);
     
-    cout << "Saving predictions\n";
+    cout << "Saving actual values\n";
     name = "/Users/samblakeman/Desktop/YTest.txt";
     filename = name.c_str();
     Utilities::SaveVectorAsCSV(YTest, filename);

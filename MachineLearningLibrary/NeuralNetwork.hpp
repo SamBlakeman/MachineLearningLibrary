@@ -12,14 +12,14 @@
 #include <stdio.h>
 #include <vector>
 #include "Eigen/Dense"
+#include "MachineLearningModel.hpp"
 
 enum ActivationFunction {linear, sigmoid, relu, leakyrelu};
-enum CostFunction {CrossEntropy, SumOfSquaredErrors};
 
 using namespace std;
 using namespace Eigen;
 
-class NeuralNetwork
+class NeuralNetwork : public MachineLearningModel
 {
 public:
     
@@ -32,12 +32,10 @@ public:
     void InitialiseWeights();
     
     // Predict
-    vector<double> Predict(const vector<vector<double>>& XTest);
+    virtual vector<double> Predict(const vector<vector<double>>& XTest) override;
     
     // Getters
     vector<double> GetCosts() const;
-    double GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y);
-    double CalculateRSquared(const vector<vector<double>>& X, const vector<double>& Y);
     
 private:
     
@@ -71,7 +69,6 @@ private:
     MatrixXd w1;
     MatrixXd w2;
     vector<double> Costs;
-    CostFunction CostFun;
     ActivationFunction HiddenActFun = sigmoid;
     ActivationFunction OutputActFun = sigmoid;
     

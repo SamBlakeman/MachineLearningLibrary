@@ -18,6 +18,7 @@
 		883F0BA61EBE69A400A3E0E2 /* LRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 883F0BA41EBE69A400A3E0E2 /* LRTest.cpp */; };
 		88687A3B1ED9F09D00E1C256 /* NaiveBayesClassifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88687A391ED9F09D00E1C256 /* NaiveBayesClassifier.cpp */; };
 		887B5D281F56FA6000063C70 /* SVMTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 887B5D261F56FA6000063C70 /* SVMTest.cpp */; };
+		887B5D2E1F5B0EB300063C70 /* MachineLearningModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 887B5D2C1F5B0EB300063C70 /* MachineLearningModel.cpp */; };
 		8882BEA51EDCBE0900405A0E /* NBCTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8882BEA31EDCBE0900405A0E /* NBCTest.cpp */; };
 		88931E851ED4F5820041E9DC /* LogRegTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88931E831ED4F5820041E9DC /* LogRegTest.cpp */; };
 		889E9D3C1F4DB6D5000775FE /* LocallyWeightedRegression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 889E9D3A1F4DB6D5000775FE /* LocallyWeightedRegression.cpp */; };
@@ -62,6 +63,8 @@
 		88687A3A1ED9F09D00E1C256 /* NaiveBayesClassifier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NaiveBayesClassifier.hpp; sourceTree = "<group>"; };
 		887B5D261F56FA6000063C70 /* SVMTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SVMTest.cpp; sourceTree = "<group>"; };
 		887B5D271F56FA6000063C70 /* SVMTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SVMTest.hpp; sourceTree = "<group>"; };
+		887B5D2C1F5B0EB300063C70 /* MachineLearningModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MachineLearningModel.cpp; sourceTree = "<group>"; };
+		887B5D2D1F5B0EB300063C70 /* MachineLearningModel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MachineLearningModel.hpp; sourceTree = "<group>"; };
 		8882BEA31EDCBE0900405A0E /* NBCTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NBCTest.cpp; sourceTree = "<group>"; };
 		8882BEA41EDCBE0900405A0E /* NBCTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NBCTest.hpp; sourceTree = "<group>"; };
 		88931E831ED4F5820041E9DC /* LogRegTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogRegTest.cpp; sourceTree = "<group>"; };
@@ -108,31 +111,16 @@
 		883F0B8E1EB7E01600A3E0E2 /* MachineLearningLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				883F0BA01EB93D9600A3E0E2 /* Scripts */,
 				883F0B8F1EB7E01600A3E0E2 /* main.cpp */,
-				883F0B9D1EB93BE100A3E0E2 /* Utilities.cpp */,
-				883F0B9E1EB93BE100A3E0E2 /* Utilities.hpp */,
-				883F0B961EB7E09C00A3E0E2 /* PreProcessing.cpp */,
-				883F0B971EB7E09C00A3E0E2 /* PreProcessing.hpp */,
-				883F0BA11EBCF31600A3E0E2 /* LinearRegression.cpp */,
-				883F0BA21EBCF31600A3E0E2 /* LinearRegression.hpp */,
-				889E9D3A1F4DB6D5000775FE /* LocallyWeightedRegression.cpp */,
-				889E9D3B1F4DB6D5000775FE /* LocallyWeightedRegression.hpp */,
-				88DC30191ED0D0FC00BC9E38 /* LogisticRegression.cpp */,
-				88DC301A1ED0D0FC00BC9E38 /* LogisticRegression.hpp */,
-				88DB45761F5075D300920E69 /* SupportVectorMachine.cpp */,
-				88DB45771F5075D300920E69 /* SupportVectorMachine.hpp */,
-				88687A391ED9F09D00E1C256 /* NaiveBayesClassifier.cpp */,
-				88687A3A1ED9F09D00E1C256 /* NaiveBayesClassifier.hpp */,
-				8835FB3F1EE6F9C3003E7A98 /* NeuralNetwork.cpp */,
-				8835FB401EE6F9C3003E7A98 /* NeuralNetwork.hpp */,
-				88E6E1081F2B8E61005F1A80 /* DeepNeuralNetwork.cpp */,
-				88E6E1091F2B8E61005F1A80 /* DeepNeuralNetwork.hpp */,
+				883F0BA01EB93D9600A3E0E2 /* TestScripts */,
+				887B5D2B1F5B0E3C00063C70 /* Other */,
+				887B5D2A1F5B0E2400063C70 /* Models */,
+				887B5D291F5B0E1800063C70 /* BaseClasses */,
 			);
 			path = MachineLearningLibrary;
 			sourceTree = "<group>";
 		};
-		883F0BA01EB93D9600A3E0E2 /* Scripts */ = {
+		883F0BA01EB93D9600A3E0E2 /* TestScripts */ = {
 			isa = PBXGroup;
 			children = (
 				883F0B9A1EB7F16700A3E0E2 /* NormaliseTest.cpp */,
@@ -152,7 +140,48 @@
 				880193CE1F38C4330004B331 /* DeepNeuralNetworkTest.cpp */,
 				880193CF1F38C4330004B331 /* DeepNeuralNetworkTest.hpp */,
 			);
-			name = Scripts;
+			name = TestScripts;
+			sourceTree = "<group>";
+		};
+		887B5D291F5B0E1800063C70 /* BaseClasses */ = {
+			isa = PBXGroup;
+			children = (
+				887B5D2C1F5B0EB300063C70 /* MachineLearningModel.cpp */,
+				887B5D2D1F5B0EB300063C70 /* MachineLearningModel.hpp */,
+			);
+			name = BaseClasses;
+			sourceTree = "<group>";
+		};
+		887B5D2A1F5B0E2400063C70 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				883F0BA11EBCF31600A3E0E2 /* LinearRegression.cpp */,
+				883F0BA21EBCF31600A3E0E2 /* LinearRegression.hpp */,
+				889E9D3A1F4DB6D5000775FE /* LocallyWeightedRegression.cpp */,
+				889E9D3B1F4DB6D5000775FE /* LocallyWeightedRegression.hpp */,
+				88DC30191ED0D0FC00BC9E38 /* LogisticRegression.cpp */,
+				88DC301A1ED0D0FC00BC9E38 /* LogisticRegression.hpp */,
+				88DB45761F5075D300920E69 /* SupportVectorMachine.cpp */,
+				88DB45771F5075D300920E69 /* SupportVectorMachine.hpp */,
+				88687A391ED9F09D00E1C256 /* NaiveBayesClassifier.cpp */,
+				88687A3A1ED9F09D00E1C256 /* NaiveBayesClassifier.hpp */,
+				8835FB3F1EE6F9C3003E7A98 /* NeuralNetwork.cpp */,
+				8835FB401EE6F9C3003E7A98 /* NeuralNetwork.hpp */,
+				88E6E1081F2B8E61005F1A80 /* DeepNeuralNetwork.cpp */,
+				88E6E1091F2B8E61005F1A80 /* DeepNeuralNetwork.hpp */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		887B5D2B1F5B0E3C00063C70 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				883F0B9D1EB93BE100A3E0E2 /* Utilities.cpp */,
+				883F0B9E1EB93BE100A3E0E2 /* Utilities.hpp */,
+				883F0B961EB7E09C00A3E0E2 /* PreProcessing.cpp */,
+				883F0B971EB7E09C00A3E0E2 /* PreProcessing.hpp */,
+			);
+			name = Other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				887B5D2E1F5B0EB300063C70 /* MachineLearningModel.cpp in Sources */,
 				883F0B981EB7E09C00A3E0E2 /* PreProcessing.cpp in Sources */,
 				889E9D3F1F4E0BCB000775FE /* LWRTest.cpp in Sources */,
 				889E9D3C1F4DB6D5000775FE /* LocallyWeightedRegression.cpp in Sources */,

@@ -19,8 +19,8 @@
 
 int main(int argc, const char * argv[]) {
     
-    SVMTest svm;
-    svm.Test2();
+    NBCTest nbc;
+    nbc.ContinuousTest();
     
     /*
      TODO:
@@ -52,7 +52,7 @@ int main(int argc, const char * argv[]) {
      
      
      SVM:
-     - Implement
+     - check what y should be!! should it be -1 rather than 0?
      
      
      Decision Trees:

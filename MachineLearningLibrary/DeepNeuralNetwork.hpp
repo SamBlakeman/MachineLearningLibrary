@@ -12,12 +12,12 @@
 #include <stdio.h>
 #include <vector>
 #include "Eigen/Dense"
+#include "MachineLearningModel.hpp"
 
 using namespace std;
 using namespace Eigen;
 
 enum ActivationFunction {linear, sigmoid, relu, leakyrelu};
-enum CostFunction {CrossEntropy, SumOfSquaredErrors};
 
 class DenseLayer
 {
@@ -52,7 +52,7 @@ private:
 };
 
 
-class DeepNeuralNetwork
+class DeepNeuralNetwork : public MachineLearningModel
 {
 public:
     
@@ -68,12 +68,10 @@ public:
     void Fit(const vector<vector<double>>& X, const vector<double>& Y);
     
     // Predict
-    vector<double> Predict(const vector<vector<double>>& XTest);
+    virtual vector<double> Predict(const vector<vector<double>>& XTest) override;
     
     // Getters
     vector<double> GetCosts() const;
-    double GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y);
-    double CalculateRSquared(const vector<vector<double>>& X, const vector<double>& Y);
     
     
 private:
@@ -100,7 +98,6 @@ private:
     MatrixXd OutputWeights;
     vector<double> Costs;
     vector<DenseLayer> HiddenLayers;
-    CostFunction CostFun;
     
 };
 
