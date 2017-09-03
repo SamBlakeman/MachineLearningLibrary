@@ -12,13 +12,14 @@
 #include <stdio.h>
 #include <vector>
 #include "Eigen/Dense"
+#include "MachineLearningModel.hpp"
 
 enum Kernel {Linear, Gaussian};
 
 using namespace std;
 using namespace Eigen;
 
-class SupportVectorMachine
+class SupportVectorMachine : public MachineLearningModel
 {
 public:
     
@@ -32,11 +33,10 @@ public:
     void Fit(const vector<vector<double>>& X, const vector<double>& Y);
     
     // Predict
-    vector<double> Predict(const vector<vector<double>>& X);
+    virtual vector<double> Predict(const vector<vector<double>>& X) override;
     
     // Getters
     vector<double> GetCosts();
-    double GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y);
     
 private:
     

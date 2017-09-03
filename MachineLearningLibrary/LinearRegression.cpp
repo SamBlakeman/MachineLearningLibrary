@@ -16,6 +16,7 @@ LinearRegression::LinearRegression(double lambda, OptimizationMethod Op)
 {
     Lambda = lambda;
     Opt = Op;
+    CostFun = SumOfSquaredErrors;
     
     if(Op == BatchGradientDescent)
     {
@@ -32,6 +33,7 @@ LinearRegression::LinearRegression(double lambda, double alpha, int iter, Optimi
     Alpha = alpha;
     Iterations = iter;
     Opt = Op;
+    CostFun = SumOfSquaredErrors;
     
     if(Op == NormalEquations)
     {
@@ -45,6 +47,7 @@ LinearRegression::LinearRegression(double lambda, double alpha, int iter, Optimi
 LinearRegression::LinearRegression(vector<double> weights)
 {
     Weights = weights;
+    CostFun = SumOfSquaredErrors;
     return;
 }
 
@@ -142,8 +145,10 @@ void LinearRegression::NormalEquation(const vector<vector<double>>& XTrain, cons
     return;
 }
 
-vector<double> LinearRegression::Predict(vector<vector<double>> XTest)
+vector<double> LinearRegression::Predict(const vector<vector<double>>& XT)
 {
+    vector<vector<double>> XTest = XT;
+    
     vector<double> Predictions(XTest.size(),0);
     
     // Check for weights
@@ -163,52 +168,6 @@ vector<double> LinearRegression::Predict(vector<vector<double>> XTest)
     Predictions = Utilities::Product(XTest, Weights);
     
     return Predictions;
-}
-
-
-
-double LinearRegression::CalculateRSquared(vector<vector<double>> X, const vector<double>& Y)
-{
-    double RSquared = 0;
-    
-    // Check for weights
-    if(Weights.empty())
-    {
-        cout << endl << "\nError in CalculateRSquared() - No weights have been fit\n" << endl;
-        return RSquared;
-        
-    }
-    
-    // Add a column of ones
-    for(int i = 0; i < X.size(); ++i)
-    {
-        X[i].push_back(1);
-    }
-    
-    // Residuals sum of squares
-    double RSS = 0;
-    vector<double> Predictions = Utilities::Product(X, Weights);
-    
-    for(int i = 0; i < Predictions.size(); ++i)
-    {
-        RSS += pow(Y[i] - Predictions[i], 2);
-    }
-    
-    
-    // Total sum of squares
-    double TSS = 0;
-    double sum = accumulate(Y.begin(), Y.end(), 0);
-    double mean = sum/Y.size();
-    
-    for(int i = 0; i < Y.size(); ++i)
-    {
-        TSS += pow(Y[i] - mean, 2);
-    }
-    
-    // Calculate R squared
-    RSquared = 1 - (RSS/TSS);
-    
-    return RSquared;
 }
 
 

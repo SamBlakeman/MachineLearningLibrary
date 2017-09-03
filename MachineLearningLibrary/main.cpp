@@ -19,11 +19,18 @@
 
 int main(int argc, const char * argv[]) {
     
-    NBCTest nbc;
-    nbc.ContinuousTest();
+    LRTest lr;
+    lr.Run();
     
     /*
      TODO:
+     
+     Machine Learning Model Base Class:
+     - validation curve
+     - learning curve
+     - cross validation
+     - other useful exploratory methods that are shared for all models
+     - other subclasses?
      
      
      Logistic Regression:
@@ -62,10 +69,6 @@ int main(int argc, const char * argv[]) {
      AutoEncoder:
      - Implement
      
-    
-     Misc:
-     - learning curve
-     - validation curve
      
      */
 

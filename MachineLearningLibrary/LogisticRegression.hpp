@@ -11,10 +11,11 @@
 
 #include <stdio.h>
 #include <vector>
+#include "MachineLearningModel.hpp"
 
 using namespace std;
 
-class LogisticRegression
+class LogisticRegression : public MachineLearningModel
 {
 public:
     
@@ -26,12 +27,11 @@ public:
     void Fit(vector<vector<double>> XTrain, const vector<double>& YTrain);
     
     // Predict
-    vector<double> Predict(vector<vector<double>> XTest);
+    virtual vector<double> Predict(const vector<vector<double>>& XT) override;
     
     // Getters
     vector<double> GetWeights();
     vector<double> GetCosts();
-    double GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y);
 
 private:
     

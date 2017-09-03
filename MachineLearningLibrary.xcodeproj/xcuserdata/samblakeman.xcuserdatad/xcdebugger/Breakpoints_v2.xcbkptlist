@@ -221,7 +221,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "91"
-            endingLineNumber = "91">
+            endingLineNumber = "91"
+            landmarkName = "NaiveBayesClassifier::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; XTrain, const vector&lt;double&gt;&amp; YTrain)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

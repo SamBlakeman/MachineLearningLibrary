@@ -61,7 +61,7 @@ void SVMTest::Test1()
     
     svm.Fit(XTrain, YTrain);
     
-    double Accuracy = svm.GetAccuracy(XTest, YTest);
+    double Accuracy = svm.CalculateAccuracy(XTest, YTest);
     cout << "\nAccuracy:\n" << Accuracy << endl;
     
     vector<double> Costs = svm.GetCosts();
@@ -115,7 +115,7 @@ void SVMTest::Test2()
     
     svm.Fit(XTrain, YTrain);
     
-    double Accuracy = svm.GetAccuracy(XTest, YTest);
+    double Accuracy = svm.CalculateAccuracy(XTest, YTest);
     cout << "\nAccuracy:\n" << Accuracy << endl;
     
     vector<double> Costs = svm.GetCosts();

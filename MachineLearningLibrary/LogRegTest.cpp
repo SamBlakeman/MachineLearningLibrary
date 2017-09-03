@@ -50,10 +50,10 @@ void LogRegTest::Test1()
     logr.Fit(XTrain, YTrain);
     
     // Accuracy
-    double Accuracy = logr.GetAccuracy(XTrain, YTrain);
+    double Accuracy = logr.CalculateAccuracy(XTrain, YTrain);
     cout << "Training Accuracy:\n" << Accuracy << endl;
     
-    Accuracy = logr.GetAccuracy(XTest, YTest);
+    Accuracy = logr.CalculateAccuracy(XTest, YTest);
     cout << "Test Accuracy:\n" << Accuracy << endl;
     
     vector<double> w = logr.GetWeights();
@@ -104,7 +104,7 @@ void LogRegTest::Test2()
     LogisticRegression lgr(1, .1, 10000);
     lgr.Fit(XTrain, YTrain);
     
-    double Accuracy = lgr.GetAccuracy(XTest, YTest);
+    double Accuracy = lgr.CalculateAccuracy(XTest, YTest);
     cout << "\nAccuracy:\n" << Accuracy << endl;
     
     vector<double> Costs = lgr.GetCosts();

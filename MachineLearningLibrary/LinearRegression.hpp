@@ -11,12 +11,13 @@
 
 #include <stdio.h>
 #include <vector>
+#include "MachineLearningModel.hpp"
 
 using namespace std;
 
 enum OptimizationMethod {BatchGradientDescent, NormalEquations};
 
-class LinearRegression
+class LinearRegression : public MachineLearningModel
 {
 public:
     
@@ -29,10 +30,7 @@ public:
     void Fit(vector<vector<double>> XTrain, const vector<double>& YTrain);
     
     // Predict
-    vector<double> Predict(vector<vector<double>> XTest);
-    
-    // Goodness of fit
-    double CalculateRSquared(vector<vector<double>> X, const vector<double>& Y);
+    virtual vector<double> Predict(const vector<vector<double>>& XT) override;
     
     // Getters
     vector<double> GetWeights();

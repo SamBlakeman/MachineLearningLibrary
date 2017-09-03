@@ -19,12 +19,14 @@ LogisticRegression::LogisticRegression(double lambda, double alpha, int iter)
     Alpha = alpha;
     Iterations = iter;
     Costs = vector<double>(Iterations, 0);
+    CostFun = CrossEntropy;
     return;
 }
 
 LogisticRegression::LogisticRegression(vector<double> weights)
 {
     Weights = weights;
+    CostFun = CrossEntropy;
     return;
 }
 
@@ -117,8 +119,10 @@ void LogisticRegression::Sigmoid(vector<double>& Vec)
 }
 
 
-vector<double> LogisticRegression::Predict(vector<vector<double>> XTest)
+vector<double> LogisticRegression::Predict(const vector<vector<double>>& XT)
 {
+    vector<vector<double>> XTest = XT;
+    
     vector<double> Predictions(XTest.size(),0);
     
     // Check for weights
@@ -172,26 +176,4 @@ vector<double> LogisticRegression::GetCosts()
     }
     
     return Costs;
-}
-
-double LogisticRegression::GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y)
-{
-    double Accuracy;
-    
-    vector<double> Predictions = Predict(X);
-    
-    double numCorrect = 0;
-    double total = Y.size();
-    
-    for(int e = 0; e < total; ++e)
-    {
-        if(Predictions[e] == Y[e])
-        {
-            ++numCorrect;
-        }
-    }
-    
-    Accuracy = (numCorrect/total)*100;
-    
-    return Accuracy;
 }

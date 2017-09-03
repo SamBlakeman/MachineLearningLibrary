@@ -16,6 +16,7 @@
 LocallyWeightedRegression::LocallyWeightedRegression(double tau)
 {
     Tau = tau;
+    CostFun = SumOfSquaredErrors;
 }
 
 
@@ -74,43 +75,4 @@ vector<double> LocallyWeightedRegression::Predict(const vector<vector<double>>& 
     
     return Predictions;
     
-}
-
-
-double LocallyWeightedRegression::CalculateRSquared(const vector<vector<double>>& X, const vector<double>& Y)
-{
-    double RSquared = 0;
-    
-    // Check for weights
-    if(X.empty())
-    {
-        cout << endl << "Error in CalculateRSquared() - Model has not been fit" << endl;
-        return RSquared;
-        
-    }
-    
-    // Residuals sum of squares
-    double RSS = 0;
-    vector<double> Predictions = Predict(X);
-    
-    for(int i = 0; i < Predictions.size(); ++i)
-    {
-        RSS += pow(Y[i] - Predictions[i], 2);
-    }
-    
-    
-    // Total sum of squares
-    double TSS = 0;
-    double sum = accumulate(Y.begin(), Y.end(), 0);
-    double mean = sum/Y.size();
-    
-    for(int i = 0; i < Y.size(); ++i)
-    {
-        TSS += pow(Y[i] - mean, 2);
-    }
-    
-    // Calculate R squared
-    RSquared = 1 - (RSS/TSS);
-    
-    return RSquared;
 }

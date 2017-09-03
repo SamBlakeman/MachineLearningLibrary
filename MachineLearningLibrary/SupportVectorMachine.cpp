@@ -17,6 +17,7 @@ SupportVectorMachine::SupportVectorMachine(double c, double alpha, int iters)
     Alpha = alpha;
     Iterations = iters;
     Costs = vector<double>(Iterations, 0);
+    CostFun = CrossEntropy;
 }
 
 
@@ -225,30 +226,6 @@ MatrixXd SupportVectorMachine::GaussianKernel(const MatrixXd& X)
 vector<double> SupportVectorMachine::GetCosts()
 {
     return Costs;
-}
-
-
-double SupportVectorMachine::GetAccuracy(const vector<vector<double>>& X, const vector<double>& Y)
-{
-    double Accuracy = 0;
-    
-    vector<double> Predictions = Predict(X);
-    
-    double numCorrect = 0;
-    double total = Y.size();
-    
-    for(int e = 0; e < total; ++e)
-    {
-        if(Predictions[e] == Y[e])
-        {
-            ++numCorrect;
-        }
-    }
-    
-    Accuracy = (numCorrect/total)*100;
-    
-    
-    return Accuracy;
 }
 
 

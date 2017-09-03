@@ -12,11 +12,12 @@
 #include <stdio.h>
 #include <vector>
 #include "Eigen/Dense"
+#include "MachineLearningModel.hpp"
 
 using namespace std;
 using namespace Eigen;
 
-class LocallyWeightedRegression
+class LocallyWeightedRegression : public MachineLearningModel
 {
 public:
     
@@ -27,10 +28,7 @@ public:
     void Fit(const vector<vector<double>>& XTrain, const vector<double>& YTrain);
     
     // Predict
-    vector<double> Predict(const vector<vector<double>>& XTest);
-    
-    // Goodness of fit
-    double CalculateRSquared(const vector<vector<double>>& X, const vector<double>& Y);
+    virtual vector<double> Predict(const vector<vector<double>>& XTest) override;
     
     // Getters
     vector<double> GetWeights();
