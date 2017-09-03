@@ -31,13 +31,10 @@ LogisticRegression::LogisticRegression(vector<double> weights)
 }
 
 
-void LogisticRegression::Fit(vector<vector<double>> XTrain, const vector<double>& YTrain)
+void LogisticRegression::Fit(const vector<vector<double>>& XT, const vector<double>& YTrain)
 {
-    if(!Weights.empty())
-    {
-        cout << "Weights have already been provided!" << endl;
-        return;
-    }
+    
+    vector<vector<double>> XTrain = XT;
     
     numFeatures = XTrain[0].size() + 1;
     numTrainExamples = XTrain.size();

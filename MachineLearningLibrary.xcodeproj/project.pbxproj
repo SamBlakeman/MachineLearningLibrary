@@ -16,6 +16,7 @@
 		883F0B9F1EB93BE100A3E0E2 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 883F0B9D1EB93BE100A3E0E2 /* Utilities.cpp */; };
 		883F0BA31EBCF31600A3E0E2 /* LinearRegression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 883F0BA11EBCF31600A3E0E2 /* LinearRegression.cpp */; };
 		883F0BA61EBE69A400A3E0E2 /* LRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 883F0BA41EBE69A400A3E0E2 /* LRTest.cpp */; };
+		8860386B1F5C37AA00482DAA /* KFoldTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 886038691F5C37AA00482DAA /* KFoldTest.cpp */; };
 		88687A3B1ED9F09D00E1C256 /* NaiveBayesClassifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88687A391ED9F09D00E1C256 /* NaiveBayesClassifier.cpp */; };
 		887B5D281F56FA6000063C70 /* SVMTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 887B5D261F56FA6000063C70 /* SVMTest.cpp */; };
 		887B5D2E1F5B0EB300063C70 /* MachineLearningModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 887B5D2C1F5B0EB300063C70 /* MachineLearningModel.cpp */; };
@@ -59,6 +60,8 @@
 		883F0BA21EBCF31600A3E0E2 /* LinearRegression.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LinearRegression.hpp; sourceTree = "<group>"; };
 		883F0BA41EBE69A400A3E0E2 /* LRTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LRTest.cpp; sourceTree = "<group>"; };
 		883F0BA51EBE69A400A3E0E2 /* LRTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LRTest.hpp; sourceTree = "<group>"; };
+		886038691F5C37AA00482DAA /* KFoldTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KFoldTest.cpp; sourceTree = "<group>"; };
+		8860386A1F5C37AA00482DAA /* KFoldTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = KFoldTest.hpp; sourceTree = "<group>"; };
 		88687A391ED9F09D00E1C256 /* NaiveBayesClassifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NaiveBayesClassifier.cpp; sourceTree = "<group>"; };
 		88687A3A1ED9F09D00E1C256 /* NaiveBayesClassifier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NaiveBayesClassifier.hpp; sourceTree = "<group>"; };
 		887B5D261F56FA6000063C70 /* SVMTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SVMTest.cpp; sourceTree = "<group>"; };
@@ -123,8 +126,15 @@
 		883F0BA01EB93D9600A3E0E2 /* TestScripts */ = {
 			isa = PBXGroup;
 			children = (
-				883F0B9A1EB7F16700A3E0E2 /* NormaliseTest.cpp */,
-				883F0B9B1EB7F16700A3E0E2 /* NormaliseTest.hpp */,
+				8860386D1F5C37C400482DAA /* TestMisc */,
+				8860386C1F5C37B700482DAA /* TestModels */,
+			);
+			name = TestScripts;
+			sourceTree = "<group>";
+		};
+		8860386C1F5C37B700482DAA /* TestModels */ = {
+			isa = PBXGroup;
+			children = (
 				883F0BA41EBE69A400A3E0E2 /* LRTest.cpp */,
 				883F0BA51EBE69A400A3E0E2 /* LRTest.hpp */,
 				889E9D3D1F4E0BCB000775FE /* LWRTest.cpp */,
@@ -140,7 +150,18 @@
 				880193CE1F38C4330004B331 /* DeepNeuralNetworkTest.cpp */,
 				880193CF1F38C4330004B331 /* DeepNeuralNetworkTest.hpp */,
 			);
-			name = TestScripts;
+			name = TestModels;
+			sourceTree = "<group>";
+		};
+		8860386D1F5C37C400482DAA /* TestMisc */ = {
+			isa = PBXGroup;
+			children = (
+				883F0B9A1EB7F16700A3E0E2 /* NormaliseTest.cpp */,
+				883F0B9B1EB7F16700A3E0E2 /* NormaliseTest.hpp */,
+				886038691F5C37AA00482DAA /* KFoldTest.cpp */,
+				8860386A1F5C37AA00482DAA /* KFoldTest.hpp */,
+			);
+			name = TestMisc;
 			sourceTree = "<group>";
 		};
 		887B5D291F5B0E1800063C70 /* BaseClasses */ = {
@@ -250,6 +271,7 @@
 				88DB45781F5075D300920E69 /* SupportVectorMachine.cpp in Sources */,
 				880193D01F38C4330004B331 /* DeepNeuralNetworkTest.cpp in Sources */,
 				883F0B901EB7E01600A3E0E2 /* main.cpp in Sources */,
+				8860386B1F5C37AA00482DAA /* KFoldTest.cpp in Sources */,
 				8835FB411EE6F9C3003E7A98 /* NeuralNetwork.cpp in Sources */,
 				883F0B9F1EB93BE100A3E0E2 /* Utilities.cpp in Sources */,
 				88DC301B1ED0D0FC00BC9E38 /* LogisticRegression.cpp in Sources */,

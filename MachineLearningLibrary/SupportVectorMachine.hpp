@@ -30,7 +30,7 @@ public:
     void AddGaussianKernel(double Variance);
     
     // Fit
-    void Fit(const vector<vector<double>>& X, const vector<double>& Y);
+    virtual void Fit(const vector<vector<double>>& X, const vector<double>& Y) override;
     
     // Predict
     virtual vector<double> Predict(const vector<vector<double>>& X) override;

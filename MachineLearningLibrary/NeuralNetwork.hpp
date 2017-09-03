@@ -28,7 +28,7 @@ public:
     NeuralNetwork(double alpha, double lambda, int numHidden, int numOutput, int Iters, CostFunction Cost, ActivationFunction HiddenActivation);
     
     // Fit the weights of the model
-    void Fit(const vector<vector<double>>& X, const vector<double>& Y);
+    virtual void Fit(const vector<vector<double>>& X, const vector<double>& Y) override;
     void InitialiseWeights();
     
     // Predict

@@ -65,7 +65,7 @@ public:
     void PreTrain(const vector<vector<double>>& X);
     
     // Fit
-    void Fit(const vector<vector<double>>& X, const vector<double>& Y);
+    virtual void Fit(const vector<vector<double>>& X, const vector<double>& Y) override;
     
     // Predict
     virtual vector<double> Predict(const vector<vector<double>>& XTest) override;

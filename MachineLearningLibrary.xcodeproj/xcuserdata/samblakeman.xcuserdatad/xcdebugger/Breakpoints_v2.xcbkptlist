@@ -10,28 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/LinearRegression.cpp"
-            timestampString = "516746960.70383"
+            timestampString = "526138149.025828"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "LinearRegression::Fit(vector&lt;vector&lt;double&gt;&gt; XTrain, const vector&lt;double&gt;&amp; YTrain)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MachineLearningLibrary/LinearRegression.cpp"
-            timestampString = "516747812.067651"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "LinearRegression::Fit(vector&lt;vector&lt;double&gt;&gt; XTrain, const vector&lt;double&gt;&amp; YTrain)"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "LinearRegression::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; XT, const vector&lt;double&gt;&amp; YTrain)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/LinearRegression.cpp"
-            timestampString = "516747812.067651"
+            timestampString = "526138149.025828"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "LinearRegression::GradientDescent(const vector&lt;vector&lt;double&gt;&gt;&amp; XTrain, const vector&lt;double&gt;&amp; YTrain)"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/LinearRegression.cpp"
-            timestampString = "516747812.067651"
+            timestampString = "526138149.025828"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "LinearRegression::Fit(vector&lt;vector&lt;double&gt;&gt; XTrain, const vector&lt;double&gt;&amp; YTrain)"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "LinearRegression::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; XT, const vector&lt;double&gt;&amp; YTrain)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -106,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/LinearRegression.cpp"
-            timestampString = "516747808.603344"
+            timestampString = "526138149.025828"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "LinearRegression::Fit(vector&lt;vector&lt;double&gt;&gt; XTrain, const vector&lt;double&gt;&amp; YTrain)"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "LinearRegression::Fit(const vector&lt;vector&lt;double&gt;&gt;&amp; XT, const vector&lt;double&gt;&amp; YTrain)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -749,6 +733,54 @@
             startingLineNumber = "108"
             endingLineNumber = "108"
             landmarkName = "SupportVectorMachine::CalculateCost(const VectorXd&amp; Outputs, const MatrixXd&amp; YTrain, int iter)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MachineLearningLibrary/MachineLearningModel.cpp"
+            timestampString = "526138554.296989"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "MachineLearningModel::KFoldCrossValidation(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y, int numFolds)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MachineLearningLibrary/MachineLearningModel.cpp"
+            timestampString = "526138524.495193"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "MachineLearningModel::KFoldCrossValidation(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y, int numFolds)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MachineLearningLibrary/MachineLearningModel.cpp"
+            timestampString = "526138793.880689"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "MachineLearningModel::KFoldCrossValidation(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y, int numFolds)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

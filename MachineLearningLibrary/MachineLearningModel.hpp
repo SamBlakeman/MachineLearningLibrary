@@ -17,10 +17,14 @@ using namespace std;
 using namespace Eigen;
 
 enum CostFunction {CrossEntropy, SumOfSquaredErrors};
+struct KFoldResults {double TrainingAccuracy; double TrainingRSquared; double TestAccuracy; double TestRSquared;};
 
 class MachineLearningModel
 {
 public:
+    
+    // Fit
+    virtual void Fit(const vector<vector<double>>& X, const vector<double>& Y) = 0;
     
     // Predict
     virtual vector<double> Predict(const vector<vector<double>>& XTest) = 0;
@@ -28,6 +32,9 @@ public:
     // Goodness of fit
     double CalculateRSquared(const vector<vector<double>>& X, const vector<double>& Y);
     double CalculateAccuracy(const vector<vector<double>>& X, const vector<double>& Y);
+    
+    // Cross validation
+    KFoldResults KFoldCrossValidation(const vector<vector<double>>& X, const vector<double>& Y, int numFolds);
     
     
 protected:

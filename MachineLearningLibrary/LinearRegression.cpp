@@ -51,13 +51,9 @@ LinearRegression::LinearRegression(vector<double> weights)
     return;
 }
 
-void LinearRegression::Fit(vector<vector<double>> XTrain, const vector<double>& YTrain)
+void LinearRegression::Fit(const vector<vector<double>>& XT, const vector<double>& YTrain)
 {
-    if(!Weights.empty())
-    {
-        cout << "\nWeights have already been provided!\n" << endl;
-        return;
-    }
+    vector<vector<double>> XTrain = XT;
     
     numFeatures = XTrain[0].size() + 1;
     numTrainExamples = XTrain.size();

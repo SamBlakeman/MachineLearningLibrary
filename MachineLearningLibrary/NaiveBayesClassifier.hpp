@@ -28,7 +28,7 @@ public:
     
     // Fit the classifier
     void AddNumAttributeValues(vector<double> numAttributeValues);
-    void Fit(const vector<vector<double>>& XTrain, const vector<double>& YTrain);
+    virtual void Fit(const vector<vector<double>>& XTrain, const vector<double>& YTrain) override;
     
     // Predict
     virtual vector<double> Predict(const vector<vector<double>>& XTest) override;

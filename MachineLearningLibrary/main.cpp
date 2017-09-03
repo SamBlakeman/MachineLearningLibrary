@@ -9,6 +9,7 @@
 #include "Eigen/Dense"
 
 #include "NormaliseTest.hpp"
+#include "KFoldTest.hpp"
 #include "LRTest.hpp"
 #include "LWRTest.hpp"
 #include "LogRegTest.hpp"
@@ -19,16 +20,16 @@
 
 int main(int argc, const char * argv[]) {
     
-    LRTest lr;
-    lr.Run();
+    KFoldTest kft;
+    kft.Run();
     
     /*
      TODO:
      
      Machine Learning Model Base Class:
+     - cross validation --> deal with the remainder i.e. left over cases at the very end
      - validation curve
      - learning curve
-     - cross validation
      - other useful exploratory methods that are shared for all models
      - other subclasses?
      

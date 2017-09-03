@@ -7,6 +7,7 @@
 //
 
 #include "MachineLearningModel.hpp"
+#include "PreProcessing.hpp"
 #include <iostream>
 #include <cmath>
 #include <numeric>
@@ -73,4 +74,100 @@ double MachineLearningModel::CalculateAccuracy(const vector<vector<double>>& X, 
     Accuracy = (double(numCorrect)/X.size())*100;
     
     return Accuracy;
+}
+
+
+KFoldResults MachineLearningModel::KFoldCrossValidation(const vector<vector<double>>& X, const vector<double>& Y, int numFolds)
+{
+    KFoldResults Results;
+    int numExamples = int(X.size());
+    
+    if(numFolds > numExamples)
+    {
+        cout << "Error - You have specified more folds than examples";
+        return Results;
+    }
+    
+    double TrainRSquared = 0;
+    double TrainAccuracy = 0;
+    
+    double TestRSquared = 0;
+    double TestAccuracy = 0;
+    
+    int quotient = floor(numExamples/numFolds);
+    int remainder = numExamples % numFolds;
+    
+    int q = quotient;
+    
+    for(int fold = 0; fold < numFolds; ++fold)
+    {
+        vector<double> YTest;
+        vector<vector<double>> XTest;
+        
+        // Extract Test Matrices
+        for(int i = 0; i < quotient; ++i)
+        {
+            YTest.push_back(Y[q - quotient + i]);
+            XTest.push_back(X[q - quotient + i]);
+        }
+        
+        vector<double> YTrain;
+        vector<vector<double>> XTrain;
+        
+        // Extract Training Matrices
+        for(int i = 0; i < numExamples; ++i)
+        {
+            if(i < q - quotient || i > q - 1)
+            {
+                YTrain.push_back(Y[i]);
+                XTrain.push_back(X[i]);
+            }
+        }
+        
+        // Normalise
+        PreProcessing pp;
+        pp.NormaliseFit(XTrain);
+        pp.NormaliseTransform(XTrain);
+        pp.NormaliseTransform(XTest);
+        
+        // Peform KFold Cross Validation
+        Fit(XTrain,YTrain);
+        
+        switch(CostFun)
+        {
+                
+            case SumOfSquaredErrors:
+                
+                TrainRSquared += CalculateRSquared(XTrain, YTrain);
+                TestRSquared += CalculateRSquared(XTest, YTest);
+                
+                break;
+                
+            case CrossEntropy:
+                
+                TrainAccuracy += CalculateAccuracy(XTrain, YTrain);
+                TestAccuracy += CalculateAccuracy(XTest, YTest);
+                
+                break;
+                
+        }
+        
+        // Update q
+        q += quotient;
+        
+        // In the last fold include the remainder
+        if(q == numExamples-remainder)
+        {
+            q = numExamples;
+            quotient += remainder;
+        }
+    }
+            
+    Results.TrainingRSquared = TrainRSquared/numFolds;
+    Results.TrainingAccuracy = TrainAccuracy/numFolds;
+    
+    Results.TestRSquared = TestRSquared/numFolds;
+    Results.TestAccuracy = TestAccuracy/numFolds;
+    
+    return Results;
 }
