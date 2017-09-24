@@ -27,7 +27,6 @@ int main(int argc, const char * argv[]) {
      TODO:
      
      Machine Learning Model Base Class:
-     - cross validation --> deal with the remainder i.e. left over cases at the very end
      - validation curve
      - learning curve
      - other useful exploratory methods that are shared for all models

@@ -17,7 +17,9 @@ using namespace std;
 using namespace Eigen;
 
 enum CostFunction {CrossEntropy, SumOfSquaredErrors};
+enum Parameter {Lambda, Alpha, Iterations, Tau, C, Var};
 struct KFoldResults {double TrainingAccuracy; double TrainingRSquared; double TestAccuracy; double TestRSquared;};
+struct ValidationCurveResults {vector<double> TrainMeanAccuracy; vector<double> TrainStdAccuracy; vector<double> TestMeanAccuracy; vector<double> TestStdAccuracy;};
 
 class MachineLearningModel
 {
@@ -36,6 +38,16 @@ public:
     // Cross validation
     KFoldResults KFoldCrossValidation(const vector<vector<double>>& X, const vector<double>& Y, int numFolds);
     
+    // Validation curve
+    ValidationCurveResults ValidationCurve(const vector<vector<double>>& X, const vector<double>& Y, Parameter Param, vector<double> ParamRange, int numFolds);
+    
+    // Setters
+    virtual void SetLambda(double lambda) = 0;
+    virtual void SetAlpha(double alpha) = 0;
+    virtual void SetIterations(int iters) = 0;
+    virtual void SetTau(double tau) = 0;
+    virtual void SetC(double c) = 0;
+    virtual void SetVar(double var) = 0;
     
 protected:
     

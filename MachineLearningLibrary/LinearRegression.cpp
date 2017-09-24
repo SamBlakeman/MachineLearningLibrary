@@ -189,3 +189,35 @@ vector<double> LinearRegression::GetCosts()
     
     return Costs;
 }
+
+void LinearRegression::SetLambda(double lambda)
+{
+    Lambda = lambda;
+}
+
+void LinearRegression::SetAlpha(double alpha)
+{
+    Alpha = alpha;
+}
+
+void LinearRegression::SetIterations(int iters)
+{
+    Iterations = iters;
+}
+
+void LinearRegression::SetTau(double tau)
+{
+    
+}
+
+void LinearRegression::SetC(double c)
+{
+    
+}
+
+void LinearRegression::SetVar(double var)
+{
+    
+}
+
+

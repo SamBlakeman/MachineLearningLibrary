@@ -228,6 +228,37 @@ vector<double> SupportVectorMachine::GetCosts()
     return Costs;
 }
 
+void SupportVectorMachine::SetC(double c)
+{
+    C = c;
+}
+
+void SupportVectorMachine::SetVar(double var)
+{
+    Var = var;
+}
+
+void SupportVectorMachine::SetAlpha(double alpha)
+{
+    Alpha = alpha;
+}
+
+void SupportVectorMachine::SetIterations(int iters)
+{
+    Iterations = iters;
+}
+
+void SupportVectorMachine::SetLambda(double lambda)
+{
+    
+}
+
+void SupportVectorMachine::SetTau(double tau)
+{
+    
+}
+
+
 
 
 

@@ -35,6 +35,14 @@ public:
     
     // Getters
     
+    // Setters
+    virtual void SetLambda(double lambda) override;
+    virtual void SetAlpha(double alpha) override;
+    virtual void SetIterations(int iters) override;
+    virtual void SetTau(double tau) override;
+    virtual void SetC(double c) override;
+    virtual void SetVar(double var) override;
+    
     
 private:
     

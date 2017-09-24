@@ -171,3 +171,42 @@ KFoldResults MachineLearningModel::KFoldCrossValidation(const vector<vector<doub
     
     return Results;
 }
+
+ValidationCurveResults MachineLearningModel::ValidationCurve(const vector<vector<double>>& X, const vector<double>& Y, Parameter Param, vector<double> ParamRange, int numFolds)
+{
+    ValidationCurveResults Results;
+    
+    for(int p = 0; p < ParamRange.size(); ++p)
+    {
+        switch(Param)
+        {
+            case Lambda:
+                
+                break;
+                
+            case Alpha:
+                
+                break;
+                
+            case Iterations:
+                
+                break;
+                
+            case Tau:
+                
+                break;
+                
+            case C:
+                
+                break;
+                
+            case Var:
+                
+                break;
+        }
+    }
+    
+    
+    
+    return Results;
+}

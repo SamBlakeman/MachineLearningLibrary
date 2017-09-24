@@ -471,3 +471,34 @@ MatrixXd NeuralNetwork::GetHiddenActivationGradient(const MatrixXd& Activations)
         }
     }
 }
+
+
+void NeuralNetwork::SetLambda(double lambda)
+{
+    Lambda = lambda;
+}
+
+void NeuralNetwork::SetAlpha(double alpha)
+{
+    Alpha = alpha;
+}
+
+void NeuralNetwork::SetIterations(int iters)
+{
+    Iterations = iters;
+}
+
+void NeuralNetwork::SetTau(double tau)
+{
+    
+}
+
+void NeuralNetwork::SetC(double c)
+{
+    
+}
+
+void NeuralNetwork::SetVar(double var)
+{
+    
+}

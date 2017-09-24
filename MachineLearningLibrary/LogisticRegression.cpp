@@ -174,3 +174,33 @@ vector<double> LogisticRegression::GetCosts()
     
     return Costs;
 }
+
+void LogisticRegression::SetLambda(double lambda)
+{
+    Lambda = lambda;
+}
+
+void LogisticRegression::SetAlpha(double alpha)
+{
+    Alpha = alpha;
+}
+
+void LogisticRegression::SetIterations(int iters)
+{
+    Iterations = iters;
+}
+
+void LogisticRegression::SetTau(double tau)
+{
+    
+}
+
+void LogisticRegression::SetC(double c)
+{
+    
+}
+
+void LogisticRegression::SetVar(double var)
+{
+    
+}

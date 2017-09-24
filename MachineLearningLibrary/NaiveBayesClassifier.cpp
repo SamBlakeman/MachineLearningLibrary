@@ -263,4 +263,34 @@ double NaiveBayesClassifier::Gaussian(int Class, int Attribute, double Value)
     return coeff*exp(exponential);
 }
 
+void NaiveBayesClassifier::SetLambda(double lambda)
+{
+    
+}
+
+void NaiveBayesClassifier::SetAlpha(double alpha)
+{
+    
+}
+
+void NaiveBayesClassifier::SetIterations(int iters)
+{
+    
+}
+
+void NaiveBayesClassifier::SetTau(double tau)
+{
+    
+}
+
+void NaiveBayesClassifier::SetC(double c)
+{
+    
+}
+
+void NaiveBayesClassifier::SetVar(double var)
+{
+    
+}
+
 

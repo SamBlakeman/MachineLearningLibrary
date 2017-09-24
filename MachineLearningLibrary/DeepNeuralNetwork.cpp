@@ -581,10 +581,40 @@ vector<double> DeepNeuralNetwork::WinningOutput(const MatrixXd& Outputs)
 }
 
 
-void PreTrain(const vector<vector<double>>& X)
+void DeepNeuralNetwork::PreTrain(const vector<vector<double>>& X)
 {
     
     
     
     return;
+}
+
+void DeepNeuralNetwork::SetLambda(double lambda)
+{
+    Lambda = lambda;
+}
+
+void DeepNeuralNetwork::SetAlpha(double alpha)
+{
+    Alpha = alpha;
+}
+
+void DeepNeuralNetwork::SetIterations(int iters)
+{
+    Iterations = iters;
+}
+
+void DeepNeuralNetwork::SetTau(double tau)
+{
+    
+}
+
+void DeepNeuralNetwork::SetC(double c)
+{
+    
+}
+
+void DeepNeuralNetwork::SetVar(double var)
+{
+    
 }

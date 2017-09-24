@@ -76,3 +76,33 @@ vector<double> LocallyWeightedRegression::Predict(const vector<vector<double>>& 
     return Predictions;
     
 }
+
+void LocallyWeightedRegression::SetLambda(double lambda)
+{
+    
+}
+
+void LocallyWeightedRegression::SetAlpha(double alpha)
+{
+    
+}
+
+void LocallyWeightedRegression::SetIterations(int iters)
+{
+    
+}
+
+void LocallyWeightedRegression::SetTau(double tau)
+{
+    Tau = tau;
+}
+
+void LocallyWeightedRegression::SetC(double c)
+{
+    
+}
+
+void LocallyWeightedRegression::SetVar(double var)
+{
+    
+}
