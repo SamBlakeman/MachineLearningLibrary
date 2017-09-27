@@ -19,7 +19,7 @@ using namespace Eigen;
 enum CostFunction {CrossEntropy, SumOfSquaredErrors};
 enum Parameter {Lambda, Alpha, Iterations, Tau, C, Var};
 struct KFoldResults {double TrainingAccuracy; double TrainingRSquared; double TestAccuracy; double TestRSquared;};
-struct ValidationCurveResults {vector<double> TrainMeanAccuracy; vector<double> TrainStdAccuracy; vector<double> TestMeanAccuracy; vector<double> TestStdAccuracy;};
+struct ValidationCurveResults {vector<double> TrainMeanAccuracy; vector<double> TestMeanAccuracy;};
 
 class MachineLearningModel
 {

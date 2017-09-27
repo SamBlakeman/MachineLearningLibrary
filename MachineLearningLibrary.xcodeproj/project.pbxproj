@@ -24,6 +24,7 @@
 		88931E851ED4F5820041E9DC /* LogRegTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88931E831ED4F5820041E9DC /* LogRegTest.cpp */; };
 		889E9D3C1F4DB6D5000775FE /* LocallyWeightedRegression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 889E9D3A1F4DB6D5000775FE /* LocallyWeightedRegression.cpp */; };
 		889E9D3F1F4E0BCB000775FE /* LWRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 889E9D3D1F4E0BCB000775FE /* LWRTest.cpp */; };
+		88A286AF1F7C09DF00AC424F /* ValidationCurveTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88A286AD1F7C09DF00AC424F /* ValidationCurveTest.cpp */; };
 		88DB45781F5075D300920E69 /* SupportVectorMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88DB45761F5075D300920E69 /* SupportVectorMachine.cpp */; };
 		88DC301B1ED0D0FC00BC9E38 /* LogisticRegression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88DC30191ED0D0FC00BC9E38 /* LogisticRegression.cpp */; };
 		88E6E10A1F2B8E61005F1A80 /* DeepNeuralNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88E6E1081F2B8E61005F1A80 /* DeepNeuralNetwork.cpp */; };
@@ -76,6 +77,8 @@
 		889E9D3B1F4DB6D5000775FE /* LocallyWeightedRegression.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LocallyWeightedRegression.hpp; sourceTree = "<group>"; };
 		889E9D3D1F4E0BCB000775FE /* LWRTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LWRTest.cpp; sourceTree = "<group>"; };
 		889E9D3E1F4E0BCB000775FE /* LWRTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LWRTest.hpp; sourceTree = "<group>"; };
+		88A286AD1F7C09DF00AC424F /* ValidationCurveTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ValidationCurveTest.cpp; sourceTree = "<group>"; };
+		88A286AE1F7C09DF00AC424F /* ValidationCurveTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ValidationCurveTest.hpp; sourceTree = "<group>"; };
 		88DB45761F5075D300920E69 /* SupportVectorMachine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SupportVectorMachine.cpp; sourceTree = "<group>"; };
 		88DB45771F5075D300920E69 /* SupportVectorMachine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SupportVectorMachine.hpp; sourceTree = "<group>"; };
 		88DC30191ED0D0FC00BC9E38 /* LogisticRegression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogisticRegression.cpp; sourceTree = "<group>"; };
@@ -160,6 +163,8 @@
 				883F0B9B1EB7F16700A3E0E2 /* NormaliseTest.hpp */,
 				886038691F5C37AA00482DAA /* KFoldTest.cpp */,
 				8860386A1F5C37AA00482DAA /* KFoldTest.hpp */,
+				88A286AD1F7C09DF00AC424F /* ValidationCurveTest.cpp */,
+				88A286AE1F7C09DF00AC424F /* ValidationCurveTest.hpp */,
 			);
 			name = TestMisc;
 			sourceTree = "<group>";
@@ -271,6 +276,7 @@
 				88DB45781F5075D300920E69 /* SupportVectorMachine.cpp in Sources */,
 				880193D01F38C4330004B331 /* DeepNeuralNetworkTest.cpp in Sources */,
 				883F0B901EB7E01600A3E0E2 /* main.cpp in Sources */,
+				88A286AF1F7C09DF00AC424F /* ValidationCurveTest.cpp in Sources */,
 				8860386B1F5C37AA00482DAA /* KFoldTest.cpp in Sources */,
 				8835FB411EE6F9C3003E7A98 /* NeuralNetwork.cpp in Sources */,
 				883F0B9F1EB93BE100A3E0E2 /* Utilities.cpp in Sources */,

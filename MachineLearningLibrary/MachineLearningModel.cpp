@@ -174,39 +174,58 @@ KFoldResults MachineLearningModel::KFoldCrossValidation(const vector<vector<doub
 
 ValidationCurveResults MachineLearningModel::ValidationCurve(const vector<vector<double>>& X, const vector<double>& Y, Parameter Param, vector<double> ParamRange, int numFolds)
 {
+    int numParams = int(ParamRange.size());
+    
+    vector<double> TrainMeanAccuracy(numParams,0);
+    vector<double> TestMeanAccuracy(numParams,0);
+    
+    
     ValidationCurveResults Results;
     
     for(int p = 0; p < ParamRange.size(); ++p)
     {
+        double value = ParamRange[p];
+        
         switch(Param)
         {
             case Lambda:
-                
+                SetLambda(value);
                 break;
                 
             case Alpha:
-                
+                SetAlpha(value);
                 break;
                 
             case Iterations:
-                
+                SetIterations(value);
                 break;
                 
             case Tau:
-                
+                SetTau(value);
                 break;
                 
             case C:
-                
+                SetC(value);
                 break;
                 
             case Var:
-                
+                SetVar(value);
                 break;
         }
+        
+        
+        // K-fold cross validation
+        KFoldResults KResults = KFoldCrossValidation(X, Y, numFolds);
+        
+        // Calculate mean and std for parameter value
+        TrainMeanAccuracy[p] = KResults.TrainingAccuracy;
+        TestMeanAccuracy[p] = KResults.TestAccuracy;
+        
     }
     
-    
+    // Return means and stds
+    Results.TrainMeanAccuracy = TrainMeanAccuracy;
+    Results.TestMeanAccuracy = TestMeanAccuracy;
     
     return Results;
 }
