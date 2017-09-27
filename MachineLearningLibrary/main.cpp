@@ -17,11 +17,12 @@
 #include "NBCTest.hpp"
 #include "NeuralNetworkTest.hpp"
 #include "DeepNeuralNetworkTest.hpp"
+#include "ValidationCurveTest.hpp"
 
 int main(int argc, const char * argv[]) {
     
-    KFoldTest kft;
-    kft.Run();
+    ValidationCurveTest VCTest;
+    VCTest.Run();
     
     /*
      TODO:

@@ -11,4 +11,15 @@
 
 #include <stdio.h>
 
+class ValidationCurveTest
+{
+public:
+    
+    void Run();
+    
+private:
+    
+    
+};
+
 #endif /* ValidationCurveTest_hpp */
