@@ -54,7 +54,7 @@ void NBCTest::DiscreteTest()
     cout << "Predictions:\n";
     Utilities::PrintVector(Predictions);
     
-    double Accuracy = nbc.CalculateAccuracy(XTest, YTest);
+    double Accuracy = nbc.CalculatePerformance(XTest, YTest);
     cout << "Accuracy:\n";
     cout << Accuracy << "%\n\n";
     
@@ -92,7 +92,7 @@ void NBCTest::ContinuousTest()
     NaiveBayesClassifier nbc(true);
     
     nbc.Fit(XTrain, YTrain);
-    double Accuracy = nbc.CalculateAccuracy(XTest, YTest);
+    double Accuracy = nbc.CalculatePerformance(XTest, YTest);
     cout << "\nAccuracy:\n" << Accuracy << endl;
     
     return;

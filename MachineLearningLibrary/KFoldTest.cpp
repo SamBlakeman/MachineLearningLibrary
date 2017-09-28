@@ -35,10 +35,10 @@ void KFoldTest::Run()
     KFoldResults Results = lgr.KFoldCrossValidation(X, Y, numFolds);
     
     // Print KFold Results
-    cout << "\nTraining RSquared:\n" << Results.TrainingRSquared << endl;
-    cout << "\nTraining Accuracy:\n" << Results.TrainingAccuracy << endl;
-    cout << "\nTest RSquared:\n" << Results.TestRSquared << endl;
-    cout << "\nTest Accuracy:\n" << Results.TestAccuracy << endl;
+    cout << "\nMean Training Accuracy:\n" << Results.TrainMeanPerformance << endl;
+    cout << "\nStd Training Accuracy:\n" << Results.TrainStdPerformance << endl;
+    cout << "\nMean Test Accuracy:\n" << Results.TestMeanPerformance << endl;
+    cout << "\nStd Test Accuracy:\n" << Results.TestStdPerformance << endl;
     
     return;
     

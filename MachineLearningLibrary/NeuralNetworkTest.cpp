@@ -57,7 +57,7 @@ void NeuralNetworkTest::RunClassificationTest()
     nn.Fit(XTrain, YTrain);
     
     // Print accuracy on test set
-    double Accuracy = nn.CalculateAccuracy(XTest, YTest);
+    double Accuracy = nn.CalculatePerformance(XTest, YTest);
     cout << "\nTest Accuracy = " << Accuracy << endl << endl;
     
     // Save the costs for plotting
@@ -129,7 +129,7 @@ void NeuralNetworkTest::RunRegressionTest()
     nn.Fit(XTrain, YTrain);
     
     // Calculate R squared
-    double RSq = nn.CalculateRSquared(XTest, YTest);
+    double RSq = nn.CalculatePerformance(XTest, YTest);
     cout << endl << "\nR Squared:\n" << RSq << endl << endl;
     
     // Save the costs for plotting

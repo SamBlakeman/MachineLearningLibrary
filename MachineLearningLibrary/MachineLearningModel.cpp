@@ -12,15 +12,25 @@
 #include <cmath>
 #include <numeric>
 
+double MachineLearningModel::CalculatePerformance(const vector<vector<double>>& X, const vector<double>& Y)
+{
+    double Result = 0;
+    
+    if(CostFun == SumOfSquaredErrors)
+    {
+        Result = CalculateRSquared(X, Y);
+    }
+    else if(CostFun == CrossEntropy)
+    {
+        Result = CalculateAccuracy(X, Y);
+    }
+    
+    return Result;
+}
+
 
 double MachineLearningModel::CalculateRSquared(const vector<vector<double>>& X, const vector<double>& Y)
 {
-    if(CostFun == CrossEntropy)
-    {
-        cout << "A classification problem has no R squared" << endl;
-        return 0;
-    }
-    
     double RSquared = 0;
     
     // Residuals sum of squares
@@ -52,12 +62,6 @@ double MachineLearningModel::CalculateRSquared(const vector<vector<double>>& X, 
 
 double MachineLearningModel::CalculateAccuracy(const vector<vector<double>>& X, const vector<double>& Y)
 {
-    if(CostFun == SumOfSquaredErrors)
-    {
-        cout << "A regression problem has no accuracy" << endl;
-        return 0;
-    }
-    
     double Accuracy;
     vector<double> Predictions = Predict(X);
     
@@ -88,16 +92,16 @@ KFoldResults MachineLearningModel::KFoldCrossValidation(const vector<vector<doub
         return Results;
     }
     
-    double TrainRSquared = 0;
-    double TrainAccuracy = 0;
-    
-    double TestRSquared = 0;
-    double TestAccuracy = 0;
+    double TrainPerformanceSum = 0;
+    double TestPerformanceSum = 0;
+    vector<double> TrainPerformances(numFolds,0);
+    vector<double> TestPerformances(numFolds,0);
     
     int quotient = floor(numExamples/numFolds);
     int remainder = numExamples % numFolds;
     
     int q = quotient;
+    double Performance = 0;
     
     for(int fold = 0; fold < numFolds; ++fold)
     {
@@ -133,24 +137,13 @@ KFoldResults MachineLearningModel::KFoldCrossValidation(const vector<vector<doub
         // Peform KFold Cross Validation
         Fit(XTrain,YTrain);
         
-        switch(CostFun)
-        {
-                
-            case SumOfSquaredErrors:
-                
-                TrainRSquared += CalculateRSquared(XTrain, YTrain);
-                TestRSquared += CalculateRSquared(XTest, YTest);
-                
-                break;
-                
-            case CrossEntropy:
-                
-                TrainAccuracy += CalculateAccuracy(XTrain, YTrain);
-                TestAccuracy += CalculateAccuracy(XTest, YTest);
-                
-                break;
-                
-        }
+        Performance = CalculatePerformance(XTrain, YTrain);
+        TrainPerformanceSum += Performance;
+        TrainPerformances[fold] = Performance;
+        
+        Performance = CalculatePerformance(XTest, YTest);
+        TestPerformanceSum += Performance;
+        TestPerformances[fold] = Performance;
         
         // Update q
         q += quotient;
@@ -163,11 +156,21 @@ KFoldResults MachineLearningModel::KFoldCrossValidation(const vector<vector<doub
         }
     }
             
-    Results.TrainingRSquared = TrainRSquared/numFolds;
-    Results.TrainingAccuracy = TrainAccuracy/numFolds;
+    Results.TrainMeanPerformance = TrainPerformanceSum/numFolds;
+    Results.TrainStdPerformance = 0;
+    for(int fold = 0; fold < numFolds; ++fold)
+    {
+        Results.TrainStdPerformance += pow(TrainPerformances[fold] - Results.TrainMeanPerformance,2);
+    }
+    Results.TrainStdPerformance /= (numFolds - 1); // Bessel's correction
     
-    Results.TestRSquared = TestRSquared/numFolds;
-    Results.TestAccuracy = TestAccuracy/numFolds;
+    Results.TestMeanPerformance = TestPerformanceSum/numFolds;
+    Results.TestStdPerformance = 0;
+    for(int fold = 0; fold < numFolds; ++fold)
+    {
+        Results.TestStdPerformance += pow(TestPerformances[fold] - Results.TestMeanPerformance,2);
+    }
+    Results.TestStdPerformance /= (numFolds - 1); // Bessel's correction
     
     return Results;
 }
@@ -176,9 +179,11 @@ ValidationCurveResults MachineLearningModel::ValidationCurve(const vector<vector
 {
     int numParams = int(ParamRange.size());
     
-    vector<double> TrainMeanAccuracy(numParams,0);
-    vector<double> TestMeanAccuracy(numParams,0);
+    vector<double> TrainMeanPerformance(numParams,0);
+    vector<double> TrainStdPerformance(numParams,0);
     
+    vector<double> TestMeanPerformance(numParams,0);
+    vector<double> TestStdPerformance(numParams,0);
     
     ValidationCurveResults Results;
     
@@ -217,15 +222,21 @@ ValidationCurveResults MachineLearningModel::ValidationCurve(const vector<vector
         // K-fold cross validation
         KFoldResults KResults = KFoldCrossValidation(X, Y, numFolds);
         
-        // Calculate mean and std for parameter value
-        TrainMeanAccuracy[p] = KResults.TrainingAccuracy;
-        TestMeanAccuracy[p] = KResults.TestAccuracy;
+        // Record mean and std for parameter value
+        TrainMeanPerformance[p] = KResults.TrainMeanPerformance;
+        TrainStdPerformance[p] = KResults.TrainStdPerformance;
+        
+        TestMeanPerformance[p] = KResults.TestMeanPerformance;
+        TestStdPerformance[p] = KResults.TestStdPerformance;
         
     }
     
     // Return means and stds
-    Results.TrainMeanAccuracy = TrainMeanAccuracy;
-    Results.TestMeanAccuracy = TestMeanAccuracy;
+    Results.TrainMeanPerformance = TrainMeanPerformance;
+    Results.TrainStdPerformance = TrainStdPerformance;
+    
+    Results.TestMeanPerformance = TestMeanPerformance;
+    Results.TestStdPerformance = TestStdPerformance;
     
     return Results;
 }

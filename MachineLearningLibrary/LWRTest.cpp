@@ -51,7 +51,7 @@ void LWRTest::Run()
     lwr.Fit(XTrain, YTrain);
     
     // Calculate R squared
-    double RSq = lwr.CalculateRSquared(XTest, YTest);
+    double RSq = lwr.CalculatePerformance(XTest, YTest);
     cout << endl << "R Squared:\n" << RSq << endl;
     
     // Save the predictions and the actual values

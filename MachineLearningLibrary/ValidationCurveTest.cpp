@@ -34,13 +34,21 @@ void ValidationCurveTest::Run()
     ValidationCurveResults Results = lgr.ValidationCurve(X, Y, Alpha, vector<double> {0.001,.01,.1,1,10}, numFolds);
 
     // Save the results for plotting
-    string name = "/Users/samblakeman/Desktop/ValidationCurveTrainAccuracies.txt";
+    string name = "/Users/samblakeman/Desktop/ValidationCurveTrainMeanAccuracies.txt";
     auto filename = name.c_str();
-    Utilities::SaveVectorAsCSV(Results.TrainMeanAccuracy, filename);
+    Utilities::SaveVectorAsCSV(Results.TrainMeanPerformance, filename);
     
-    name = "/Users/samblakeman/Desktop/ValidationCurveTestAccuracies.txt";
+    name = "/Users/samblakeman/Desktop/ValidationCurveTrainStdAccuracies.txt";
     filename = name.c_str();
-    Utilities::SaveVectorAsCSV(Results.TestMeanAccuracy, filename);
+    Utilities::SaveVectorAsCSV(Results.TrainStdPerformance, filename);
+    
+    name = "/Users/samblakeman/Desktop/ValidationCurveTestMeanAccuracies.txt";
+    filename = name.c_str();
+    Utilities::SaveVectorAsCSV(Results.TestMeanPerformance, filename);
+    
+    name = "/Users/samblakeman/Desktop/ValidationCurveTestStdAccuracies.txt";
+    filename = name.c_str();
+    Utilities::SaveVectorAsCSV(Results.TestStdPerformance, filename);
     
     return;
 }

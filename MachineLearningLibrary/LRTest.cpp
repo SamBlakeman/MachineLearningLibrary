@@ -51,7 +51,7 @@ void LRTest::Run()
     lr.Fit(XTrain, YTrain);
     
     // Calculate R squared
-    double RSq = lr.CalculateRSquared(XTest, YTest);
+    double RSq = lr.CalculatePerformance(XTest, YTest);
     cout << endl << "R Squared:\n" << RSq << endl;
     
 //    // Save the costs for plotting

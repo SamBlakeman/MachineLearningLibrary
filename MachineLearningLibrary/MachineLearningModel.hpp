@@ -18,8 +18,8 @@ using namespace Eigen;
 
 enum CostFunction {CrossEntropy, SumOfSquaredErrors};
 enum Parameter {Lambda, Alpha, Iterations, Tau, C, Var};
-struct KFoldResults {double TrainingAccuracy; double TrainingRSquared; double TestAccuracy; double TestRSquared;};
-struct ValidationCurveResults {vector<double> TrainMeanAccuracy; vector<double> TestMeanAccuracy;};
+struct KFoldResults {double TrainMeanPerformance; double TrainStdPerformance; double TestMeanPerformance; double TestStdPerformance;};
+struct ValidationCurveResults {vector<double> TrainMeanPerformance; vector<double> TrainStdPerformance; vector<double> TestMeanPerformance; vector<double> TestStdPerformance;};
 
 class MachineLearningModel
 {
@@ -32,8 +32,7 @@ public:
     virtual vector<double> Predict(const vector<vector<double>>& XTest) = 0;
     
     // Goodness of fit
-    double CalculateRSquared(const vector<vector<double>>& X, const vector<double>& Y);
-    double CalculateAccuracy(const vector<vector<double>>& X, const vector<double>& Y);
+    double CalculatePerformance(const vector<vector<double>>& X, const vector<double>& Y);
     
     // Cross validation
     KFoldResults KFoldCrossValidation(const vector<vector<double>>& X, const vector<double>& Y, int numFolds);
@@ -55,7 +54,9 @@ protected:
     
 private:
     
-    
+    // Goodness of fit
+    double CalculateRSquared(const vector<vector<double>>& X, const vector<double>& Y);
+    double CalculateAccuracy(const vector<vector<double>>& X, const vector<double>& Y);
     
 };
 

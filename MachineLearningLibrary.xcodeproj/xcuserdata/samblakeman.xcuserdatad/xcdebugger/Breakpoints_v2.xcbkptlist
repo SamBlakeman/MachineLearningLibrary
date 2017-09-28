@@ -743,11 +743,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/MachineLearningModel.cpp"
-            timestampString = "526138554.296989"
+            timestampString = "528328356.019227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "MachineLearningModel::KFoldCrossValidation(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y, int numFolds)"
             landmarkType = "5">
          </BreakpointContent>
@@ -759,11 +759,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/MachineLearningModel.cpp"
-            timestampString = "526138524.495193"
+            timestampString = "528328356.019227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "MachineLearningModel::KFoldCrossValidation(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y, int numFolds)"
             landmarkType = "5">
          </BreakpointContent>
@@ -775,12 +775,138 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/MachineLearningModel.cpp"
-            timestampString = "526138793.880689"
+            timestampString = "528328356.019227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "MachineLearningModel::KFoldCrossValidation(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y, int numFolds)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MachineLearningLibrary/MachineLearningModel.cpp"
+            timestampString = "528328347.240889"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
+            landmarkName = "MachineLearningModel::KFoldCrossValidation(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y, int numFolds)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MachineLearningModel::KFoldCrossValidation(std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt; const&amp;, std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; const&amp;, int)"
+                  moduleName = "MachineLearningLibrary"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/samblakeman/Documents/MachineLearningLibrary/MachineLearningLibrary/MachineLearningModel.cpp"
+                  timestampString = "528328357.887952"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "176"
+                  endingLineNumber = "176"
+                  offsetFromSymbolStart = "1880">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MachineLearningModel::KFoldCrossValidation(std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt; const&amp;, std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; const&amp;, int)"
+                  moduleName = "MachineLearningLibrary"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/samblakeman/Documents/MachineLearningLibrary/MachineLearningLibrary/MachineLearningModel.cpp"
+                  timestampString = "528328357.888229"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "176"
+                  endingLineNumber = "176"
+                  offsetFromSymbolStart = "1900">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MachineLearningModel::KFoldCrossValidation(std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt; const&amp;, std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; const&amp;, int)"
+                  moduleName = "MachineLearningLibrary"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/samblakeman/Documents/MachineLearningLibrary/MachineLearningLibrary/MachineLearningModel.cpp"
+                  timestampString = "528328357.888372"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "176"
+                  endingLineNumber = "176"
+                  offsetFromSymbolStart = "3375">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MachineLearningModel::KFoldCrossValidation(std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt; const&amp;, std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; const&amp;, int)"
+                  moduleName = "MachineLearningLibrary"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/samblakeman/Documents/MachineLearningLibrary/MachineLearningLibrary/MachineLearningModel.cpp"
+                  timestampString = "528328357.888514"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "176"
+                  endingLineNumber = "176"
+                  offsetFromSymbolStart = "3953">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MachineLearningLibrary/MachineLearningModel.cpp"
+            timestampString = "528328500.256465"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "MachineLearningModel::KFoldCrossValidation(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y, int numFolds)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MachineLearningLibrary/MachineLearningModel.cpp"
+            timestampString = "528328507.666817"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
+            landmarkName = "MachineLearningModel::ValidationCurve(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y, Parameter Param, vector&lt;double&gt; ParamRange, int numFolds)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MachineLearningLibrary/MachineLearningModel.cpp"
+            timestampString = "528328510.664693"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "MachineLearningModel::ValidationCurve(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y, Parameter Param, vector&lt;double&gt; ParamRange, int numFolds)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

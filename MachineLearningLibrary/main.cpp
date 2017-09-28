@@ -28,7 +28,6 @@ int main(int argc, const char * argv[]) {
      TODO:
      
      Machine Learning Model Base Class:
-     - validation curve
      - add standard deviation to validation curve and k-fold results
      - extend validation curve to also work for R-Squared
      - learning curve

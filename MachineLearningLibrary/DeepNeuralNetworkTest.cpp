@@ -63,7 +63,7 @@ void DeepNeuralNetworkTest::RunClassificationTest()
     dnn.Fit(XTrain, YTrain);
     
     // Print accuracy on test set
-    double Accuracy = dnn.CalculateAccuracy(XTest, YTest);
+    double Accuracy = dnn.CalculatePerformance(XTest, YTest);
     cout << "\nTest Accuracy = " << Accuracy << endl;
     
     // Save the costs for plotting
@@ -137,7 +137,7 @@ void DeepNeuralNetworkTest::RunRegressionTest()
     dnn.Fit(XTrain, YTrain);
     
     // Calculate R squared
-    double RSq = dnn.CalculateRSquared(XTest, YTest);
+    double RSq = dnn.CalculatePerformance(XTest, YTest);
     cout << endl << "R Squared:\n" << RSq << endl;
     
     // Save the costs for plotting
