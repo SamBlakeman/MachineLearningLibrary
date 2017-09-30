@@ -240,3 +240,62 @@ ValidationCurveResults MachineLearningModel::ValidationCurve(const vector<vector
     
     return Results;
 }
+
+LearningCurveResults MachineLearningModel::LearningCurve(const vector<vector<double>>& X, const vector<double>& Y, int numPoints, int numFolds)
+{
+    int numFeatures = int(X[0].size());
+    int numExamples = int(X.size());
+    int numIt = numExamples / numPoints;
+    int m = numIt;
+    
+    vector<double> TrainMeanPerformance(numPoints,0);
+    vector<double> TrainStdPerformance(numPoints,0);
+    
+    vector<double> TestMeanPerformance(numPoints,0);
+    vector<double> TestStdPerformance(numPoints,0);
+    
+    LearningCurveResults Results;
+    
+    for(int p = 0; p < numPoints; ++p)
+    {
+        if(p == numPoints - 1)
+        {
+            m = numExamples;
+        }
+        
+        vector<vector<double>> Xp(m,vector<double>(numFeatures,0));
+        
+        if(p == numPoints - 1)
+        {
+            Xp = X;
+        }
+        else
+        {
+            for(int i = 0; i < m; ++i)
+            {
+                Xp[i] = X[i];
+            }
+        }
+        
+        m += numIt;
+        
+        // K-fold cross validation
+        KFoldResults KResults = KFoldCrossValidation(Xp, Y, numFolds);
+        
+        // Record mean and std for parameter value
+        TrainMeanPerformance[p] = KResults.TrainMeanPerformance;
+        TrainStdPerformance[p] = KResults.TrainStdPerformance;
+        
+        TestMeanPerformance[p] = KResults.TestMeanPerformance;
+        TestStdPerformance[p] = KResults.TestStdPerformance;
+    }
+    
+    // Return means and stds
+    Results.TrainMeanPerformance = TrainMeanPerformance;
+    Results.TrainStdPerformance = TrainStdPerformance;
+    
+    Results.TestMeanPerformance = TestMeanPerformance;
+    Results.TestStdPerformance = TestStdPerformance;
+    
+    return Results;
+}

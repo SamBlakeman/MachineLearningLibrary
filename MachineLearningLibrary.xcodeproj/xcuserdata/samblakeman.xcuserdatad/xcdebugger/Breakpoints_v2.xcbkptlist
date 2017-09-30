@@ -910,5 +910,53 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MachineLearningLibrary/MachineLearningModel.cpp"
+            timestampString = "528499258.468898"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "MachineLearningModel::KFoldCrossValidation(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y, int numFolds)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MachineLearningLibrary/MachineLearningModel.cpp"
+            timestampString = "528499435.127839"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
+            landmarkName = "MachineLearningModel::LearningCurve(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y, int numPoints, int numFolds)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MachineLearningLibrary/MachineLearningModel.cpp"
+            timestampString = "528499538.775688"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
+            landmarkName = "MachineLearningModel::LearningCurve(const vector&lt;vector&lt;double&gt;&gt;&amp; X, const vector&lt;double&gt;&amp; Y, int numPoints, int numFolds)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

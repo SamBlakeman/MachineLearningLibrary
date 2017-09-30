@@ -20,6 +20,7 @@ enum CostFunction {CrossEntropy, SumOfSquaredErrors};
 enum Parameter {Lambda, Alpha, Iterations, Tau, C, Var};
 struct KFoldResults {double TrainMeanPerformance; double TrainStdPerformance; double TestMeanPerformance; double TestStdPerformance;};
 struct ValidationCurveResults {vector<double> TrainMeanPerformance; vector<double> TrainStdPerformance; vector<double> TestMeanPerformance; vector<double> TestStdPerformance;};
+struct LearningCurveResults {vector<double> TrainMeanPerformance; vector<double> TrainStdPerformance; vector<double> TestMeanPerformance; vector<double> TestStdPerformance;};
 
 class MachineLearningModel
 {
@@ -37,8 +38,9 @@ public:
     // Cross validation
     KFoldResults KFoldCrossValidation(const vector<vector<double>>& X, const vector<double>& Y, int numFolds);
     
-    // Validation curve
+    // Curves
     ValidationCurveResults ValidationCurve(const vector<vector<double>>& X, const vector<double>& Y, Parameter Param, vector<double> ParamRange, int numFolds);
+    LearningCurveResults LearningCurve(const vector<vector<double>>& X, const vector<double>& Y, int numPoints, int numFolds);
     
     // Setters
     virtual void SetLambda(double lambda) = 0;

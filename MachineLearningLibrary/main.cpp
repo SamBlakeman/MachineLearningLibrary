@@ -18,19 +18,23 @@
 #include "NeuralNetworkTest.hpp"
 #include "DeepNeuralNetworkTest.hpp"
 #include "ValidationCurveTest.hpp"
+#include "LearningCurveTest.hpp"
 
 int main(int argc, const char * argv[]) {
     
-    ValidationCurveTest VCTest;
-    VCTest.Run();
+    LearningCurveTest LCTest;
+    LCTest.Run();
     
     /*
      TODO:
      
+     K-Means:
+     - implement
+     - use k-means++ initialization
+     
      Machine Learning Model Base Class:
-     - add standard deviation to validation curve and k-fold results
-     - extend validation curve to also work for R-Squared
      - learning curve
+     - ROC or TPR, FPR etc.
      - other useful exploratory methods that are shared for all models
      - other subclasses?
      
