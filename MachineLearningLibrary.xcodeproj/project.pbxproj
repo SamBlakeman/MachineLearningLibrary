@@ -10,6 +10,7 @@
 		880193D01F38C4330004B331 /* DeepNeuralNetworkTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 880193CE1F38C4330004B331 /* DeepNeuralNetworkTest.cpp */; };
 		88048F561F802CC600849E28 /* LearningCurveTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88048F541F802CC600849E28 /* LearningCurveTest.cpp */; };
 		88048F5B1F8110B600849E28 /* KMeans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88048F591F8110B600849E28 /* KMeans.cpp */; };
+		88048F5E1F816ACB00849E28 /* KMeansTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88048F5C1F816ACB00849E28 /* KMeansTest.cpp */; };
 		88150D0F1EFAD08B009A14ED /* NeuralNetworkTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88150D0D1EFAD08B009A14ED /* NeuralNetworkTest.cpp */; };
 		8835FB411EE6F9C3003E7A98 /* NeuralNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8835FB3F1EE6F9C3003E7A98 /* NeuralNetwork.cpp */; };
 		883F0B901EB7E01600A3E0E2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 883F0B8F1EB7E01600A3E0E2 /* main.cpp */; };
@@ -51,6 +52,8 @@
 		88048F551F802CC600849E28 /* LearningCurveTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LearningCurveTest.hpp; sourceTree = "<group>"; };
 		88048F591F8110B600849E28 /* KMeans.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KMeans.cpp; sourceTree = "<group>"; };
 		88048F5A1F8110B600849E28 /* KMeans.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = KMeans.hpp; sourceTree = "<group>"; };
+		88048F5C1F816ACB00849E28 /* KMeansTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KMeansTest.cpp; sourceTree = "<group>"; };
+		88048F5D1F816ACB00849E28 /* KMeansTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = KMeansTest.hpp; sourceTree = "<group>"; };
 		88150D0D1EFAD08B009A14ED /* NeuralNetworkTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NeuralNetworkTest.cpp; sourceTree = "<group>"; };
 		88150D0E1EFAD08B009A14ED /* NeuralNetworkTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NeuralNetworkTest.hpp; sourceTree = "<group>"; };
 		8835FB3F1EE6F9C3003E7A98 /* NeuralNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NeuralNetwork.cpp; sourceTree = "<group>"; };
@@ -188,6 +191,8 @@
 				88150D0E1EFAD08B009A14ED /* NeuralNetworkTest.hpp */,
 				880193CE1F38C4330004B331 /* DeepNeuralNetworkTest.cpp */,
 				880193CF1F38C4330004B331 /* DeepNeuralNetworkTest.hpp */,
+				88048F5C1F816ACB00849E28 /* KMeansTest.cpp */,
+				88048F5D1F816ACB00849E28 /* KMeansTest.hpp */,
 			);
 			name = TestModels;
 			sourceTree = "<group>";
@@ -298,6 +303,7 @@
 				889E9D3F1F4E0BCB000775FE /* LWRTest.cpp in Sources */,
 				88048F561F802CC600849E28 /* LearningCurveTest.cpp in Sources */,
 				889E9D3C1F4DB6D5000775FE /* LocallyWeightedRegression.cpp in Sources */,
+				88048F5E1F816ACB00849E28 /* KMeansTest.cpp in Sources */,
 				88687A3B1ED9F09D00E1C256 /* NaiveBayesClassifier.cpp in Sources */,
 				887B5D281F56FA6000063C70 /* SVMTest.cpp in Sources */,
 				88150D0F1EFAD08B009A14ED /* NeuralNetworkTest.cpp in Sources */,

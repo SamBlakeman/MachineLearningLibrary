@@ -27,6 +27,10 @@ public:
     // Predict
     void Predict(const vector<vector<double>>& X);
     
+    // Getters
+    vector<int> GetAssignedCentroids();
+    vector<vector<double>> GetCentroids();
+    vector<double> GetDistortions();
     
 private:
     
@@ -39,7 +43,7 @@ private:
     int numFeatures;
     int numExamples;
     vector<vector<double>> Centroids;
-    vector<double> Memberships;
+    vector<int> AssignedCentroids;
     vector<double> Distortions;
     
 };

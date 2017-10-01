@@ -8,29 +8,20 @@
 
 #include "Eigen/Dense"
 
-#include "NormaliseTest.hpp"
-#include "KFoldTest.hpp"
-#include "LRTest.hpp"
-#include "LWRTest.hpp"
-#include "LogRegTest.hpp"
-#include "SVMTest.hpp"
-#include "NBCTest.hpp"
-#include "NeuralNetworkTest.hpp"
-#include "DeepNeuralNetworkTest.hpp"
-#include "ValidationCurveTest.hpp"
-#include "LearningCurveTest.hpp"
+#include "KMeansTest.hpp"
 
 int main(int argc, const char * argv[]) {
     
-    LearningCurveTest LCTest;
-    LCTest.Run();
+    KMeansTest KMTest;
+    KMTest.Run();
     
     /*
      TODO:
      
      K-Means:
-     - implement
-     - use k-means++ initialization
+     - implement number of neighbours
+     - calculate distortions
+     - implement predict method
      
      Gaussian Mixture Model:
      - implement

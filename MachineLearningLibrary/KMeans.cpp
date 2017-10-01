@@ -22,8 +22,7 @@ void KMeans::Fit(const vector<vector<double>>& X)
 {
     numFeatures = int(X[0].size());
     numExamples = int(X.size());
-
-    Centroids = vector<vector<double>>(numCent,vector<double>(numFeatures,0));
+    AssignedCentroids = vector<int>(numExamples,0);
     
     // K-means++ initialisation
     KMeansPlusPlus(X);
@@ -92,12 +91,11 @@ void KMeans::KMeansPlusPlus(const vector<vector<double>>& X)
 void KMeans::Cluster(const vector<vector<double>>& X)
 {
     double ShortestDistance = 0;
-    vector<int> AssignedCentroids(numExamples,0);
     
     for(int iter = 0; iter < Iterations; ++iter)
     {
         // Assign examples to the nearest centroid
-        for(int example; example < numExamples; ++example)
+        for(int example = 0; example < numExamples; ++example)
         {
             VectorXd x = Utilities::ConvertToEigen(X[example]);
             
@@ -125,7 +123,7 @@ void KMeans::Cluster(const vector<vector<double>>& X)
         vector<double> numMembers(numCent,0);
         
         // Count the number of members for each centroid
-        for(int example; example < numExamples; ++example)
+        for(int example = 0; example < numExamples; ++example)
         {
             ++numMembers[AssignedCentroids[example]];
         }
@@ -133,13 +131,13 @@ void KMeans::Cluster(const vector<vector<double>>& X)
         Centroids = vector<vector<double>>(numCent,vector<double>(numFeatures,0));
         
         // Add up the examples for each centroid
-        for(int example; example < numExamples; ++example)
+        for(int example = 0; example < numExamples; ++example)
         {
             Centroids[AssignedCentroids[example]] = Utilities::VecAdd(Centroids[AssignedCentroids[example]], X[example]);
         }
         
         // Divide by the number of members to get the mean vector
-        for(int cent; cent < numCent; ++cent)
+        for(int cent = 0; cent < numCent; ++cent)
         {
             Centroids[cent] = Utilities::ScalarDiv(Centroids[cent], numMembers[cent]);
         }
@@ -154,4 +152,19 @@ void KMeans::Predict(const vector<vector<double>>& X)
     
     
     return;
+}
+
+vector<int> KMeans::GetAssignedCentroids()
+{
+    return AssignedCentroids;
+}
+
+vector<vector<double>> KMeans::GetCentroids()
+{
+    return Centroids;
+}
+
+vector<double> KMeans::GetDistortions()
+{
+    return Distortions;
 }
