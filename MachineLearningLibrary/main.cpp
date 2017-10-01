@@ -32,6 +32,12 @@ int main(int argc, const char * argv[]) {
      - implement
      - use k-means++ initialization
      
+     Gaussian Mixture Model:
+     - implement
+     
+     K-Nearest Neighbours:
+     - implement
+     
      Machine Learning Model Base Class:
      - learning curve
      - ROC or TPR, FPR etc.
