@@ -19,7 +19,7 @@ class KMeans
 public:
     
     // Constructors
-    KMeans(int numClusters);
+    KMeans(int numClusters, int numNeighbours, int iters);
     
     // Fit
     void Fit(const vector<vector<double>>& X);
@@ -34,6 +34,8 @@ private:
     void Cluster(const vector<vector<double>>& X);
     
     int numCent;
+    int numNeigh;
+    int Iterations;
     int numFeatures;
     int numExamples;
     vector<vector<double>> Centroids;

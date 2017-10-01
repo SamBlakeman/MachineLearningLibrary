@@ -11,9 +11,11 @@
 #include "Eigen/Dense"
 #include "Utilities.hpp"
 
-KMeans::KMeans(int numClusters)
+KMeans::KMeans(int numClusters, int numNeighbours, int iters)
 {
     numCent = numClusters;
+    numNeigh = numNeighbours;
+    Iterations = iters;
 }
 
 void KMeans::Fit(const vector<vector<double>>& X)
@@ -39,12 +41,11 @@ void KMeans::KMeansPlusPlus(const vector<vector<double>>& X)
     Centroids.push_back(X[first]);
     
     vector<double> DistanceToNearestCentroid(numExamples,0);
+    double ShortestDistance = 0;
     
     for(int k = 1; k < numCent; ++k)
     {
         // Calculate the distance to the nearest centroid for each example
-        double ShortestDistance = 0;
-        
         for(int example = 0; example < numExamples; ++example)
         {
             VectorXd x = Utilities::ConvertToEigen(X[example]);
@@ -90,7 +91,60 @@ void KMeans::KMeansPlusPlus(const vector<vector<double>>& X)
 
 void KMeans::Cluster(const vector<vector<double>>& X)
 {
+    double ShortestDistance = 0;
+    vector<int> AssignedCentroids(numExamples,0);
     
+    for(int iter = 0; iter < Iterations; ++iter)
+    {
+        // Assign examples to the nearest centroid
+        for(int example; example < numExamples; ++example)
+        {
+            VectorXd x = Utilities::ConvertToEigen(X[example]);
+            
+            for(int cent = 0; cent < numCent; ++cent)
+            {
+                VectorXd u = Utilities::ConvertToEigen(Centroids[cent]);
+                
+                double Distance = (x - u).dot(x - u);
+                
+                if(cent == 0)
+                {
+                    ShortestDistance = Distance;
+                    AssignedCentroids[example] = cent;
+                }
+                else if(Distance < ShortestDistance)
+                {
+                    ShortestDistance = Distance;
+                    AssignedCentroids[example] = cent;
+                }
+            }
+            
+        }
+        
+        // Update the centroids
+        vector<double> numMembers(numCent,0);
+        
+        // Count the number of members for each centroid
+        for(int example; example < numExamples; ++example)
+        {
+            ++numMembers[AssignedCentroids[example]];
+        }
+        
+        Centroids = vector<vector<double>>(numCent,vector<double>(numFeatures,0));
+        
+        // Add up the examples for each centroid
+        for(int example; example < numExamples; ++example)
+        {
+            Centroids[AssignedCentroids[example]] = Utilities::VecAdd(Centroids[AssignedCentroids[example]], X[example]);
+        }
+        
+        // Divide by the number of members to get the mean vector
+        for(int cent; cent < numCent; ++cent)
+        {
+            Centroids[cent] = Utilities::ScalarDiv(Centroids[cent], numMembers[cent]);
+        }
+        
+    }
     
     return;
 }
