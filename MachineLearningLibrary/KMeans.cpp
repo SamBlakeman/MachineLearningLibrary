@@ -8,6 +8,7 @@
 
 #include "KMeans.hpp"
 #include <cstdlib>
+#include <iostream>
 #include "Eigen/Dense"
 #include "Utilities.hpp"
 
@@ -16,6 +17,7 @@ KMeans::KMeans(int numClusters, int numNeighbours, int iters)
     numCent = numClusters;
     numNeigh = numNeighbours;
     Iterations = iters;
+    Distortions = vector<double>(Iterations,0);
 }
 
 void KMeans::Fit(const vector<vector<double>>& X)
@@ -91,12 +93,15 @@ void KMeans::KMeansPlusPlus(const vector<vector<double>>& X)
 void KMeans::Cluster(const vector<vector<double>>& X)
 {
     double ShortestDistance = 0;
+    double Distortion = 0;
     
     for(int iter = 0; iter < Iterations; ++iter)
     {
         // Assign examples to the nearest centroid
         for(int example = 0; example < numExamples; ++example)
         {
+            Distortion = 0;
+            
             VectorXd x = Utilities::ConvertToEigen(X[example]);
             
             for(int cent = 0; cent < numCent; ++cent)
@@ -117,7 +122,13 @@ void KMeans::Cluster(const vector<vector<double>>& X)
                 }
             }
             
+            Distortion += ShortestDistance;
         }
+        
+        // Record the distortion value for this iteration
+        Distortions[iter] = Distortion;
+        
+        cout << "Distortion for iter " << iter << " = " << Distortions[iter] << endl;
         
         // Update the centroids
         vector<double> numMembers(numCent,0);
@@ -147,11 +158,38 @@ void KMeans::Cluster(const vector<vector<double>>& X)
     return;
 }
 
-void KMeans::Predict(const vector<vector<double>>& X)
+vector<int> KMeans::Predict(const vector<vector<double>>& X)
 {
+    int numPredictions = int(X.size());
+    vector<int> PredictedCentroids(numPredictions, 0);
     
+    double ShortestDistance = 0;
     
-    return;
+    // Assign examples to the nearest centroid
+    for(int example = 0; example < numPredictions; ++example)
+    {
+        VectorXd x = Utilities::ConvertToEigen(X[example]);
+        
+        for(int cent = 0; cent < numCent; ++cent)
+        {
+            VectorXd u = Utilities::ConvertToEigen(Centroids[cent]);
+            
+            double Distance = (x - u).dot(x - u);
+            
+            if(cent == 0)
+            {
+                ShortestDistance = Distance;
+                PredictedCentroids[example] = cent;
+            }
+            else if(Distance < ShortestDistance)
+            {
+                ShortestDistance = Distance;
+                PredictedCentroids[example] = cent;
+            }
+        }
+    }
+    
+    return PredictedCentroids;
 }
 
 vector<int> KMeans::GetAssignedCentroids()

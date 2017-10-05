@@ -19,7 +19,6 @@ int main(int argc, const char * argv[]) {
      TODO:
      
      K-Means:
-     - implement number of neighbours
      - calculate distortions
      - implement predict method
      

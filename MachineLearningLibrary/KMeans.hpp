@@ -25,7 +25,7 @@ public:
     void Fit(const vector<vector<double>>& X);
     
     // Predict
-    void Predict(const vector<vector<double>>& X);
+    vector<int> Predict(const vector<vector<double>>& X);
     
     // Getters
     vector<int> GetAssignedCentroids();
