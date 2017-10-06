@@ -12,14 +12,13 @@
 #include <stdio.h>
 #include <vector>
 #include "Eigen/Dense"
-#include "MachineLearningModel.hpp"
-
-enum ActivationFunction {linear, sigmoid, relu, leakyrelu};
+#include "SupervisedModel.hpp"
+#include "NeuralNetworkModel.hpp"
 
 using namespace std;
 using namespace Eigen;
 
-class NeuralNetwork : public MachineLearningModel
+class NeuralNetwork : public SupervisedModel
 {
 public:
     

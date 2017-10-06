@@ -1,18 +1,18 @@
 //
-//  MachineLearningModel.cpp
+//  SupervisedModel.cpp
 //  MachineLearningLibrary
 //
 //  Created by Sam Blakeman on 02/09/2017.
 //  Copyright © 2017 Sam Blakeman. All rights reserved.
 //
 
-#include "MachineLearningModel.hpp"
+#include "SupervisedModel.hpp"
 #include "PreProcessing.hpp"
 #include <iostream>
 #include <cmath>
 #include <numeric>
 
-double MachineLearningModel::CalculatePerformance(const vector<vector<double>>& X, const vector<double>& Y)
+double SupervisedModel::CalculatePerformance(const vector<vector<double>>& X, const vector<double>& Y)
 {
     double Result = 0;
     
@@ -29,7 +29,7 @@ double MachineLearningModel::CalculatePerformance(const vector<vector<double>>& 
 }
 
 
-double MachineLearningModel::CalculateRSquared(const vector<vector<double>>& X, const vector<double>& Y)
+double SupervisedModel::CalculateRSquared(const vector<vector<double>>& X, const vector<double>& Y)
 {
     double RSquared = 0;
     
@@ -60,7 +60,7 @@ double MachineLearningModel::CalculateRSquared(const vector<vector<double>>& X, 
 }
 
 
-double MachineLearningModel::CalculateAccuracy(const vector<vector<double>>& X, const vector<double>& Y)
+double SupervisedModel::CalculateAccuracy(const vector<vector<double>>& X, const vector<double>& Y)
 {
     double Accuracy;
     vector<double> Predictions = Predict(X);
@@ -81,7 +81,7 @@ double MachineLearningModel::CalculateAccuracy(const vector<vector<double>>& X, 
 }
 
 
-KFoldResults MachineLearningModel::KFoldCrossValidation(const vector<vector<double>>& X, const vector<double>& Y, int numFolds)
+KFoldResults SupervisedModel::KFoldCrossValidation(const vector<vector<double>>& X, const vector<double>& Y, int numFolds)
 {
     KFoldResults Results;
     int numExamples = int(X.size());
@@ -175,7 +175,7 @@ KFoldResults MachineLearningModel::KFoldCrossValidation(const vector<vector<doub
     return Results;
 }
 
-ValidationCurveResults MachineLearningModel::ValidationCurve(const vector<vector<double>>& X, const vector<double>& Y, Parameter Param, vector<double> ParamRange, int numFolds)
+ValidationCurveResults SupervisedModel::ValidationCurve(const vector<vector<double>>& X, const vector<double>& Y, Parameter Param, vector<double> ParamRange, int numFolds)
 {
     int numParams = int(ParamRange.size());
     
@@ -241,7 +241,7 @@ ValidationCurveResults MachineLearningModel::ValidationCurve(const vector<vector
     return Results;
 }
 
-LearningCurveResults MachineLearningModel::LearningCurve(const vector<vector<double>>& X, const vector<double>& Y, int numPoints, int numFolds)
+LearningCurveResults SupervisedModel::LearningCurve(const vector<vector<double>>& X, const vector<double>& Y, int numPoints, int numFolds)
 {
     int numFeatures = int(X[0].size());
     int numExamples = int(X.size());

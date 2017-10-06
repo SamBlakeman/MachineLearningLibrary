@@ -12,11 +12,11 @@
 #include <stdio.h>
 #include <vector>
 #include <map>
-#include "MachineLearningModel.hpp"
+#include "SupervisedModel.hpp"
 
 using namespace std;
 
-class NaiveBayesClassifier : public MachineLearningModel
+class NaiveBayesClassifier : public SupervisedModel
 {
 public:
     

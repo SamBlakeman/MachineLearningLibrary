@@ -12,12 +12,12 @@
 #include <stdio.h>
 #include <vector>
 #include "Eigen/Dense"
-#include "MachineLearningModel.hpp"
+#include "SupervisedModel.hpp"
 
 using namespace std;
 using namespace Eigen;
 
-class LocallyWeightedRegression : public MachineLearningModel
+class LocallyWeightedRegression : public SupervisedModel
 {
 public:
     

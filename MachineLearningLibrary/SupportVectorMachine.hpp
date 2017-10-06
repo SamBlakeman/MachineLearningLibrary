@@ -12,14 +12,14 @@
 #include <stdio.h>
 #include <vector>
 #include "Eigen/Dense"
-#include "MachineLearningModel.hpp"
+#include "SupervisedModel.hpp"
 
 enum Kernel {Linear, Gaussian};
 
 using namespace std;
 using namespace Eigen;
 
-class SupportVectorMachine : public MachineLearningModel
+class SupportVectorMachine : public SupervisedModel
 {
 public:
     

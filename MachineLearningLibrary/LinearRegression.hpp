@@ -11,13 +11,13 @@
 
 #include <stdio.h>
 #include <vector>
-#include "MachineLearningModel.hpp"
+#include "SupervisedModel.hpp"
 
 using namespace std;
 
 enum OptimizationMethod {BatchGradientDescent, NormalEquations};
 
-class LinearRegression : public MachineLearningModel
+class LinearRegression : public SupervisedModel
 {
 public:
     

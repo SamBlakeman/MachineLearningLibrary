@@ -1,13 +1,13 @@
 //
-//  MachineLearningModel.hpp
+//  SupervisedModel.hpp
 //  MachineLearningLibrary
 //
 //  Created by Sam Blakeman on 02/09/2017.
 //  Copyright © 2017 Sam Blakeman. All rights reserved.
 //
 
-#ifndef MachineLearningModel_hpp
-#define MachineLearningModel_hpp
+#ifndef SupervisedModel_hpp
+#define SupervisedModel_hpp
 
 #include <stdio.h>
 #include <vector>
@@ -22,7 +22,7 @@ struct KFoldResults {double TrainMeanPerformance; double TrainStdPerformance; do
 struct ValidationCurveResults {vector<double> TrainMeanPerformance; vector<double> TrainStdPerformance; vector<double> TestMeanPerformance; vector<double> TestStdPerformance;};
 struct LearningCurveResults {vector<double> TrainMeanPerformance; vector<double> TrainStdPerformance; vector<double> TestMeanPerformance; vector<double> TestStdPerformance;};
 
-class MachineLearningModel
+class SupervisedModel
 {
 public:
     
@@ -64,4 +64,4 @@ private:
 
 
 
-#endif /* MachineLearningModel_hpp */
+#endif /* SupervisedModel_hpp */

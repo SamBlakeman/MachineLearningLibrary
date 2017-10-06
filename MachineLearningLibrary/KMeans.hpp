@@ -11,10 +11,11 @@
 
 #include <stdio.h>
 #include <vector>
+#include "UnsupervisedModel.hpp"
 
 using namespace std;
 
-class KMeans
+class KMeans : public UnsupervisedModel
 {
 public:
     

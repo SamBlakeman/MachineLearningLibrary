@@ -11,11 +11,11 @@
 
 #include <stdio.h>
 #include <vector>
-#include "MachineLearningModel.hpp"
+#include "SupervisedModel.hpp"
 
 using namespace std;
 
-class LogisticRegression : public MachineLearningModel
+class LogisticRegression : public SupervisedModel
 {
 public:
     

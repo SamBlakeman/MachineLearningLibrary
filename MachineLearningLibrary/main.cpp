@@ -8,19 +8,15 @@
 
 #include "Eigen/Dense"
 
-#include "KMeansTest.hpp"
+#include "DeepNeuralNetworkTest.hpp"
 
 int main(int argc, const char * argv[]) {
     
-    KMeansTest KMTest;
-    KMTest.Run();
+    DeepNeuralNetworkTest DNNTest;
+    DNNTest.RunClassificationTest();
     
     /*
      TODO:
-     
-     K-Means:
-     - calculate distortions
-     - implement predict method
      
      Gaussian Mixture Model:
      - implement
@@ -29,7 +25,6 @@ int main(int argc, const char * argv[]) {
      - implement
      
      Machine Learning Model Base Class:
-     - learning curve
      - ROC or TPR, FPR etc.
      - other useful exploratory methods that are shared for all models
      - other subclasses?
