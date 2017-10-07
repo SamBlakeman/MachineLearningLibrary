@@ -24,15 +24,12 @@ public:
     virtual void Fit(const vector<vector<double>>& X) override;
     
     // Encode
-    vector<vector<double>> Encode(const vector<vector<double>>& XTest, int LayerToReadOut);
-    
-    // Getters
-    vector<vector<double>> GetFittedLayerActivations (int LayerToReadOut);
+    vector<vector<double>> GetEncodedLayer (const vector<vector<double>>& X, int LayerToReadOut);
     
     
 private:
     
-    vector<vector<double>> FittedLayerActivations;
+    
     
 };
 

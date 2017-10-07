@@ -18,6 +18,9 @@ int main(int argc, const char * argv[]) {
     /*
      TODO:
      
+     K-Means:
+     - BIC
+     
      Gaussian Mixture Model:
      - implement
      

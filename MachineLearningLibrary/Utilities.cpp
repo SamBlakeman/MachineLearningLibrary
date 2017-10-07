@@ -527,4 +527,10 @@ vector<double> Utilities::ConvertFromEigen(const VectorXd& Vec)
     return V;
 }
 
+vector<vector<double>> Utilities::ConvertFromEigen(const MatrixXd& Mat)
+{
+    vector<vector<double>> M(Mat.data(),Mat.data()+Mat.size());
+    return M;
+}
+
 

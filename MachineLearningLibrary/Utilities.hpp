@@ -65,6 +65,7 @@ public:
     static MatrixXd ConvertToEigen(const vector<double>& Mat);
     static pair<MatrixXd,MatrixXd> ConvertToEigen(const vector<vector<double>>& XTrain, const vector<vector<double>>& YTrain);
     static vector<double> ConvertFromEigen(const VectorXd& Vec);
+    static vector<vector<double>> ConvertFromEigen(const MatrixXd& Mat);
     
 };
 
