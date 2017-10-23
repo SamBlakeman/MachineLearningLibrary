@@ -107,9 +107,16 @@ void NeuralNetworkModel::CrossEntropyCosts(const MatrixXd& Outputs, const Matrix
 
 void NeuralNetworkModel::SumOfSquaredErrorsCosts(const MatrixXd& Outputs, const MatrixXd& YTrain, const int& iter)
 {
-    MatrixXd O = Outputs;
-    MatrixXd Y = YTrain;
-    Costs[iter] = ((O - Y).transpose()*(O - YTrain)).value();
+    for(int e=0; e < numTrainExamples; ++e)
+    {
+        VectorXd O = Outputs.row(e);
+        VectorXd Y = YTrain.row(e);
+        cout << O << endl;
+        cout << Y << endl;
+        cout << (O - Y).dot(O - Y) << endl;
+        Costs[iter] += (O - Y).dot(O - Y);
+    }
+    
     Costs[iter] *= (1/numTrainExamples);
     
     return;

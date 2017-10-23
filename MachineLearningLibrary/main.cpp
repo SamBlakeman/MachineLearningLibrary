@@ -8,15 +8,26 @@
 
 #include "Eigen/Dense"
 
+#include "DeepAutoEncoderTest.hpp"
 #include "DeepNeuralNetworkTest.hpp"
 
 int main(int argc, const char * argv[]) {
     
+    /*
+    DeepAutoEncoderTest DAETest;
+    DAETest.Run();
+    */
+    
     DeepNeuralNetworkTest DNNTest;
-    DNNTest.RunClassificationTest();
+    DNNTest.RunRegressionTest();
+      
+    
     
     /*
      TODO:
+     
+     DeepAutoEncoder:
+     - Check
      
      K-Means:
      - BIC
@@ -65,9 +76,6 @@ int main(int argc, const char * argv[]) {
      Decision Trees:
      - Implement
      
-     
-     AutoEncoder:
-     - Implement
      
      
      */
