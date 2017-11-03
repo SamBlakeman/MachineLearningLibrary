@@ -48,7 +48,7 @@ void DeepAutoEncoderTest::Run()
     
     
     // DeepAutoEncoder to Reduce Dimensionality
-    double alpha = 0.01;
+    double alpha = 0.00001;
     double lambda = 0;
     double Iters = 1000;
     DeepAutoEncoder DeepAE(alpha, lambda, Iters);

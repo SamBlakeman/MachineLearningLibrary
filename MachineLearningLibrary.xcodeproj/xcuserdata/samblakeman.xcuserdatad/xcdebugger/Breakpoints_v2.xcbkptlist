@@ -975,7 +975,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/DeepAutoEncoderTest.cpp"
@@ -995,27 +995,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/NeuralNetworkModel.cpp"
-            timestampString = "530488801.80974"
+            timestampString = "531423782.926624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "NeuralNetworkModel::SumOfSquaredErrorsCosts(const MatrixXd&amp; Outputs, const MatrixXd&amp; YTrain, const int&amp; iter)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MachineLearningLibrary/NeuralNetworkModel.cpp"
-            timestampString = "530488801.80974"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "NeuralNetworkModel::SumOfSquaredErrorsCosts(const MatrixXd&amp; Outputs, const MatrixXd&amp; YTrain, const int&amp; iter)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1027,11 +1011,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MachineLearningLibrary/NeuralNetworkModel.cpp"
-            timestampString = "530488801.80974"
+            timestampString = "531423782.926624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "NeuralNetworkModel::SumOfSquaredErrorsCosts(const MatrixXd&amp; Outputs, const MatrixXd&amp; YTrain, const int&amp; iter)"
             landmarkType = "5">
          </BreakpointContent>

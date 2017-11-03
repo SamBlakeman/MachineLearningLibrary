@@ -13,14 +13,14 @@
 
 int main(int argc, const char * argv[]) {
     
-    /*
+    
     DeepAutoEncoderTest DAETest;
     DAETest.Run();
-    */
     
+    /*
     DeepNeuralNetworkTest DNNTest;
     DNNTest.RunRegressionTest();
-      
+    */
     
     
     /*

@@ -121,7 +121,7 @@ void DeepNeuralNetworkTest::RunRegressionTest()
     pp.NormaliseTransform(XTest);
     
     // Construct Network
-    double alpha = 0.000001;
+    double alpha = 0.00000001;
     double lambda = 0;
     int numOutput = 1;
     int Iters = 1000;

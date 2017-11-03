@@ -111,9 +111,6 @@ void NeuralNetworkModel::SumOfSquaredErrorsCosts(const MatrixXd& Outputs, const 
     {
         VectorXd O = Outputs.row(e);
         VectorXd Y = YTrain.row(e);
-        cout << O << endl;
-        cout << Y << endl;
-        cout << (O - Y).dot(O - Y) << endl;
         Costs[iter] += (O - Y).dot(O - Y);
     }
     

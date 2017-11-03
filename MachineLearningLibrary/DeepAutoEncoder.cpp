@@ -49,6 +49,11 @@ void DeepAutoEncoder::Fit(const vector<vector<double>>& X)
         // Calculate Cost
         SumOfSquaredErrorsCosts(Outputs, YTrain, iter);
         
+        if(iter%50 == 0)
+        {
+            cout << "Cost for iter " << iter << " = " << Costs[iter] << endl;
+        }
+        
         // Partial derivatives
         vector<MatrixXd> Gradients = CalculateGradients(Outputs, XTrain, YTrain);
         
