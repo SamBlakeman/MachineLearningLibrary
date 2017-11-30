@@ -29,6 +29,9 @@ int main(int argc, const char * argv[]) {
      DeepAutoEncoder:
      - Check
      
+     Gaussian Discriminant Analysis:
+     - Decide how best to do with inference, using solutions for w and w0 or using bayesian inference?
+     
      K-Means:
      - BIC
      
@@ -42,7 +45,6 @@ int main(int argc, const char * argv[]) {
      - ROC or TPR, FPR etc.
      - other useful exploratory methods that are shared for all models
      - other subclasses?
-     
      
      Logistic Regression:
      - Newtons Method --> unsure of how to calculate the Hessian
@@ -63,10 +65,6 @@ int main(int argc, const char * argv[]) {
      - maybe have likelihoods calculated during fitting rather than predicting
      - accuracy, confusion matrix etc.
      - maybe also allow for strings
-     
-     
-     Gaussian Discriminant Analysis:
-     - Implement
      
      
      SVM:

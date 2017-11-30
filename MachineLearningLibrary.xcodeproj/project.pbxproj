@@ -17,6 +17,7 @@
 		88150D0F1EFAD08B009A14ED /* NeuralNetworkTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88150D0D1EFAD08B009A14ED /* NeuralNetworkTest.cpp */; };
 		882F1A921F9E8D3500748595 /* DeepAutoEncoderTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 882F1A901F9E8D3500748595 /* DeepAutoEncoderTest.cpp */; };
 		8835FB411EE6F9C3003E7A98 /* NeuralNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8835FB3F1EE6F9C3003E7A98 /* NeuralNetwork.cpp */; };
+		8839195F1FC1C78300A88606 /* LinearDiscriminantAnalysis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8839195D1FC1C78300A88606 /* LinearDiscriminantAnalysis.cpp */; };
 		883F0B901EB7E01600A3E0E2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 883F0B8F1EB7E01600A3E0E2 /* main.cpp */; };
 		883F0B981EB7E09C00A3E0E2 /* PreProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 883F0B961EB7E09C00A3E0E2 /* PreProcessing.cpp */; };
 		883F0B9C1EB7F16700A3E0E2 /* NormaliseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 883F0B9A1EB7F16700A3E0E2 /* NormaliseTest.cpp */; };
@@ -70,6 +71,8 @@
 		882F1A911F9E8D3500748595 /* DeepAutoEncoderTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DeepAutoEncoderTest.hpp; sourceTree = "<group>"; };
 		8835FB3F1EE6F9C3003E7A98 /* NeuralNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NeuralNetwork.cpp; sourceTree = "<group>"; };
 		8835FB401EE6F9C3003E7A98 /* NeuralNetwork.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NeuralNetwork.hpp; sourceTree = "<group>"; };
+		8839195D1FC1C78300A88606 /* LinearDiscriminantAnalysis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LinearDiscriminantAnalysis.cpp; sourceTree = "<group>"; };
+		8839195E1FC1C78300A88606 /* LinearDiscriminantAnalysis.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LinearDiscriminantAnalysis.hpp; sourceTree = "<group>"; };
 		883F0B8C1EB7E01600A3E0E2 /* MachineLearningLibrary */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MachineLearningLibrary; sourceTree = BUILT_PRODUCTS_DIR; };
 		883F0B8F1EB7E01600A3E0E2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		883F0B961EB7E09C00A3E0E2 /* PreProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PreProcessing.cpp; sourceTree = "<group>"; };
@@ -128,10 +131,12 @@
 				889E9D3B1F4DB6D5000775FE /* LocallyWeightedRegression.hpp */,
 				88DC30191ED0D0FC00BC9E38 /* LogisticRegression.cpp */,
 				88DC301A1ED0D0FC00BC9E38 /* LogisticRegression.hpp */,
-				88DB45761F5075D300920E69 /* SupportVectorMachine.cpp */,
-				88DB45771F5075D300920E69 /* SupportVectorMachine.hpp */,
 				88687A391ED9F09D00E1C256 /* NaiveBayesClassifier.cpp */,
 				88687A3A1ED9F09D00E1C256 /* NaiveBayesClassifier.hpp */,
+				8839195D1FC1C78300A88606 /* LinearDiscriminantAnalysis.cpp */,
+				8839195E1FC1C78300A88606 /* LinearDiscriminantAnalysis.hpp */,
+				88DB45761F5075D300920E69 /* SupportVectorMachine.cpp */,
+				88DB45771F5075D300920E69 /* SupportVectorMachine.hpp */,
 				8835FB3F1EE6F9C3003E7A98 /* NeuralNetwork.cpp */,
 				8835FB401EE6F9C3003E7A98 /* NeuralNetwork.hpp */,
 				88E6E1081F2B8E61005F1A80 /* DeepNeuralNetwork.cpp */,
@@ -358,6 +363,7 @@
 				880193D01F38C4330004B331 /* DeepNeuralNetworkTest.cpp in Sources */,
 				883F0B901EB7E01600A3E0E2 /* main.cpp in Sources */,
 				88A286AF1F7C09DF00AC424F /* ValidationCurveTest.cpp in Sources */,
+				8839195F1FC1C78300A88606 /* LinearDiscriminantAnalysis.cpp in Sources */,
 				8860386B1F5C37AA00482DAA /* KFoldTest.cpp in Sources */,
 				8835FB411EE6F9C3003E7A98 /* NeuralNetwork.cpp in Sources */,
 				883F0B9F1EB93BE100A3E0E2 /* Utilities.cpp in Sources */,
