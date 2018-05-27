@@ -101,6 +101,15 @@ vector<double> LinearDiscriminantAnalysis::Predict(const vector<vector<double>>&
 {
     vector<double> Predictions;
     
+    // Use Gaussian inference for now
+    
+    // Calculate class conditionals (no need to keep total as all the values are proportional)
+    
+    // Multiply by class priors
+    
+    // For each example return the class with highest value
+    
+    
     return Predictions;
 }
 
